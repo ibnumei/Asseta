@@ -1,0 +1,84 @@
+﻿@model IEnumerable<AssetaWeb.Models.SiteMasterTbl>
+@{
+    ViewData["Title"] = "Index";
+}
+<section class="content-header">
+    <h1>
+        Site Master
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Master</a></li>
+        <li class="active">Site Master</li>
+    </ol>
+    <br/>
+    <p>
+        <a asp-action="Create" class="btn btn-default">
+            <i class="fa fa-plus-square"></i>
+            <span>&nbsp;  Add New Data</span>
+        </a>
+    </p>
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All of Data in Site Master</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="DataTableSite" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Site Id</th>
+                        <th>Site Code</th>
+                        <th>Site Name</th>
+                        <th>Address</th>
+                        <th>Company</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m=>item.SiteId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m=>item.SiteCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m=>item.SiteName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m=>item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m=>item.Company)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-Id="@item.SiteId" class="btn  btn-default">
+                                    <i class="fa fa-edit"></i>
+                                    <span>Edit</span>
+                                </a>&nbsp;
+
+                                <a asp-controller="Site" asp-action="Delete" asp-route-id="@item.SiteId" class="btn  btn-default">
+                                    <i class="fa fa-user-times"></i>
+                                    <span>Delete</span>
+                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
+                                </a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+               
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+
