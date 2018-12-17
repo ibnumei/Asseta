@@ -1,20 +1,19 @@
-﻿@model AssetaWeb.Models.SiteMasterTbl
+﻿@model AssetaWeb.Models.AssetGroupTbl
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Edit";
 }
 
 <section class="content-header">
     <h1>
-        Delete Site Master
+        Edit Asset Group Master
         <small></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"> Master</a></li>
-        <li>Site Master</li>
-        <li class="active">Delete Site Master</li>
+        <li >Asset Group Master</li>
+        <li class="active">Edit Asset Group Master</li>
     </ol>
     <br />
-
 </section>
 <!-- Content Header (Page header) -->
 <!-- Main content -->
@@ -26,37 +25,43 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="col-sm-12">
-                <form asp-action="Delete">
+                <form asp-action="Edit">
                     <div class="row form-border">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <h3>Delete This Site Master ?</h3><br/>
+
                             <div class="col-sm-6">
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="SiteId"></label>
+                                        <label asp-for="AssetGroupId"></label>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="SiteId" class="form-control" autocomplete="off" />
+                                        <input asp-for="AssetGroupId" class="form-control" autocomplete="off" />
                                     </div>
                                 </div>
-                                <span asp-validation-for="SiteId" class="text-danger"></span>
+                                <span asp-validation-for="AssetGroupId" class="text-danger"></span>
                                 <br />
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="SiteCode"></label>
+                                        <label asp-for="AssetGroupCode"></label>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="SiteCode" class="form-control" autocomplete="off" />
+                                        <input asp-for="AssetGroupCode" class="form-control" autocomplete="off" />
                                     </div>
                                 </div>
-                                <span asp-validation-for="SiteCode" class="text-danger"></span>
+                                <span asp-validation-for="AssetGroupCode" class="text-danger"></span>
                                 <br />
 
+                                <div class="row">
+                                    <div class="col-sm-4">
 
+                                    </div>
+                                    <div class="col-sm-8">
 
+                                    </div>
+                                </div><br />
 
                             </div>
 
@@ -64,14 +69,23 @@
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="SiteName"></label>
+                                        <label asp-for="AssetGroupName"></label>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="SiteName" class="form-control" autocomplete="off" />
+                                        <input asp-for="AssetGroupName" class="form-control" autocomplete="off" />
                                     </div>
                                 </div>
-                                <span asp-validation-for="SiteName" class="text-danger"></span>
+                                <span asp-validation-for="AssetGroupName" class="text-danger"></span>
                                 <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+
+                                    </div>
+                                    <div class="col-sm-8">
+
+                                    </div>
+                                </div><br />
 
 
 
@@ -82,7 +96,7 @@
 
                                     </div>
                                     <div class="col-sm-8">
-                                        <input type="submit" value="Delete" class="btn btn-lg btn-primary" />
+                                        <input type="submit" value="Edit" class="btn btn-lg btn-primary" />
                                     </div>
                                 </div><br />
 
@@ -96,3 +110,4 @@
         <!-- /.box-body -->
     </div>
 </section>
+

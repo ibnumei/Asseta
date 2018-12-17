@@ -8,39 +8,37 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AssetaWeb.Controllers
 {
-    public class SiteController : Controller
+    public class AssetGroupController : Controller
     {
         private readonly assetaDbContext _db;
 
-        public SiteController(assetaDbContext db)
+        public AssetGroupController(assetaDbContext db)
         {
             _db = db;
         }
-
         public IActionResult Index()
         {
-            return View(_db.SiteMasterTbl.ToList());
+            return View(_db.AssetGroupTbl.ToList());
         }
-        //===================================================================================
+        //=========================================================================
         //View Create Data
         public IActionResult Create()
         {
             return View();
         }
+
         //Action Create Data
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SiteMasterTbl siteMaster)
+        public async Task<IActionResult> Create(AssetGroupTbl assetGroup)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                siteMaster.ModifyAtSite = DateTime.Now;
-                siteMaster.CreatedAtSite = DateTime.Now;
-                _db.Add(siteMaster);
+                _db.Add(assetGroup);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(siteMaster);
+            return View(assetGroup);
         }
         //=========================================================================================================
         //Edit View
@@ -50,34 +48,31 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-            var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
-            if (sitemaster == null)
+            var assetgroup = await _db.AssetGroupTbl.SingleOrDefaultAsync(m => m.AssetGroupId== id);
+            if (assetgroup == null)
             {
                 return NotFound();
             }
-            return View(sitemaster);
+            return View(assetgroup);
         }
 
 
         //Method Edit Proses
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, SiteMasterTbl siteMaster)
+        public async Task<IActionResult> Edit(int id, AssetGroupTbl assetGroup)
         {
-            if (id != siteMaster.SiteId)
+            if (id != assetGroup.AssetGroupId)
             {
                 return NotFound();
             }
             if (ModelState.IsValid)
             {
-               //var create =  await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
-               // siteMaster.CreatedAtSite = create.CreatedAtSite;
-                siteMaster.ModifyAtSite = DateTime.Now;
-                _db.Update(siteMaster);
+                _db.Update(assetGroup);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(siteMaster);
+            return View(assetGroup);
         }
         //=========================================================================================================
         //Delete
@@ -87,20 +82,20 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-            var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
-            if (sitemaster == null)
+            var assetgroup = await _db.AssetGroupTbl.SingleOrDefaultAsync(m => m.AssetGroupId == id);
+            if (assetgroup == null)
             {
                 return NotFound();
             }
-            return View(sitemaster);
+            return View(assetgroup);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
-            _db.SiteMasterTbl.Remove(sitemaster);
+            var assetgroup = await _db.AssetGroupTbl.SingleOrDefaultAsync(m => m.AssetGroupId == id);
+            _db.AssetGroupTbl.Remove(assetgroup);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

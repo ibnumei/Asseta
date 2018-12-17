@@ -1,0 +1,77 @@
+﻿@model IEnumerable<AssetaWeb.Models.AssetGroupTbl>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="content-header">
+    <h1>
+        Asset Group Master
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Master</a></li>
+        <li class="active">Asset Group Master</li>
+    </ol>
+    <br />
+    <p>
+        <a asp-action="Create" class="btn btn-default">
+            <i class="fa fa-plus-square"></i>
+            <span>&nbsp;  Add New Data</span>
+        </a>
+    </p>
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All of Data in Asset Group Master</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="DataTableSite" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Asset Group Id</th>
+                        <th>Asset Group Code</th>
+                        <th>Asset Group Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.AssetGroupId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.AssetGroupCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.AssetGroupName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-Id="@item.AssetGroupId" class="btn  btn-default">
+                                    <i class="fa fa-edit"></i>
+                                    <span>Edit</span>
+                                </a>&nbsp;
+
+                                <a asp-controller="AssetGroup" asp-action="Delete" asp-route-id="@item.AssetGroupId" class="btn  btn-default">
+                                    <i class="fa fa-user-times"></i>
+                                    <span>Delete</span>
+                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
+                                </a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+

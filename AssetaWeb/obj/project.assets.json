@@ -14380,11 +14380,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bella\\source\\repos\\AssetaWeb\\AssetaWeb\\AssetaWeb.csproj",
+      "projectUniqueName": "E:\\Wmotion\\Asseta\\AssetaWeb\\AssetaWeb.csproj",
       "projectName": "AssetaWeb",
-      "projectPath": "C:\\Users\\Bella\\source\\repos\\AssetaWeb\\AssetaWeb\\AssetaWeb.csproj",
+      "projectPath": "E:\\Wmotion\\Asseta\\AssetaWeb\\AssetaWeb.csproj",
       "packagesPath": "C:\\Users\\Bella\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bella\\source\\repos\\AssetaWeb\\AssetaWeb\\obj\\",
+      "outputPath": "E:\\Wmotion\\Asseta\\AssetaWeb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
