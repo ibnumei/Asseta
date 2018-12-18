@@ -17,5 +17,7 @@ namespace AssetaWeb.Models
         public DateTime? ModifyAtEntity { get; set; }
         public string CreatedBy { get; set; }
         public string ModifyBy { get; set; }
+
+        public virtual ICollection<AssetTbl> ASSET { get; set; }
     }
 }

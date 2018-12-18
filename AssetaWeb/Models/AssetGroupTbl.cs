@@ -10,5 +10,7 @@ namespace AssetaWeb.Models
         public string AssetGroupName { get; set; }
         public DateTime? CreatedAtAssetGroup { get; set; }
         public DateTime? ModifyAtAssetGroup { get; set; }
+
+        public virtual ICollection<AssetTbl> ASSET { get; set; }
     }
 }

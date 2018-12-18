@@ -53,7 +53,7 @@
                                 @Html.DisplayFor(m => item.AssetCode)
                             </td>
                             <td>
-                                @Html.DisplayFor(m => item.AssetGroupId)
+                                @Html.DisplayFor(m => item.AssetGroup.AssetGroupName)
                             </td>
                             <td>
                                 @Html.DisplayFor(m => item.AssetName)
@@ -65,7 +65,7 @@
                                 @Html.DisplayFor(m => item.ValidityDate)
                             </td>
                             <td>
-                                @Html.DisplayFor(m => item.EntityId)
+                                @Html.DisplayFor(m => item.Entity.EntityName)
                             </td>
                             <td>
                                 @Html.DisplayFor(m => item.SITE.SiteName)
@@ -83,7 +83,7 @@
                                 </a>&nbsp;
 
                                 <a asp-controller="Site" asp-action="Delete" asp-route-id="@item.AssetId" class="btn  btn-default">
-                                    <i class="fa fa-user-times"></i>
+                                    <i class="fas fa-trash-alt"></i>
                                     <span>Delete</span>
                                     @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
                                 </a>

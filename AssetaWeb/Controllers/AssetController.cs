@@ -21,7 +21,7 @@ namespace AssetaWeb.Controllers
         // GET: Asset
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AssetTbl.Include(x=>x.SITE).ToListAsync());
+            return View(await _context.AssetTbl.Include(x=>x.SITE).Include(x=>x.AssetGroup).Include(x=>x.Entity).ToListAsync());
         }
 
         // GET: Asset/Details/5
@@ -46,6 +46,8 @@ namespace AssetaWeb.Controllers
         public IActionResult Create()
         {
             ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName");
+            ViewBag.AssetGroupId = new SelectList(_context.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
+            ViewBag.EntityId = new SelectList(_context.EntityTbl, "EntityId", "EntityName");
 
             return View();
         }
@@ -59,6 +61,8 @@ namespace AssetaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                assetTbl.CreatedAtAsset = DateTime.Now;
+                assetTbl.ModifyAtAsset = DateTime.Now;
                 _context.Add(assetTbl);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,7 +77,9 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName");
+            ViewBag.AssetGroupId = new SelectList(_context.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
+            ViewBag.EntityId = new SelectList(_context.EntityTbl, "EntityId", "EntityName");
             var assetTbl = await _context.AssetTbl.FindAsync(id);
             if (assetTbl == null)
             {
@@ -89,15 +95,13 @@ namespace AssetaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("AssetId,AssetGroupId,SiteId,EntityId,AssetCode,AssetName,SerialNumber,ValidityDate,Location,Valuation,CreatedAtAsset,ModifyAtAsset")] AssetTbl assetTbl)
         {
-            if (id != assetTbl.AssetId)
-            {
-                return NotFound();
-            }
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    assetTbl.ModifyAtAsset = DateTime.Now;
                     _context.Update(assetTbl);
                     await _context.SaveChangesAsync();
                 }

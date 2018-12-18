@@ -19,5 +19,8 @@ namespace AssetaWeb.Models
         public DateTime? ModifyAtAsset { get; set; }
 
         public virtual SiteMasterTbl SITE { get; set; }
+        public virtual AssetGroupTbl AssetGroup { get; set; }
+        public virtual EntityTbl Entity { get; set; }
+        
     }
 }
