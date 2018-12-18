@@ -77,7 +77,7 @@ using AssetaWeb.Models;
         ");
             EndContext();
             BeginContext(366, 155, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ebada4f66879416a87fa6fc048780eaf", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a746658c2df74f0f86207e62f47a2f0b", async() => {
                 BeginContext(413, 104, true);
                 WriteLiteral("\r\n            <i class=\"fa fa-plus-square\"></i>\r\n            <span>&nbsp;  Add New Data</span>\r\n        ");
                 EndContext();
@@ -160,7 +160,7 @@ using AssetaWeb.Models;
             WriteLiteral("\r\n                            </td>\r\n                            <td>\r\n                                ");
             EndContext();
             BeginContext(1856, 237, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "947da5fb174e4149881ce230bc9f0211", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f53d621b10c24026826f547581dfe506", async() => {
                 BeginContext(1936, 153, true);
                 WriteLiteral("\r\n                                    <i class=\"fa fa-edit\"></i>\r\n                                    <span>Edit</span>\r\n                                ");
                 EndContext();
@@ -196,7 +196,7 @@ using AssetaWeb.Models;
             WriteLiteral("&nbsp;\r\n\r\n                                ");
             EndContext();
             BeginContext(2135, 385, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7bb6308755fe44638247786f062c8b78", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9ead182e3d7d489a9b5a314b939b2e66", async() => {
                 BeginContext(2245, 129, true);
                 WriteLiteral("\r\n                                    <i class=\"fa fa-user-times\"></i>\r\n                                    <span>Delete</span>\r\n");
                 EndContext();

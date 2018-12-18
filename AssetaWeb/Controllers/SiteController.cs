@@ -62,19 +62,20 @@ namespace AssetaWeb.Controllers
         //Method Edit Proses
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, SiteMasterTbl siteMaster)
+        public async Task<IActionResult> Edit(long id, SiteMasterTbl siteMaster)
         {
+           // var create = _db.SiteMasterTbl.Where(m => m.SiteId == siteMaster.SiteId).First().CreatedAtSite;
             if (id != siteMaster.SiteId)
             {
                 return NotFound();
             }
             if (ModelState.IsValid)
             {
-               //var create =  await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
-               // siteMaster.CreatedAtSite = create.CreatedAtSite;
+                //
+                //siteMaster.CreatedAtSite = create;
                 siteMaster.ModifyAtSite = DateTime.Now;
                 _db.Update(siteMaster);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(siteMaster);

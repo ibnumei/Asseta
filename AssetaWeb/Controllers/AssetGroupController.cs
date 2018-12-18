@@ -34,6 +34,8 @@ namespace AssetaWeb.Controllers
         {
             if(ModelState.IsValid)
             {
+                assetGroup.CreatedAtAssetGroup = DateTime.Now;
+                assetGroup.ModifyAtAssetGroup = DateTime.Now;
                 _db.Add(assetGroup);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -68,6 +70,7 @@ namespace AssetaWeb.Controllers
             }
             if (ModelState.IsValid)
             {
+                assetGroup.ModifyAtAssetGroup = DateTime.Now;
                 _db.Update(assetGroup);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

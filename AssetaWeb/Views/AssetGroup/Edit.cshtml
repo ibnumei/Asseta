@@ -10,7 +10,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"> Master</a></li>
-        <li >Asset Group Master</li>
+        <li><a asp-area="" asp-controller="AssetGroup" asp-action="Index">Asset Group Master</a></li>
         <li class="active">Edit Asset Group Master</li>
     </ol>
     <br />
@@ -32,7 +32,20 @@
 
                             <div class="col-sm-6">
 
+
+
                                 <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Asset Group Code</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="AssetGroupCode" class="form-control" autocomplete="off" readonly="readonly"/>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="AssetGroupCode" class="text-danger"></span>
+                                <br />
+
+                                <div class="row" hidden>
                                     <div class="col-sm-4">
                                         <label asp-for="AssetGroupId"></label>
                                     </div>
@@ -41,17 +54,6 @@
                                     </div>
                                 </div>
                                 <span asp-validation-for="AssetGroupId" class="text-danger"></span>
-                                <br />
-
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <label asp-for="AssetGroupCode"></label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input asp-for="AssetGroupCode" class="form-control" autocomplete="off" />
-                                    </div>
-                                </div>
-                                <span asp-validation-for="AssetGroupCode" class="text-danger"></span>
                                 <br />
 
                                 <div class="row">
@@ -69,7 +71,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="AssetGroupName"></label>
+                                        <b>Asset Group Name</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <input asp-for="AssetGroupName" class="form-control" autocomplete="off" />
@@ -78,25 +80,29 @@
                                 <span asp-validation-for="AssetGroupName" class="text-danger"></span>
                                 <br />
 
+                                <div class="row" hidden>
+                                    <div class="col-sm-4">
+                                        <b>Created At</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="CreatedAtAssetGroup" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CreatedAtAssetGroup" class="text-danger"></span>
+                                <br />
+
+
+
+
+
                                 <div class="row">
                                     <div class="col-sm-4">
 
                                     </div>
                                     <div class="col-sm-8">
-
-                                    </div>
-                                </div><br />
-
-
-
-
-
-                                <div class="row">
-                                    <div class="col-sm-4">
-
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="submit" value="Edit" class="btn btn-lg btn-primary" />
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fa fa-edit"></i>&nbsp;&nbsp;Save Changes
+                                        </button>
                                     </div>
                                 </div><br />
 
