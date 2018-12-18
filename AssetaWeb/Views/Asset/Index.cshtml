@@ -1,0 +1,100 @@
+﻿@model IEnumerable<AssetaWeb.Models.AssetTbl>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="content-header">
+    <h1>
+        Asset Master
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Master</a></li>
+        <li class="active">Asset Master</li>
+    </ol>
+    <br />
+    <p>
+        <a asp-action="Create" class="btn btn-default">
+            <i class="fa fa-plus-square"></i>
+            <span>&nbsp;  Add New Data</span>
+        </a>
+    </p>
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All of Data in Asset Master</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="DataTableSite" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Asset Code</th>
+                        <th>Asset Group</th>
+                        <th>Asset Name</th>
+                        <th>Serial Number</th>
+                        <th>Validity date</th>
+                        <th>Entity Name</th>
+                        <th>Site Name</th>
+                        <th>Location</th>
+                        <th>Valuation</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.AssetCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.AssetGroupId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.AssetName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SerialNumber)    
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.ValidityDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.EntityId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SITE.SiteName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Valuation)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-Id="@item.AssetId" class="btn  btn-default">
+                                    <i class="fa fa-edit"></i>
+                                    <span>Edit</span>
+                                </a>&nbsp;
+
+                                <a asp-controller="Site" asp-action="Delete" asp-route-id="@item.AssetId" class="btn  btn-default">
+                                    <i class="fa fa-user-times"></i>
+                                    <span>Delete</span>
+                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

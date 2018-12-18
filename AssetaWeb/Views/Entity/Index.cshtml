@@ -1,0 +1,99 @@
+﻿@model IEnumerable<AssetaWeb.Models.EntityTbl>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="content-header">
+    <h1>
+        Entity Master
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Master</a></li>
+        <li class="active">Entity Master</li>
+    </ol>
+    <br />
+    <p>
+        <a asp-action="Create" class="btn btn-default">
+            <i class="fa fa-plus-square"></i>
+            <span>&nbsp;  Add New Data</span>
+        </a>
+    </p>
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All of Data in Entity Master</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="DataTableSite" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Entity Code</th>
+                        <th>Entity Name</th>
+                        <th>Site Name</th>
+                        <th>Address</th>
+                        <th>Company Name</th>
+                        <th>Contact</th>
+                        <th>PIC</th>
+                        <th>Created By</th>
+                        <th>Edited By</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.EntityCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.EntityName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SiteId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SiteId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SiteId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Contact)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Pic)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.CreatedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.ModifyBy)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-Id="@item.EntityId" class="btn  btn-default">
+                                    <i class="fa fa-edit"></i>
+                                    <span>Edit</span>
+                                </a>&nbsp;
+
+                                <a asp-controller="Site" asp-action="Delete" asp-route-id="@item.EntityId" class="btn  btn-default">
+                                    <i class="fa fa-user-times"></i>
+                                    <span>Delete</span>
+                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

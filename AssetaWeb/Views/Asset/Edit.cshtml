@@ -1,0 +1,81 @@
+﻿@model AssetaWeb.Models.AssetTbl
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>AssetTbl</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AssetId" />
+            <div class="form-group">
+                <label asp-for="AssetGroupId" class="control-label"></label>
+                <input asp-for="AssetGroupId" class="form-control" />
+                <span asp-validation-for="AssetGroupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SiteId" class="control-label"></label>
+                <input asp-for="SiteId" class="form-control" />
+                <span asp-validation-for="SiteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityId" class="control-label"></label>
+                <input asp-for="EntityId" class="form-control" />
+                <span asp-validation-for="EntityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetCode" class="control-label"></label>
+                <input asp-for="AssetCode" class="form-control" />
+                <span asp-validation-for="AssetCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetName" class="control-label"></label>
+                <input asp-for="AssetName" class="form-control" />
+                <span asp-validation-for="AssetName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerialNumber" class="control-label"></label>
+                <input asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValidityDate" class="control-label"></label>
+                <input asp-for="ValidityDate" class="form-control" />
+                <span asp-validation-for="ValidityDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Valuation" class="control-label"></label>
+                <input asp-for="Valuation" class="form-control" />
+                <span asp-validation-for="Valuation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedAtAsset" class="control-label"></label>
+                <input asp-for="CreatedAtAsset" class="form-control" />
+                <span asp-validation-for="CreatedAtAsset" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifyAtAsset" class="control-label"></label>
+                <input asp-for="ModifyAtAsset" class="form-control" />
+                <span asp-validation-for="ModifyAtAsset" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -17,5 +17,7 @@ namespace AssetaWeb.Models
         public string Valuation { get; set; }
         public DateTime? CreatedAtAsset { get; set; }
         public DateTime? ModifyAtAsset { get; set; }
+
+        public virtual SiteMasterTbl SITE { get; set; }
     }
 }

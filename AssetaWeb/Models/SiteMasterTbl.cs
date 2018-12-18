@@ -12,5 +12,8 @@ namespace AssetaWeb.Models
         public string Company { get; set; }
         public DateTime? CreatedAtSite { get; set; }
         public DateTime? ModifyAtSite { get; set; }
+
+
+        public virtual ICollection<AssetTbl> ASSET { get; set; }
     }
 }
