@@ -11,7 +11,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"> Master</a></li>
-        <li>Entity Master</li>
+        <li><a asp-area="" asp-controller="Entity" asp-action="Index">Entity Master</a></li>
         <li class="active">Create Entity New Data</li>
     </ol>
     <br />
@@ -31,9 +31,10 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <div class="col-sm-6">
+
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="EntityCode"></label>
+                                        <b>Entity Code</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <input asp-for="EntityCode" class="form-control" autocomplete="off" />
@@ -41,9 +42,10 @@
                                 </div>
                                 <span asp-validation-for="EntityCode" class="text-danger"></span>
                                 <br />
+
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="EntityName"></label>
+                                        <b>Entity Name</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <input asp-for="EntityName" class="form-control" autocomplete="off" />
@@ -51,19 +53,49 @@
                                 </div>
                                 <span asp-validation-for="EntityName" class="text-danger"></span>
                                 <br />
+
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="SiteId"></label>
+                                        <b>Company Name</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="SiteId" class="form-control" autocomplete="off" />
+                                        <input asp-for="CompanyName" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Site Name</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("SITEID", null, htmlAttributes: new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <span asp-validation-for="SiteId" class="text-danger"></span>
                                 <br />
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+                                
+
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label asp-for="Contact"></label>
+                                        <b>Address</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Contact</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <input asp-for="Contact" class="form-control" autocomplete="off" />
@@ -72,18 +104,9 @@
                                 <span asp-validation-for="Contact" class="text-danger"></span>
                                 <br />
 
-
                                 <div class="row">
                                     <div class="col-sm-4">
-                                    </div>
-                                    <div class="col-sm-8">
-                                    </div>
-                                </div><br />
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <label asp-for="Pic"></label>
+                                        <b>Pic</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <input asp-for="Pic" class="form-control" autocomplete="off" />
@@ -91,36 +114,17 @@
                                 </div>
                                 <span asp-validation-for="Pic" class="text-danger"></span>
                                 <br />
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <label asp-for="CreatedBy"></label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input asp-for="CreatedBy" class="form-control" autocomplete="off" />
-                                       @*@Html.DropDownList("SITEID", null, htmlAttributes: new { @class = "form-control" })*@
-                                    </div>
-                                </div>
-                                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                                <br />
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <label asp-for="ModifyBy"></label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input asp-for="ModifyBy" class="form-control" autocomplete="off" />
-                                    </div>
-                                </div>
-                                <span asp-validation-for="ModifyBy" class="text-danger"></span>
-                                <br />
-
 
                                 <div class="row">
                                     <div class="col-sm-4">
                                     </div>
                                     <div class="col-sm-8">
-                                        <input type="submit" value="Create" class="btn btn-lg btn-primary" />
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="far fa-save"></i>&nbsp;&nbsp;Create Data
+                                        </button>
                                     </div>
                                 </div><br />
+
                             </div>
                         </div>
                     </div>

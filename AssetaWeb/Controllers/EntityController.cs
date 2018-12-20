@@ -17,13 +17,14 @@ namespace AssetaWeb.Controllers
         {
             _context = context;
         }
-
+        //=============================================================================================================================================
         // GET: Entity
         public async Task<IActionResult> Index()
         {
-            return View(await _context.EntityTbl.ToListAsync());
+            return View(await _context.EntityTbl.Include(x=>x.SiteMaster).ToListAsync());
+            //return View(await _context.AssetTbl.Include(x => x.SITE).Include(x => x.AssetGroup).Include(x => x.Entity).ToListAsync());
         }
-
+        //=============================================================================================================================================
         // GET: Entity/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -41,10 +42,11 @@ namespace AssetaWeb.Controllers
 
             return View(entityTbl);
         }
-
+        //=============================================================================================================================================
         // GET: Entity/Create
         public IActionResult Create()
         {
+            ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName");
             return View();
         }
 
@@ -63,7 +65,7 @@ namespace AssetaWeb.Controllers
             }
             return View(entityTbl);
         }
-
+        //=============================================================================================================================================
         // GET: Entity/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -71,7 +73,7 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName");
             var entityTbl = await _context.EntityTbl.FindAsync(id);
             if (entityTbl == null)
             {
@@ -96,6 +98,7 @@ namespace AssetaWeb.Controllers
             {
                 try
                 {
+                    entityTbl.ModifyAtEntity = DateTime.Now;
                     _context.Update(entityTbl);
                     await _context.SaveChangesAsync();
                 }
@@ -114,7 +117,7 @@ namespace AssetaWeb.Controllers
             }
             return View(entityTbl);
         }
-
+        //=============================================================================================================================================
         // GET: Entity/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {

@@ -90,3 +90,9 @@ E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Technician\Creat
 E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Technician\Delete.g.cshtml.cs
 E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Technician\Edit.g.cshtml.cs
 E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Technician\Index.g.cshtml.cs
+E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Period\Create.g.cshtml.cs
+E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Period\Edit.g.cshtml.cs
+E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Period\Index.g.cshtml.cs
+E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Sparepart\Index.g.cshtml.cs
+E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Sparepart\Create.g.cshtml.cs
+E:\Wmotion\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Sparepart\Edit.g.cshtml.cs

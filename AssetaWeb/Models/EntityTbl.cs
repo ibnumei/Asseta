@@ -19,5 +19,7 @@ namespace AssetaWeb.Models
         public string ModifyBy { get; set; }
 
         public virtual ICollection<AssetTbl> ASSET { get; set; }
+
+        public virtual SiteMasterTbl SiteMaster{ get; set; }
     }
 }

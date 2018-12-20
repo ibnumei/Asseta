@@ -1,0 +1,93 @@
+﻿@model IEnumerable<AssetaWeb.Models.SparepartTbl>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="content-header">
+    <h1>
+        Sparepart Master
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>Master</li>
+        <li class="active">Sparepart Master</li>
+    </ol>
+    <br />
+    <p>
+        <a asp-action="Create" class="btn btn-default">
+            <i class="fa fa-plus-square"></i>
+            <span>&nbsp;  Add New Data</span>
+        </a>
+    </p>
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All of Data in Sparepart Master</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="DataTableSite" class="table table-bordered table-striped" width="100%">
+                <thead>
+                    <tr>
+                        <th>Spare Part Id</th>
+                        <th>Spare Part Code</th>
+                        <th>Supplier Code</th>
+                        <th>Site Code</th>
+                        <th>Spare Part Desc</th>
+                        <th>Qty</th>
+                        <th>UoM</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.SparepartId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SparepartCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Supplier.SupplierCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SiteMaster.SiteCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.SparepartDesc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Qty)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.UoM)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-Id="@item.SparepartId" class="btn  btn-default">
+                                    <i class="fa fa-edit"></i>
+                                    <span>Edit</span>
+                                </a>&nbsp;
+
+                                <a asp-controller="Sparepart" asp-action="Delete" asp-route-id="@item.SparepartId" class="btn  btn-default">
+                                    <i class="fas fa-trash-alt"></i>
+                                    <span>Delete</span>
+                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
+                                </a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+

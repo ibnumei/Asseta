@@ -4,78 +4,155 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<section class="content-header">
+    <h1>
+        Edit Entity Master
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Master</a></li>
+        <li><a asp-area="" asp-controller="Entity" asp-action="Index">Entity Master</a></li>
+        <li class="active">Edit Entity</li>
+    </ol>
+    <br />
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title"></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="col-sm-12">
+                <form asp-action="Edit">
+                    <div class="row form-border">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
 
-<h4>EntityTbl</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EntityId" />
-            <div class="form-group">
-                <label asp-for="SiteId" class="control-label"></label>
-                <input asp-for="SiteId" class="form-control" />
-                <span asp-validation-for="SiteId" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Entity Code</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="EntityCode" class="form-control" autocomplete="off" readonly="readonly" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="EntityCode" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Entity Name</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="EntityName" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="EntityName" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Company Name</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="CompanyName" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Site Name</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("SITEID", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <span asp-validation-for="SiteId" class="text-danger"></span>
+                                <br />
+
+                                <div class="row" hidden>
+                                    <div class="col-sm-4">
+                                        <b>Asset Id</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="EntityId" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="EntityId" class="text-danger"></span>
+                                <br />
+
+                                <div class="row" hidden>
+                                    <div class="col-sm-4">
+                                        <b>Createdat</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="CreatedAtEntity" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="CreatedAtEntity" class="text-danger"></span>
+                                <br />
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Address</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Contact</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="Contact" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Contact" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Pic</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="Pic" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Pic" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fa fa-edit"></i>&nbsp;&nbsp;Save Changes
+                                        </button>
+                                    </div>
+                                </div><br />
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="EntityCode" class="control-label"></label>
-                <input asp-for="EntityCode" class="form-control" />
-                <span asp-validation-for="EntityCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EntityName" class="control-label"></label>
-                <input asp-for="EntityName" class="form-control" />
-                <span asp-validation-for="EntityName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompanyName" class="control-label"></label>
-                <input asp-for="CompanyName" class="form-control" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contact" class="control-label"></label>
-                <input asp-for="Contact" class="form-control" />
-                <span asp-validation-for="Contact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Pic" class="control-label"></label>
-                <input asp-for="Pic" class="form-control" />
-                <span asp-validation-for="Pic" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAtEntity" class="control-label"></label>
-                <input asp-for="CreatedAtEntity" class="form-control" />
-                <span asp-validation-for="CreatedAtEntity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifyAtEntity" class="control-label"></label>
-                <input asp-for="ModifyAtEntity" class="form-control" />
-                <span asp-validation-for="ModifyAtEntity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifyBy" class="control-label"></label>
-                <input asp-for="ModifyBy" class="form-control" />
-                <span asp-validation-for="ModifyBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
+        <!-- /.box-body -->
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+</section>

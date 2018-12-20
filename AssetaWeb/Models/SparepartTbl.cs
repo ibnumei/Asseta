@@ -17,5 +17,8 @@ namespace AssetaWeb.Models
         public DateTime? ModifyAtSupp { get; set; }
         public string CreatedBy { get; set; }
         public string ModifyBy { get; set; }
+
+        public virtual SupplierTbl Supplier { get; set; }
+        public virtual SiteMasterTbl SiteMaster { get; set; }
     }
 }

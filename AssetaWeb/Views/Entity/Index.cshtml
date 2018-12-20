@@ -56,13 +56,13 @@
                                 @Html.DisplayFor(m => item.EntityName)
                             </td>
                             <td>
-                                @Html.DisplayFor(m => item.SiteId)
+                                @Html.DisplayFor(m => item.SiteMaster.SiteName)
                             </td>
                             <td>
-                                @Html.DisplayFor(m => item.SiteId)
+                                @Html.DisplayFor(m => item.Address)
                             </td>
                             <td>
-                                @Html.DisplayFor(m => item.SiteId)
+                                @Html.DisplayFor(m => item.CompanyName)
                             </td>
                             <td>
                                 @Html.DisplayFor(m => item.Contact)
@@ -83,7 +83,7 @@
                                 </a>&nbsp;
 
                                 <a asp-controller="Site" asp-action="Delete" asp-route-id="@item.EntityId" class="btn  btn-default">
-                                    <i class="fa fa-user-times"></i>
+                                    <i class="fas fa-trash-alt"></i>
                                     <span>Delete</span>
                                     @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
                                 </a>

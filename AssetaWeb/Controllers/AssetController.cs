@@ -17,13 +17,13 @@ namespace AssetaWeb.Controllers
         {
             _context = context;
         }
-
+        //=============================================================================================================================================
         // GET: Asset
         public async Task<IActionResult> Index()
         {
             return View(await _context.AssetTbl.Include(x=>x.SITE).Include(x=>x.AssetGroup).Include(x=>x.Entity).ToListAsync());
         }
-
+        //=============================================================================================================================================
         // GET: Asset/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -41,7 +41,7 @@ namespace AssetaWeb.Controllers
 
             return View(assetTbl);
         }
-
+        //=============================================================================================================================================
         // GET: Asset/Create
         public IActionResult Create()
         {
@@ -69,7 +69,7 @@ namespace AssetaWeb.Controllers
             }
             return View(assetTbl);
         }
-
+        //=============================================================================================================================================
         // GET: Asset/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -120,7 +120,7 @@ namespace AssetaWeb.Controllers
             }
             return View(assetTbl);
         }
-
+        //=============================================================================================================================================
         // GET: Asset/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
