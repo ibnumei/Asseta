@@ -43,10 +43,15 @@
                 <thead>
                     <tr>
                         <th>Entity Id</th>
-                        <th style="width:15%">Entity Code</th>
-                        <th style="width:20%">Entity Name</th>
-                        <th style="width:25%">Address</th>
+                        <th style="width:5%">Entity Code</th>
+                        <th style="width:10%">Entity Name</th>
                         <th style="width:15%">Site Name</th>
+                        <th style="width:20%">Address</th>
+                        <th style="width:10%">Company Name</th>
+                        <th style="width:10%">Contact</th>
+                        <th style="width:10%">PIC</th>
+                        <th style="width:5%">Created By</th>
+                        <th style="width:5%">Edited By</th>
                         <th style="width:5%"></th>
                         <th style="width:5%"></th>
                     </tr>
@@ -85,12 +90,17 @@
                     { "data": "EntityId", "name": "EntityId", "autoWidth": true },
                     { "data": "EntityCode", "name": "EntityCode", "autoWidth": true },
                     { "data": "EntityName", "name": "EntityName", "autoWidth": true },
-                    { "data": "Address", "name": "Address", "autoWidth": true },
                     { "data": "SiteName", "name": "SiteName", "autoWidth": true },
+                    { "data": "Address", "name": "Address", "autoWidth": true },
+                    { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+                    { "data": "Contact", "name": "Address", "Contact": true },
+                    { "data": "Pic", "name": "Pic", "autoWidth": true },
+                    { "data": "CreatedBy", "name": "CreatedBy", "autoWidth": true },
+                    { "data": "ModifyBy", "name": "ModifyBy", "autoWidth": true },
                     {
                         "render": function (data, type, full, meta)
                         //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Site/Edit/' + full.SiteId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                        { return ' <a href="/Entity/Edit/' + full.EntityId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
                     },
                     {
                         //data: null, render: function (data, type, row) {
@@ -99,7 +109,7 @@
 
                         "render": function (data, type, full, meta)
                         //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Site/Edit/' + full.SiteId + '" class="btn  btn-default"><i class="fas fa-trash-alt"></i><span>&nbsp;Delete</span></a>'; }
+                        { return ' <a href="/Entity/Edit/' + full.EntityId + '" class="btn btn-default"><i class="fas fa-trash-alt"></i><span>&nbsp;Delete</span></a>'; }
                     },
                 ]
 

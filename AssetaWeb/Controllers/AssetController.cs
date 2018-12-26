@@ -47,9 +47,14 @@ namespace AssetaWeb.Controllers
                 int recordsTotal = 0;
 
                 // Getting all Customer data  
-                var customerData = (from tempcustomer in _context.SiteMasterTbl
-                                    select tempcustomer);
-                
+                //var customerData = (from tempcustomer in _context.EntityTbl
+                //                    select tempcustomer);
+                var customerData = from a in _context.AssetTbl
+                                   join b in _context.SiteMasterTbl on a.SiteId equals b.SiteId
+                                   join c in _context.AssetGroupTbl on a.AssetGroupId equals c.AssetGroupId
+                                   join d in _context.EntityTbl on a.EntityId equals d.EntityId
+                                   select new { a.AssetCode, a.AssetName, a.SerialNumber, a.ValidityDate, a.Location, a.Valuation, b.SiteName, c.AssetGroupName, d.EntityName};
+
                 ////Sorting
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
                 //{
@@ -58,7 +63,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.SiteCode == searchValue);
+                    customerData = customerData.Where(m => m.AssetCode == searchValue);
                 }
 
                 //total number of rows count   

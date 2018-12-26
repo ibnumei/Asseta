@@ -57,7 +57,7 @@ namespace AssetaWeb.Controllers
                 //                    select tempcustomer);
                 var customerData = from tempcustomer in _context.EntityTbl
                                    join tempcustomer2 in _context.SiteMasterTbl on tempcustomer.SiteId equals tempcustomer2.SiteId
-                                   select new { tempcustomer.EntityId, tempcustomer.EntityCode, tempcustomer.EntityName, tempcustomer.Address, tempcustomer2.SiteName} ;
+                                   select new { tempcustomer.EntityId, tempcustomer.EntityCode, tempcustomer.EntityName, tempcustomer.Address, tempcustomer.CompanyName, tempcustomer.Contact, tempcustomer.Pic, tempcustomer.CreatedBy, tempcustomer.ModifyBy, tempcustomer2.SiteName} ;
 
                 ////Sorting
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))

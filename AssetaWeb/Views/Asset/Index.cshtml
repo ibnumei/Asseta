@@ -4,6 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
 <section class="content-header">
     <h1>
         Asset Master
@@ -30,7 +39,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="DataTableSite" class="table table-bordered table-striped">
+            <table id="example" class="table table-striped" width="100%">
                 <thead>
                     <tr>
                         <th>Asset Code</th>
@@ -43,58 +52,67 @@
                         <th>Location</th>
                         <th>Valuation</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
-                @foreach (var item in Model)
-                {
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(m => item.AssetCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.AssetGroup.AssetGroupName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.AssetName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.SerialNumber)    
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.ValidityDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Entity.EntityName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.SITE.SiteName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Location)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Valuation)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-Id="@item.AssetId" class="btn  btn-default">
-                                    <i class="fa fa-edit"></i>
-                                    <span>Edit</span>
-                                </a>&nbsp;
-
-                                <a asp-controller="Site" asp-action="Delete" asp-route-id="@item.AssetId" class="btn  btn-default">
-                                    <i class="fas fa-trash-alt"></i>
-                                    <span>Delete</span>
-                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                }
 
             </table>
         </div>
         <!-- /.box-body -->
     </div>
 </section>
+
+<script>
+
+
+        $(document).ready(function ()
+        {
+            $("#example").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ordering": false,
+                "ajax": {
+                    "url": "/Asset/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }],
+
+                "columns": [
+                    { "data": "AssetCode", "name": "AssetCode", "autoWidth": true },
+                    { "data": "AssetGroupName", "name": "AssetGroupName", "autoWidth": true },
+                    { "data": "AssetName", "name": "AssetName", "autoWidth": true },
+                    { "data": "SerialNumber", "name": "SerialNumber", "autoWidth": true },
+                    { "data": "ValidityDate", "name": "ValidityDate", "autoWidth": true },
+                    { "data": "EntityName", "name": "EntityName", "autoWidth": true },
+                    { "data": "SiteName", "name": "SiteName", "Contact": true },
+                    { "data": "Location", "name": "Pic", "Location": true },
+                    { "data": "Valuation", "name": "Valuation", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/Asset/Edit/' + full.AssetId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                    },
+                    {
+                        //data: null, render: function (data, type, row) {
+                        //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
+                        //}
+
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/Asset/Delete/' + full.AssetId + '" class="btn btn-default"><i class="fas fa-trash-alt"></i><span>&nbsp;Delete</span></a>'; }
+                    },
+                ]
+
+            });
+        });
+
+</script>
 

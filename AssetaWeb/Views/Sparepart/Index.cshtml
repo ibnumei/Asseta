@@ -4,6 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+
 <section class="content-header">
     <h1>
         Sparepart Master
@@ -30,64 +40,144 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="DataTableSite" class="table table-bordered table-striped" width="100%">
+            <table id="example" class="table table-striped" width="100%">
                 <thead>
                     <tr>
                         <th>Spare Part Id</th>
-                        <th>Spare Part Code</th>
-                        <th>Supplier Code</th>
-                        <th>Site Code</th>
-                        <th>Spare Part Desc</th>
-                        <th>Qty</th>
-                        <th>UoM</th>
-                        <th></th>
+                        <th style="width:15%">Spare Part Code</th>
+                        <th style="width:15%">Supplier Code</th>
+                        <th style="width:25%">Site Name</th>
+                        <th style="width:25%">Spare Part Desc</th>
+                        <th style="width:5%">Qty</th>
+                        <th style="width:5%">UoM</th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
                     </tr>
                 </thead>
-                @foreach (var item in Model)
-                {
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(m => item.SparepartId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.SparepartCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Supplier.SupplierCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.SiteMaster.SiteCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.SparepartDesc)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.Qty)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => item.UoM)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-Id="@item.SparepartId" class="btn  btn-default">
-                                    <i class="fa fa-edit"></i>
-                                    <span>Edit</span>
-                                </a>&nbsp;
-
-                                <a asp-controller="Sparepart" asp-action="Delete" asp-route-id="@item.SparepartId" class="btn  btn-default">
-                                    <i class="fas fa-trash-alt"></i>
-                                    <span>Delete</span>
-                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
-                                </a>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                }
-
             </table>
         </div>
         <!-- /.box-body -->
     </div>
 </section>
 
+<script>
+
+
+        $(document).ready(function ()
+        {
+            $("#example").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ordering": false,
+                "ajax": {
+                    "url": "/Sparepart/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }],
+
+                "columns": [
+                    { "data": "SparepartId", "name": "SparepartId", "autoWidth": true },
+                    { "data": "SparepartCode", "name": "SparepartCode", "autoWidth": true },
+                    { "data": "SupplierCode", "name": "SupplierCode", "autoWidth": true },
+                    { "data": "SiteName", "name": "SiteName", "autoWidth": true },
+                    { "data": "SparepartDesc", "name": "SparepartDesc", "autoWidth": true },
+                    { "data": "Qty", "name": "Qty", "autoWidth": true },
+                    { "data": "UoM", "name": "UoM", "Contact": true },
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/Sparepart/Edit/' + full.SparepartId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                    },
+                    {
+                        //data: null, render: function (data, type, row) {
+                        //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
+                        //}
+
+                        "render": function (data, type, full, meta) {
+                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.SparepartId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
+                        }
+
+                    },
+                ]
+
+            });
+        });
+        function remove(aids) {
+
+        //var myId = $('#TechnicianId').val();
+        var myId = aids;
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover your data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete")',
+                        data: { id: myId},
+                        dataType: "json",
+                      // success: window.location.reload(),
+                        success: function (response) {
+                            swal("Poof! Your data has been deleted!", {
+                                icon: "success",
+                            }).then(function() {
+                              //  window.location.href = "/Technician/Index"
+                                window.location.reload()
+                            });
+                           
+                        }
+                        
+                    });
+
+                }
+                else {
+                    swal("Your data is safe!");
+                }
+            });
+    }
+
+    function DeleteData(CustomerID)
+        {
+            if (confirm("Are you sure you want to delete ...?"))
+            {
+                Delete(CustomerID);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        function Delete(CustomerID)
+    {
+        var url = '@Url.Content("~/")' + "DemoGrid/Delete";
+
+            $.post(url, { ID: CustomerID }, function (data)
+                {
+                    if (data)
+                    {
+                        oTable = $('#example').DataTable();
+                        oTable.draw();
+                    }
+                    else
+                    {
+                        alert("Something Went Wrong!");
+                    }
+                });
+    }
+
+</script>

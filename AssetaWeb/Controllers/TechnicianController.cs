@@ -19,9 +19,66 @@ namespace AssetaWeb.Controllers
         }
 
         // GET: Technician
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.TechnicianTbl.ToListAsync());
+        //}
+        public IActionResult Index()
         {
-            return View(await _context.TechnicianTbl.ToListAsync());
+            //return View(_db.SiteMasterTbl.ToList());
+            return View();
+        }
+        //===================================================================================
+        //Get Processing Data tables
+        public IActionResult LoadData()
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                // Skiping number of Rows count  
+                var start = Request.Form["start"].FirstOrDefault();
+                // Paging Length 10,20  
+                var length = Request.Form["length"].FirstOrDefault();
+                // Sort Column Name  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                // Sort Column Direction ( asc ,desc)  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                // Search Value from (Search box)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();
+
+                //Paging Size (10,20,50,100)  
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+
+                // Getting all Customer data  
+                var customerData = (from tempcustomer in _context.TechnicianTbl
+                                    select tempcustomer);
+
+                ////Sorting
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
+                //}
+                //Search  
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    customerData = customerData.Where(m => m.TechnicianName == searchValue);
+                }
+
+                //total number of rows count   
+                recordsTotal = customerData.Count();
+                //Paging   
+                var data = customerData.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         // GET: Technician/Details/5
