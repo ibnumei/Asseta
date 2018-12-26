@@ -1,8 +1,10 @@
-﻿@model IEnumerable<AssetaWeb.Models.EntityTbl>
-
+﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ShowGrid";
 }
+
+@*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />*@
 
 <script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
@@ -13,14 +15,15 @@
 <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
 
+
 <section class="content-header">
     <h1>
-        Entity Master
+        Site Master
         <small></small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"> Master</a></li>
-        <li class="active">Entity Master</li>
+        <li>Master</li>
+        <li class="active">Site Master</li>
     </ol>
     <br />
     <p>
@@ -35,28 +38,28 @@
 <section class="content container-fluid">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">All of Data in Entity Master</h3>
+            <h3 class="box-title">All of Data in Site Master</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example" class="table table-striped" width="100%">
-                <thead>
+            <table id="example" class="table table-striped  " width="100%" cellspacing="0">
+                <thead class="thead-dark">
                     <tr>
-                        <th>Entity Id</th>
-                        <th style="width:15%">Entity Code</th>
-                        <th style="width:20%">Entity Name</th>
-                        <th style="width:25%">Address</th>
-                        <th style="width:15%">Site Name</th>
-                        <th style="width:5%"></th>
-                        <th style="width:5%"></th>
+                        <th>Site Id</th>
+                        <th>Site Code</th>
+                        <th>Site Name</th>
+                        <th>Address</th>
+                        <th>Company</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
-
             </table>
         </div>
         <!-- /.box-body -->
     </div>
 </section>
+
 
 <script>
 
@@ -67,10 +70,10 @@
                 "processing": true, // for show progress bar
                 "serverSide": true, // for process server side
                 "filter": true, // this is for disable filter (search box)
-                "orderMulti": true, // for disable multiple column at once
-                "ordering": false,
+                /*"orderMulti": false,*/ // for disable multiple column at once
+                'ordering': true,
                 "ajax": {
-                    "url": "/Entity/LoadData",
+                    "url": "/DemoGrid/LoadData",
                     "type": "POST",
                     "datatype": "json"
                 },
@@ -80,26 +83,21 @@
                     "visible": false,
                     "searchable": false
                 }],
-
                 "columns": [
-                    { "data": "EntityId", "name": "EntityId", "autoWidth": true },
-                    { "data": "EntityCode", "name": "EntityCode", "autoWidth": true },
-                    { "data": "EntityName", "name": "EntityName", "autoWidth": true },
-                    { "data": "Address", "name": "Address", "autoWidth": true },
+                    { "data": "SiteId", "name": "SiteId", "autoWidth": true },
+                    { "data": "SiteCode", "name": "SiteCode", "autoWidth": true },
                     { "data": "SiteName", "name": "SiteName", "autoWidth": true },
+                    { "data": "Address", "name": "Address", "autoWidth": true },
+                    { "data": "Company", "name": "Company", "autoWidth": true },
                     {
                         "render": function (data, type, full, meta)
-                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Site/Edit/' + full.SiteId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                        { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
                     },
                     {
-                        //data: null, render: function (data, type, row) {
-                        //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
-                        //}
-
-                        "render": function (data, type, full, meta)
-                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Site/Edit/' + full.SiteId + '" class="btn  btn-default"><i class="fas fa-trash-alt"></i><span>&nbsp;Delete</span></a>'; }
+                        data: null, render: function (data, type, row)
+                        {
+                            return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.CustomerID + "'); >Delete</a>";
+                        }
                     },
                 ]
 
@@ -138,4 +136,4 @@
                 });
     }
 
-</script>
+</script> 

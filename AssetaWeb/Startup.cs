@@ -14,6 +14,7 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace AssetaWeb
 {
     public class Startup
@@ -33,6 +34,15 @@ namespace AssetaWeb
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddMvc().AddJsonOptions(options => {
+                var resolver = options.SerializerSettings.ContractResolver;
+                if (resolver != null)
+                {
+                    var res = (DefaultContractResolver)resolver;
+                    res.NamingStrategy = null;
+                }
             });
 
             var connection = @"Data Source=ced-dev.chrvl2iyzlxm.ap-southeast-1.rds.amazonaws.com;Initial Catalog=assetaDb;Trusted_Connection=False;User ID=wmotion;Password=Wm0t!0n12345";

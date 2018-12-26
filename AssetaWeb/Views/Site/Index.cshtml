@@ -2,6 +2,17 @@
 @{
     ViewData["Title"] = "Index";
 }
+
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+
 <section class="content-header">
     <h1>
         Site Master
@@ -11,7 +22,7 @@
         <li>Master</li>
         <li class="active">Site Master</li>
     </ol>
-    <br/>
+    <br />
     <p>
         <a asp-action="Create" class="btn btn-default">
             <i class="fa fa-plus-square"></i>
@@ -28,57 +39,179 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="DataTableSite" class="table table-bordered table-striped">
+            <table id="example" class="table table-striped" width="100%" >
                 <thead>
                     <tr>
                         <th>Site Id</th>
+                        <th style="width:15%">Site Code</th>
+                        <th style="width:25%">Site Name</th>
+                        <th style="width:35%">Address</th>
+                        <th style="width:15%">Company</th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
+
+                        @*<th>Site Id</th>
                         <th>Site Code</th>
                         <th>Site Name</th>
                         <th>Address</th>
                         <th>Company</th>
                         <th></th>
+                        <th></th>*@
                     </tr>
                 </thead>
-                @foreach (var item in Model)
-                {
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(m=>item.SiteId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m=>item.SiteCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m=>item.SiteName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m=>item.Address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m=>item.Company)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-Id="@item.SiteId" class="btn  btn-default">
-                                    <i class="fa fa-edit"></i>
-                                    <span>Edit</span>
-                                </a>&nbsp;
-
-                                <a asp-controller="Site" asp-action="Delete" asp-route-id="@item.SiteId" class="btn  btn-default">
-                                    <i class="fas fa-trash-alt"></i>
-                                    <span>Delete</span>
-                                    @*<input type="submit" value="Delete" class="btn btn-sm btn-danger" />*@
-                                </a>
-
-                            </td>
-                        </tr>
-                    </tbody>
-                }
-               
+                <tfoot>
+                    <tr>
+                        <th>Site Id</th>
+                        <th style="width:15%">Site Code</th>
+                        <th style="width:25%">Site Name</th>
+                        <th style="width:35%">Address</th>
+                        <th style="width:15%">Company</th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <!-- /.box-body -->
     </div>
 </section>
 
+<script>
 
+
+        $(document).ready(function ()
+        {
+            $("#example").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ordering": false,
+                "ajax": {
+                    "url": "/Site/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }],
+
+                "columns": [
+                    { "data": "SiteId", "name": "SiteId", "autoWidth": true },
+                    { "data": "SiteCode", "name": "SiteCode", "autoWidth": true },
+                    { "data": "SiteName", "name": "SiteName", "autoWidth": true },
+                    { "data": "Address", "name": "Address", "autoWidth": true },
+                    { "data": "Company", "name": "Company", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/Site/Edit/' + full.SiteId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                    },
+                    {
+                        //data: null, render: function (data, type, row) {
+                        //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
+                        //}
+
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/Site/Edit/' + full.SiteId + '" class="btn  btn-default"><i class="fas fa-trash-alt"></i><span>&nbsp;Delete</span></a>'; }
+                    },
+                ]
+
+            });
+        });
+
+
+    function DeleteData(CustomerID)
+        {
+            if (confirm("Are you sure you want to delete ...?"))
+            {
+                Delete(CustomerID);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        function Delete(CustomerID)
+    {
+        var url = '@Url.Content("~/")' + "DemoGrid/Delete";
+
+            $.post(url, { ID: CustomerID }, function (data)
+                {
+                    if (data)
+                    {
+                        oTable = $('#example').DataTable();
+                        oTable.draw();
+                    }
+                    else
+                    {
+                        alert("Something Went Wrong!");
+                    }
+                });
+    }
+
+</script>
+
+@*<script>
+        function DeleteButton() {
+            e.preventDefault();
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: [
+                    'No, cancel it!',
+                    'Yes, I am sure!'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Shortlisted!',
+                        text: 'Candidates are successfully shortlisted!',
+                        icon: 'success'
+                    }).then(function () {
+                        form.submit(); // <--- submit form programmatically
+                    });
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            })
+        }
+
+
+    </script>*@
+@*<script>
+        document.querySelector('#from1').onsubmit = function (e) {
+            e.preventDefault();
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: [
+                    'No, cancel it!',
+                    'Yes, I am sure!'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Shortlisted!',
+                        text: 'Candidates are successfully shortlisted!',
+                        icon: 'success'
+                    }).then(function () {
+                        form.submit(); // <--- submit form programmatically
+                    });
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            })
+        };
+    </script>*@

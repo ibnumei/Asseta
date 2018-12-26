@@ -175,7 +175,8 @@ desired effect
                             <li><a asp-area="" asp-controller="Technician" asp-action="Index"><i class="fas fa-star-of-life"></i>&nbsp;&nbsp;Technician Master</a></li>
                             <li><a asp-area="" asp-controller="Period" asp-action="Index"><i class="fas fa-star-of-life"></i>&nbsp;&nbsp;Period Master</a></li>
                             <li><a asp-area="" asp-controller="Sparepart" asp-action="Index"><i class="fas fa-star-of-life"></i>&nbsp;&nbsp;Sparepart Master</a></li>
-                            <li><a asp-area="" asp-controller="" asp-action="Index"><i class="fas fa-star-of-life"></i>&nbsp;&nbsp; Task Master</a></li>
+                            <li><a asp-area="" asp-controller="Task" asp-action="Index"><i class="fas fa-star-of-life"></i>&nbsp;&nbsp; Task Master</a></li>
+                            <li><a asp-area="" asp-controller="DemoGrid" asp-action="ShowGrid"><i class="fas fa-star-of-life"></i>&nbsp;&nbsp; Demo Grid Master</a></li>
                         </ul>
 
                     </li>
@@ -190,9 +191,9 @@ desired effect
         <div class="content-wrapper">
 
             <!-- Content Header (Page header) -->
-            
-                @RenderBody()
-            
+
+            @RenderBody()
+
             <!-- /Main content -->
 
         </div>
@@ -294,6 +295,7 @@ desired effect
     <script src="~/plugin/dist/js/adminlte.min.js"></script>
     <script src="~/plugin/components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="~/plugin/components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. -->
@@ -310,11 +312,11 @@ desired effect
             })
         </script>*@
     @*<script>
-        $(document).ready(function () {
-            $('#DataTableSite').DataTable();
-        });
-    </script>*@
-    <script>
+            $(document).ready(function () {
+                $('#DataTableSite').DataTable();
+            });
+        </script>*@
+    @*<script>
         $(document).ready(function () {
             $('#DataTableSite').dataTable({
                 'paging': true,
@@ -333,6 +335,6 @@ desired effect
                 ]
             });
         });
-    </script>
+    </script>*@
 </body>
 </html>

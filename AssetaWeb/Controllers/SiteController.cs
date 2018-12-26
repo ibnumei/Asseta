@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AssetaWeb.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic;
 
 namespace AssetaWeb.Controllers
 {
@@ -19,8 +20,62 @@ namespace AssetaWeb.Controllers
 
         public IActionResult Index()
         {
-            return View(_db.SiteMasterTbl.ToList());
+            //return View(_db.SiteMasterTbl.ToList());
+            return View();
         }
+        //===================================================================================
+        //Get Processing Data tables
+        public IActionResult LoadData()
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                // Skiping number of Rows count  
+                var start = Request.Form["start"].FirstOrDefault();
+                // Paging Length 10,20  
+                var length = Request.Form["length"].FirstOrDefault();
+                // Sort Column Name  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                // Sort Column Direction ( asc ,desc)  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                // Search Value from (Search box)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();
+
+                //Paging Size (10,20,50,100)  
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+
+                // Getting all Customer data  
+                var customerData = (from tempcustomer in _db.SiteMasterTbl
+                                    select tempcustomer);
+
+                ////Sorting
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
+                //}
+                //Search  
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    customerData = customerData.Where(m => m.SiteCode == searchValue);
+                }
+
+                //total number of rows count   
+                recordsTotal = customerData.Count();
+                //Paging   
+                var data = customerData.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
         //===================================================================================
         //View Create Data
         public IActionResult Create()
@@ -106,5 +161,14 @@ namespace AssetaWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
         //=========================================================================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DelNoView(int id)
+        {
+            var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
+            _db.SiteMasterTbl.Remove(sitemaster);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

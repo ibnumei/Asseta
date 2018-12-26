@@ -12,5 +12,6 @@ namespace AssetaWeb.Models
         public DateTime? ModifyAtAssetGroup { get; set; }
 
         public virtual ICollection<AssetTbl> ASSET { get; set; }
+        public virtual ICollection<TaskTbl> Tasks { get; set; }
     }
 }

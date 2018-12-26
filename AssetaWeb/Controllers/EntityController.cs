@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AssetaWeb.Models;
+using System.Linq.Dynamic;
 
 namespace AssetaWeb.Controllers
 {
@@ -18,12 +19,72 @@ namespace AssetaWeb.Controllers
             _context = context;
         }
         //=============================================================================================================================================
-        // GET: Entity
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.EntityTbl.Include(x => x.SiteMaster).ToListAsync());
+        //    //return View(await _context.AssetTbl.Include(x => x.SITE).Include(x => x.AssetGroup).Include(x => x.Entity).ToListAsync());
+        //}
+        public IActionResult Index()
         {
-            return View(await _context.EntityTbl.Include(x=>x.SiteMaster).ToListAsync());
-            //return View(await _context.AssetTbl.Include(x => x.SITE).Include(x => x.AssetGroup).Include(x => x.Entity).ToListAsync());
+            //return View(_db.SiteMasterTbl.ToList());
+            return View();
         }
+        //===================================================================================
+        //Get Processing Data tables
+        public IActionResult LoadData()
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                // Skiping number of Rows count  
+                var start = Request.Form["start"].FirstOrDefault();
+                // Paging Length 10,20  
+                var length = Request.Form["length"].FirstOrDefault();
+                // Sort Column Name  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+                // Sort Column Direction ( asc ,desc)  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
+                // Search Value from (Search box)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();
+
+                //Paging Size (10,20,50,100)  
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+
+                // Getting all Customer data  
+                //var customerData = (from tempcustomer in _context.EntityTbl
+                //                    select tempcustomer);
+                var customerData = from tempcustomer in _context.EntityTbl
+                                   join tempcustomer2 in _context.SiteMasterTbl on tempcustomer.SiteId equals tempcustomer2.SiteId
+                                   select new { tempcustomer.EntityId, tempcustomer.EntityCode, tempcustomer.EntityName, tempcustomer.Address, tempcustomer2.SiteName} ;
+
+                ////Sorting
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    customerData = customerData.OrderBy(sortColumn + " " + sortColumnDirection);
+                //}
+                //Search  
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    customerData = customerData.Where(m => m.EntityCode == searchValue);
+                }
+
+                //total number of rows count   
+                recordsTotal = customerData.Count();
+                //Paging   
+                var data = customerData.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
         //=============================================================================================================================================
         // GET: Entity/Details/5
         public async Task<IActionResult> Details(long? id)
