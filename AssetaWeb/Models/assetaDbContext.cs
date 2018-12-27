@@ -23,22 +23,20 @@ namespace AssetaWeb.Models
         public virtual DbSet<SiteMasterTbl> SiteMasterTbl { get; set; }
         public virtual DbSet<SparepartTbl> SparepartTbl { get; set; }
         public virtual DbSet<SupplierTbl> SupplierTbl { get; set; }
+        public virtual DbSet<TaskLineTbl> TaskLineTbl { get; set; }
         public virtual DbSet<TaskTbl> TaskTbl { get; set; }
         public virtual DbSet<TechnicianTbl> TechnicianTbl { get; set; }
         public virtual DbSet<WoExceTbl> WoExceTbl { get; set; }
         public virtual DbSet<WorkOrderTbl> WorkOrderTbl { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=ced-dev.chrvl2iyzlxm.ap-southeast-1.rds.amazonaws.com;Database=assetaDb;Trusted_Connection=False;User ID= wmotion;Password=Wm0t!0n12345;");
-//            }
-//        }
-
-
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=ced-dev.chrvl2iyzlxm.ap-southeast-1.rds.amazonaws.com;Database=assetaDb;Trusted_Connection=False;User ID= wmotion;Password= Wm0t!0n12345;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -225,7 +223,16 @@ namespace AssetaWeb.Models
 
                 entity.Property(e => e.ProductData).HasColumnType("text");
 
-                entity.Property(e => e.SupplierCode).HasMaxLength(50);
+                entity.Property(e => e.SupplierCode)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TaskLineTbl>(entity =>
+            {
+                entity.Property(e => e.TaskCode).HasMaxLength(50);
+
+                entity.Property(e => e.TaskType).HasMaxLength(25);
             });
 
             modelBuilder.Entity<TaskTbl>(entity =>
@@ -241,12 +248,6 @@ namespace AssetaWeb.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.TaskDetail).HasColumnType("text");
-
-                entity.Property(e => e.TaskName).HasColumnType("text");
-
-                entity.Property(e => e.TaskType)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<TechnicianTbl>(entity =>

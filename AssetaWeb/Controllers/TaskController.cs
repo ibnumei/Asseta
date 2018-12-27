@@ -27,6 +27,12 @@ namespace AssetaWeb.Controllers
         //View Create Data
         public IActionResult Create()
         {
+            ViewBag.Daily = new List<SelectListItem>
+            {
+              new SelectListItem { Text="General", Value="General"},
+              new SelectListItem { Text="Yes / No", Value="Yes / No"},
+              new SelectListItem { Text="Checklist", Value="Checklist"}
+            };
             ViewBag.AssetGroupId = new SelectList(_db.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
             return View();
         }

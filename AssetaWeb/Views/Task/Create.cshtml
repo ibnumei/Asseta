@@ -86,14 +86,42 @@
                                         <b>Select Task Type</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <select id="drop" name="drop">
-                                            <option value="General">General</option>
-                                            <option value="Yes / No">Yes / No</option>
-                                            <option value="Checklist">Checklist</option>
-                                        </select>
-
+                                        @Html.DropDownListFor(model => model.TaskType, ViewBag.Daily as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
                                     </div>
                                 </div>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Task General </b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaskDetail" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="TaskDetail" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Task Yes / No </b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaskDetail" class="form-control" autocomplete="off" id="yesno" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="TaskDetail" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Checklist</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaskDetail" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="TaskDetail" class="text-danger"></span>
                                 <br />
 
                                 <div class="row">
@@ -127,4 +155,19 @@
         <!-- /.box-body -->
     </div>
 </section>
+
+
+@*<script>
+
+    $(document).ready(function () {
+        $("#drop").change(function () {
+            if ($(this).val() == "YesNo") {
+                $("#yesno").prop("disabled", true);
+            }
+        });
+        //  console.log((this).val());
+    });
+
+
+</script>*@
 
