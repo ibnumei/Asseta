@@ -12,5 +12,7 @@ namespace AssetaWeb.Models
         public int? TimeEstimate { get; set; }
         public DateTime? CreatedAtTask { get; set; }
         public DateTime? ModifyAtTask { get; set; }
+
+        public AssetGroupTbl AssetGroup { get; set; }
     }
 }

@@ -174,37 +174,47 @@ namespace AssetaWeb.Controllers
         }
 
         // GET: Technician/Delete/5
-        public async Task<IActionResult> Delete(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var technicianTbl = await _context.TechnicianTbl
-                .FirstOrDefaultAsync(m => m.TechnicianId == id);
-            if (technicianTbl == null)
-            {
-                return NotFound();
-            }
+        //    var technicianTbl = await _context.TechnicianTbl
+        //        .FirstOrDefaultAsync(m => m.TechnicianId == id);
+        //    if (technicianTbl == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(technicianTbl);
-        }
+        //    return View(technicianTbl);
+        //}
 
-        // POST: Technician/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
-        {
-            var technicianTbl = await _context.TechnicianTbl.FindAsync(id);
-            _context.TechnicianTbl.Remove(technicianTbl);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //// POST: Technician/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(long id)
+        //{
+        //    var technicianTbl = await _context.TechnicianTbl.FindAsync(id);
+        //    _context.TechnicianTbl.Remove(technicianTbl);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool TechnicianTblExists(long id)
         {
             return _context.TechnicianTbl.Any(e => e.TechnicianId == id);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var sparepart = _context.TechnicianTbl.Find(id);
+            _context.TechnicianTbl.Remove(sparepart);
+            _context.SaveChanges();
+
+            return Json(new { success = true });
         }
     }
 }

@@ -177,37 +177,47 @@ namespace AssetaWeb.Controllers
         }
 
         // GET: Supplier/Delete/5
-        public async Task<IActionResult> Delete(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var supplierTbl = await _context.SupplierTbl
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (supplierTbl == null)
-            {
-                return NotFound();
-            }
+        //    var supplierTbl = await _context.SupplierTbl
+        //        .FirstOrDefaultAsync(m => m.SupplierId == id);
+        //    if (supplierTbl == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(supplierTbl);
-        }
+        //    return View(supplierTbl);
+        //}
 
-        // POST: Supplier/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
-        {
-            var supplierTbl = await _context.SupplierTbl.FindAsync(id);
-            _context.SupplierTbl.Remove(supplierTbl);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //// POST: Supplier/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(long id)
+        //{
+        //    var supplierTbl = await _context.SupplierTbl.FindAsync(id);
+        //    _context.SupplierTbl.Remove(supplierTbl);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool SupplierTblExists(long id)
         {
             return _context.SupplierTbl.Any(e => e.SupplierId == id);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var sparepart = _context.SupplierTbl.Find(id);
+            _context.SupplierTbl.Remove(sparepart);
+            _context.SaveChanges();
+
+            return Json(new { success = true });
         }
     }
 }

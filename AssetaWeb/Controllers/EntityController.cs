@@ -180,37 +180,47 @@ namespace AssetaWeb.Controllers
         }
         //=============================================================================================================================================
         // GET: Entity/Delete/5
-        public async Task<IActionResult> Delete(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var entityTbl = await _context.EntityTbl
-                .FirstOrDefaultAsync(m => m.EntityId == id);
-            if (entityTbl == null)
-            {
-                return NotFound();
-            }
+        //    var entityTbl = await _context.EntityTbl
+        //        .FirstOrDefaultAsync(m => m.EntityId == id);
+        //    if (entityTbl == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(entityTbl);
-        }
+        //    return View(entityTbl);
+        //}
 
-        // POST: Entity/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
-        {
-            var entityTbl = await _context.EntityTbl.FindAsync(id);
-            _context.EntityTbl.Remove(entityTbl);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //// POST: Entity/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(long id)
+        //{
+        //    var entityTbl = await _context.EntityTbl.FindAsync(id);
+        //    _context.EntityTbl.Remove(entityTbl);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool EntityTblExists(long id)
         {
             return _context.EntityTbl.Any(e => e.EntityId == id);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var sparepart = _context.EntityTbl.Find(id);
+            _context.EntityTbl.Remove(sparepart);
+            _context.SaveChanges();
+
+            return Json(new { success = true });
         }
     }
 }

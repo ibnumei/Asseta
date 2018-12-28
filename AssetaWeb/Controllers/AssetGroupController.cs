@@ -133,29 +133,39 @@ namespace AssetaWeb.Controllers
         }
         //=========================================================================================================
         //Delete
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var assetgroup = await _db.AssetGroupTbl.SingleOrDefaultAsync(m => m.AssetGroupId == id);
-            if (assetgroup == null)
-            {
-                return NotFound();
-            }
-            return View(assetgroup);
-        }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var assetgroup = await _db.AssetGroupTbl.SingleOrDefaultAsync(m => m.AssetGroupId == id);
+        //    if (assetgroup == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(assetgroup);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var assetgroup = await _db.AssetGroupTbl.SingleOrDefaultAsync(m => m.AssetGroupId == id);
+        //    _db.AssetGroupTbl.Remove(assetgroup);
+        //    await _db.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //=========================================================================================================
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public ActionResult Delete(long id)
         {
-            var assetgroup = await _db.AssetGroupTbl.SingleOrDefaultAsync(m => m.AssetGroupId == id);
-            _db.AssetGroupTbl.Remove(assetgroup);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var sparepart = _db.AssetGroupTbl.Find(id);
+            _db.AssetGroupTbl.Remove(sparepart);
+            _db.SaveChanges();
+
+            return Json(new { success = true });
         }
-        //=========================================================================================================
     }
 }

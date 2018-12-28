@@ -92,22 +92,61 @@
                     {
                         "render": function (data, type, full, meta)
                         //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Supplier/Edit/' + full.EntityId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                        { return ' <a href="/Supplier/Edit/' + full.SupplierId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
                     },
                     {
                         //data: null, render: function (data, type, row) {
                         //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
                         //}
 
-                        "render": function (data, type, full, meta)
-                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Supplier/Edit/' + full.EntityId + '" class="btn btn-default"><i class="fas fa-trash-alt"></i><span>&nbsp;Delete</span></a>'; }
+                        "render": function (data, type, full, meta) {
+                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.SupplierId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
+                        }
                     },
                 ]
 
             });
         });
 
+
+    function remove(aids) {
+
+        //var myId = $('#TechnicianId').val();
+        var myId = aids;
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover your data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete")',
+                        data: { id: myId},
+                        dataType: "json",
+                      // success: window.location.reload(),
+                        success: function (response) {
+                            swal("Poof! Your data has been deleted!", {
+                                icon: "success",
+                            }).then(function() {
+                              //  window.location.href = "/Technician/Index"
+                                window.location.reload()
+                            });
+                           
+                        }
+                        
+                    });
+
+                }
+                else {
+                    swal("Your data is safe!");
+                }
+            });
+        }
 
     function DeleteData(CustomerID)
         {

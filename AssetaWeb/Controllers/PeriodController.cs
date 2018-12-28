@@ -134,5 +134,15 @@ namespace AssetaWeb.Controllers
             return View(period);
         }
         //=========================================================================================================
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var sparepart = _db.PeriodTbl.Find(id);
+            _db.PeriodTbl.Remove(sparepart);
+            _db.SaveChanges();
+
+            return Json(new { success = true });
+        }
     }
 }

@@ -51,5 +51,15 @@ namespace AssetaWeb.Controllers
             }
             return View(taskTbl);
         }
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var sparepart = _db.TaskTbl.Find(id);
+            _db.TaskTbl.Remove(sparepart);
+            _db.SaveChanges();
+
+            return Json(new { success = true });
+        }
     }
 }

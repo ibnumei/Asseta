@@ -137,29 +137,29 @@ namespace AssetaWeb.Controllers
         }
         //=========================================================================================================
         //Delete
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
-            if (sitemaster == null)
-            {
-                return NotFound();
-            }
-            return View(sitemaster);
-        }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
+        //    if (sitemaster == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(sitemaster);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
-            _db.SiteMasterTbl.Remove(sitemaster);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var sitemaster = await _db.SiteMasterTbl.SingleOrDefaultAsync(m => m.SiteId == id);
+        //    _db.SiteMasterTbl.Remove(sitemaster);
+        //    await _db.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
         //=========================================================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -169,6 +169,17 @@ namespace AssetaWeb.Controllers
             _db.SiteMasterTbl.Remove(sitemaster);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var sparepart = _db.SiteMasterTbl.Find(id);
+            _db.SiteMasterTbl.Remove(sparepart);
+            _db.SaveChanges();
+
+            return Json(new { success = true });
         }
     }
 }

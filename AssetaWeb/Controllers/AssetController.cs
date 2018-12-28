@@ -53,7 +53,7 @@ namespace AssetaWeb.Controllers
                                    join b in _context.SiteMasterTbl on a.SiteId equals b.SiteId
                                    join c in _context.AssetGroupTbl on a.AssetGroupId equals c.AssetGroupId
                                    join d in _context.EntityTbl on a.EntityId equals d.EntityId
-                                   select new { a.AssetCode, a.AssetName, a.SerialNumber, a.ValidityDate, a.Location, a.Valuation, b.SiteName, c.AssetGroupName, d.EntityName};
+                                   select new { a.AssetId, a.AssetCode, a.AssetName, a.SerialNumber, a.ValidityDate, a.Location, a.Valuation, b.SiteName, c.AssetGroupName, d.EntityName};
 
                 ////Sorting
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -180,37 +180,47 @@ namespace AssetaWeb.Controllers
         }
         //=============================================================================================================================================
         // GET: Asset/Delete/5
-        public async Task<IActionResult> Delete(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var assetTbl = await _context.AssetTbl
-                .FirstOrDefaultAsync(m => m.AssetId == id);
-            if (assetTbl == null)
-            {
-                return NotFound();
-            }
+        //    var assetTbl = await _context.AssetTbl
+        //        .FirstOrDefaultAsync(m => m.AssetId == id);
+        //    if (assetTbl == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(assetTbl);
-        }
+        //    return View(assetTbl);
+        //}
 
-        // POST: Asset/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
-        {
-            var assetTbl = await _context.AssetTbl.FindAsync(id);
-            _context.AssetTbl.Remove(assetTbl);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //// POST: Asset/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(long id)
+        //{
+        //    var assetTbl = await _context.AssetTbl.FindAsync(id);
+        //    _context.AssetTbl.Remove(assetTbl);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool AssetTblExists(long id)
         {
             return _context.AssetTbl.Any(e => e.AssetId == id);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var sparepart = _context.AssetTbl.Find(id);
+            _context.AssetTbl.Remove(sparepart);
+            _context.SaveChanges();
+
+            return Json(new { success = true });
         }
     }
 }
