@@ -10,5 +10,8 @@ namespace AssetaWeb.Models
         public int? Days { get; set; }
         public DateTime? CreatedAtPeriod { get; set; }
         public DateTime? ModifyAtPeriod { get; set; }
+
+
+        public virtual ICollection<ScheduleMaintenanceTbl> ScheduleMaintenanceTbls { get; set; }
     }
 }

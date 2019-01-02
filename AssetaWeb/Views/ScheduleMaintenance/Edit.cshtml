@@ -1,0 +1,101 @@
+﻿@*@model AssetaWeb.Models.ScheduleMaintenanceTbl
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>ScheduleMaintenanceTbl</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="AssetId" class="control-label"></label>
+                <input asp-for="AssetId" class="form-control" />
+                <span asp-validation-for="AssetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaintenanceId" class="control-label"></label>
+                <input asp-for="MaintenanceId" class="form-control" />
+                <span asp-validation-for="MaintenanceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaintenanceDesc" class="control-label"></label>
+                <input asp-for="MaintenanceDesc" class="form-control" />
+                <span asp-validation-for="MaintenanceDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SiteId" class="control-label"></label>
+                <input asp-for="SiteId" class="form-control" />
+                <span asp-validation-for="SiteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastMaintenance" class="control-label"></label>
+                <input asp-for="LastMaintenance" class="form-control" />
+                <span asp-validation-for="LastMaintenance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NextMaintenance" class="control-label"></label>
+                <input asp-for="NextMaintenance" class="form-control" />
+                <span asp-validation-for="NextMaintenance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateBy" class="control-label"></label>
+                <input asp-for="CreateBy" class="form-control" />
+                <span asp-validation-for="CreateBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastEditedBy" class="control-label"></label>
+                <input asp-for="LastEditedBy" class="form-control" />
+                <span asp-validation-for="LastEditedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PeriodId" class="control-label"></label>
+                <input asp-for="PeriodId" class="form-control" />
+                <span asp-validation-for="PeriodId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SparepartId" class="control-label"></label>
+                <input asp-for="SparepartId" class="form-control" />
+                <span asp-validation-for="SparepartId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskId" class="control-label"></label>
+                <input asp-for="TaskId" class="form-control" />
+                <span asp-validation-for="TaskId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskDetail" class="control-label"></label>
+                <input asp-for="TaskDetail" class="form-control" />
+                <span asp-validation-for="TaskDetail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimatedTime" class="control-label"></label>
+                <input asp-for="EstimatedTime" class="form-control" />
+                <span asp-validation-for="EstimatedTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TechnicianId" class="control-label"></label>
+                <input asp-for="TechnicianId" class="form-control" />
+                <span asp-validation-for="TechnicianId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+

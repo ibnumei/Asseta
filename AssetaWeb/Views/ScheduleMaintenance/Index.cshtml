@@ -1,0 +1,149 @@
+﻿@model IEnumerable<AssetaWeb.Models.ScheduleMaintenanceTbl>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<section class="content-header">
+    <h1>
+        Schedule Maintenance
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Maintenance</a></li>
+        <li class="active">Schedule Maintenance</li>
+    </ol>
+    <br />
+    <p>
+        <a asp-action="Create" class="btn btn-default">
+            <i class="fa fa-plus-square"></i>
+            <span>&nbsp;  Add New Data</span>
+        </a>
+    </p>
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All of Data in Schedule Maintenance</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example" class="table table-striped" width="100%">
+                <thead>
+                    <tr>
+                        <th>Asset Name</th>
+                        <th>Maintenance Desc</th>
+                        <th>Schedule</th>
+                        <th>Last Maintenance</th>
+                        <th>Next Maintenance</th>
+                        
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+<script>
+
+
+        $(document).ready(function ()
+        {
+            $("#example").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ordering": false,
+                "ajax": {
+                    "url": "/ScheduleMaintenance/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": true,
+                    "searchable": false
+                }],
+
+                "columns": [
+                    { "data": "AssetName", "name": "AssetName", "autoWidth": true },
+                    { "data": "MaintenanceDesc", "name": "MaintenanceDesc", "autoWidth": true },
+                    { "data": "Schedule", "name": "Schedule", "autoWidth": true },
+                    { "data": "LastMaintenance", "name": "LastMaintenance", "autoWidth": true },
+                    { "data": "NextMaintenance", "name": "NextMaintenance", "autoWidth": true },
+
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/ScheduleMaintenance/Edit/' + full.AssetId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                    },
+                    {
+                        //data: null, render: function (data, type, row) {
+                        //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
+                        //}
+
+                        "render": function (data, type, full, meta) {
+                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.AssetId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
+                        }
+                    },
+                ]
+
+            });
+    });
+
+    function remove(aids) {
+
+        //var myId = $('#TechnicianId').val();
+        var myId = aids;
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover your data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Delete")',
+                        data: { id: myId},
+                        dataType: "json",
+                      // success: window.location.reload(),
+                        success: function (response) {
+                            swal("Poof! Your data has been deleted!", {
+                                icon: "success",
+                            }).then(function() {
+                              //  window.location.href = "/Technician/Index"
+                                window.location.reload()
+                            });
+
+                        }
+
+                    });
+
+                }
+                else {
+                    swal("Your data is safe!");
+                }
+            });
+        }
+</script>

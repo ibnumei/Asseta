@@ -19,5 +19,7 @@ namespace AssetaWeb.Models
         public virtual ICollection<EntityTbl> Entities { get; set; }
 
         public virtual ICollection<SparepartTbl> Spareparts { get; set; }
+
+        public virtual ICollection<ScheduleMaintenanceTbl> ScheduleMaintenanceTbls { get; set; }
     }
 }

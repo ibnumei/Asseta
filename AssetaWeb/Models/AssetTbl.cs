@@ -22,5 +22,7 @@ namespace AssetaWeb.Models
         public virtual AssetGroupTbl AssetGroup { get; set; }
         public virtual EntityTbl Entity { get; set; }
         
+        public virtual ICollection<ScheduleMaintenanceTbl> ScheduleMaintenanceTbls { get; set; }
+
     }
 }

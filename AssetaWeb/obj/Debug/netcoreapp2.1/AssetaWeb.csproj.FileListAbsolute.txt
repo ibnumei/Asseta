@@ -292,3 +292,7 @@ E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaW
 E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.dll
 E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.pdb
 E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.csproj.CopyComplete
+E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Create.g.cshtml.cs
+E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Delete.g.cshtml.cs
+E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Edit.g.cshtml.cs
+E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Index.g.cshtml.cs

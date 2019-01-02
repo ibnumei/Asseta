@@ -20,6 +20,7 @@ namespace AssetaWeb.Models
         public virtual DbSet<EntityTbl> EntityTbl { get; set; }
         public virtual DbSet<MaentenanceTbl> MaentenanceTbl { get; set; }
         public virtual DbSet<PeriodTbl> PeriodTbl { get; set; }
+        public virtual DbSet<ScheduleMaintenanceTbl> ScheduleMaintenanceTbl { get; set; }
         public virtual DbSet<SiteMasterTbl> SiteMasterTbl { get; set; }
         public virtual DbSet<SparepartTbl> SparepartTbl { get; set; }
         public virtual DbSet<SupplierTbl> SupplierTbl { get; set; }
@@ -159,6 +160,31 @@ namespace AssetaWeb.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<ScheduleMaintenanceTbl>(entity =>
+            {
+                entity.HasKey(e => e.ScheduleMainId);
+
+                entity.Property(e => e.CreateBy).HasMaxLength(50);
+
+                entity.Property(e => e.LastEditedBy).HasMaxLength(50);
+
+                entity.Property(e => e.LastMaintenance).HasColumnType("datetime");
+
+                entity.Property(e => e.MaintenanceDesc).HasColumnType("text");
+
+                entity.Property(e => e.MaintenanceId).HasMaxLength(50);
+
+                entity.Property(e => e.NextMaintenance).HasColumnType("datetime");
+
+                entity.Property(e => e.Quantity).HasColumnType("numeric(18, 0)");
+
+                entity.Property(e => e.TaskDetail).HasColumnType("text");
+
+                entity.Property(e => e.Schedule).HasColumnType("text");
+
+                entity.Property(e => e.AssetName).HasMaxLength(100);
+            });
+
             modelBuilder.Entity<SiteMasterTbl>(entity =>
             {
                 entity.HasKey(e => e.SiteId);
@@ -240,6 +266,8 @@ namespace AssetaWeb.Models
                 entity.HasKey(e => e.TaskId);
 
                 entity.Property(e => e.CreatedAtTask).HasColumnType("datetime");
+
+                entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.ModifyAtTask).HasColumnType("datetime");
 
