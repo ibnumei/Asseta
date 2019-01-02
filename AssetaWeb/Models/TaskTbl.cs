@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AssetaWeb.Models
 {
@@ -10,12 +11,12 @@ namespace AssetaWeb.Models
         public string TaskCode { get; set; }
         public string TaskDetail { get; set; }
         public int? TimeEstimate { get; set; }
-        public DateTime? CreatedAtTask { get; set; }
-        public DateTime? ModifyAtTask { get; set; }
+
         public DateTime? Date { get; set; }
 
-        public AssetGroupTbl AssetGroup { get; set; }
+        public DateTime? CreatedAtTask { get; set; }
+        public DateTime? ModifyAtTask { get; set; }
 
-        public virtual ICollection<ScheduleMaintenanceTbl> ScheduleMaintenanceTbls { get; set; }
+        public virtual AssetGroupTbl AssetGroup { get; set; }
     }
 }

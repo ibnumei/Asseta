@@ -1,6 +1,6 @@
 ﻿@model AssetaWeb.Models.TaskTbl
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <section class="content-header">
@@ -11,7 +11,7 @@
     <ol class="breadcrumb">
         <li>Master</li>
         <li><a asp-area="" asp-controller="Task" asp-action="Index">Task Master</a></li>
-        <li class="active">Create New Data</li>
+        <li class="active">Edit Task Master</li>
     </ol>
     <br />
 
@@ -26,7 +26,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="col-sm-12">
-                <form asp-action="Create">
+                <form asp-action="Edit">
                     <div class="row form-border">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
@@ -38,7 +38,7 @@
                                         <b>Task Code</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="TaskCode" class="form-control" autocomplete="off" />
+                                        <input asp-for="TaskCode" class="form-control" autocomplete="off" readonly="readonly" />
                                     </div>
                                 </div>
                                 <span asp-validation-for="TaskCode" class="text-danger"></span>
@@ -55,7 +55,17 @@
                                 <span asp-validation-for="TaskDetail" class="text-danger"></span>
                                 <br />
 
-                                
+                                <div class="row" hidden>
+                                    <div class="col-sm-4">
+                                        <b>Task Detail </b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TaskId" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="TaskId" class="text-danger"></span>
+                                <br />
+
 
                             </div>
 
@@ -84,14 +94,14 @@
                                 <br />
 
                                 @*<div class="row">
-            <div class="col-sm-4">
-                <b>Select Task Type</b>
-            </div>
-            <div class="col-sm-8">
-                @Html.DropDownListFor(model => model.TaskType, ViewBag.Daily as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
-            </div>
-        </div>
-        <br />*@
+                                        <div class="col-sm-4">
+                                            <b>Select Task Type</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(model => model.TaskType, ViewBag.Daily as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
+                                        </div>
+                                    </div>
+                                    <br />*@
 
 
 
@@ -126,19 +136,3 @@
         <!-- /.box-body -->
     </div>
 </section>
-
-
-@*<script>
-
-    $(document).ready(function () {
-        $("#drop").change(function () {
-            if ($(this).val() == "YesNo") {
-                $("#yesno").prop("disabled", true);
-            }
-        });
-        //  console.log((this).val());
-    });
-
-
-</script>*@
-
