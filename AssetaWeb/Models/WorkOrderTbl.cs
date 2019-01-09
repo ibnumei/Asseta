@@ -17,5 +17,12 @@ namespace AssetaWeb.Models
         public string Notes { get; set; }
         public DateTime? CreatedAtWo { get; set; }
         public DateTime? ModifyAtWo { get; set; }
+        public long? EntityId { get; set; }
+        public string SparepartActive { get; set; }
+        public int? EstimatedWorking { get; set; }
+        public string TaskDetail { get; set; }
+        public int? MaentenanceCost { get; set; }
+        public int? SparepartCost { get; set; }
+        public int? TotalCost { get; set; }
     }
 }

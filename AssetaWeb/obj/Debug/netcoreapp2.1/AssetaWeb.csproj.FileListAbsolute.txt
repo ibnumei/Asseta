@@ -296,3 +296,11 @@ E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\V
 E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Delete.g.cshtml.cs
 E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Edit.g.cshtml.cs
 E:\ASSETA INTERNAL PROJECT HAHA\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Index.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Create.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Delete.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Edit.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\Index.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Task\Edit.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Task\TaskLines.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\WorkOrder\Index.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\WorkOrder\Create.g.cshtml.cs

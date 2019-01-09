@@ -276,6 +276,10 @@ namespace AssetaWeb.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.TaskDetail).HasColumnType("text");
+
+                entity.Property(e => e.TypeTime)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<TechnicianTbl>(entity =>
@@ -318,8 +322,16 @@ namespace AssetaWeb.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.SparepartActive)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Status)
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TaskDetail)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.WoDesc).HasColumnType("text");

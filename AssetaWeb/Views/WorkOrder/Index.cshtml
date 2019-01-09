@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AssetaWeb.Models.TaskTbl>
+﻿@model IEnumerable<AssetaWeb.Models.WorkOrderTbl>
 @{
     ViewData["Title"] = "Index";
 }
@@ -14,18 +14,17 @@
 
 <section class="content-header">
     <h1>
-        Task Master
+        Work Order
         <small></small>
     </h1>
     <ol class="breadcrumb">
-        <li>Master</li>
-        <li class="active">Task Master</li>
+        <li class="active">Work Order</li>
     </ol>
     <br />
     <p>
         <a asp-action="Create" class="btn btn-default">
             <i class="fa fa-plus-square"></i>
-            <span>&nbsp;  Add New Data</span>
+            <span>&nbsp;  Create New Work Order</span>
         </a>
     </p>
 </section>
@@ -34,25 +33,23 @@
 <section class="content container-fluid">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">All of Data in Task Master</h3>
+            <h3 class="box-title">All of Data in Work Order</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
             <table id="example" class="table table-striped" width="100%">
                 <thead>
                     <tr>
-                        <th>Task Id</th>
-                        <th style="width:15%">Task Code</th>
-                        <th style="width:20%">Task Desc</th>
-                        <th style="width:20%">Asset Group Name</th>
-                        <th style="width:10%">Time Estimate</th>
-                        <th style="width:5%">Type</th>
-                        <th style="width:15%">Date</th>
+                        <th style="width:15%">WO Id</th>
+                        <th style="width:25%">Wo Desc</th>
+                        <th style="width:35%">Status</th>
+                        <th style="width:15%">Priority</th>
                         <th style="width:5%"></th>
                         <th style="width:5%"></th>
-                        <th style="width:5%"></th>
+
                     </tr>
                 </thead>
+               
             </table>
         </div>
         <!-- /.box-body -->
@@ -71,47 +68,28 @@
                 "orderMulti": true, // for disable multiple column at once
                 "ordering": false,
                 "ajax": {
-                    "url": "/Task/LoadData",
+                    "url": "/WorkOrder/LoadData",
                     "type": "POST",
                     "datatype": "json"
                 },
-                "columnDefs":
-                [{
-                    "targets": [0],
-                    "visible": false,
-                    "searchable": false
-                }],
 
                 "columns": [
-                    { "data": "TaskId", "name": "TaskId", "autoWidth": true },
-                    { "data": "TaskCode", "name": "TaskCode", "autoWidth": true },
-                    { "data": "TaskDetail", "name": "TaskDetail", "autoWidth": true },
-                    { "data": "AssetGroupName", "name": "AssetGroupName", "autoWidth": true },
-                    { "data": "TimeEstimate", "name": "TimeEstimate", "autoWidth": true },
-                    { "data": "TypeTime", "name": "TypeTime", "autoWidth": true },
-                    {
-                        "data": "Date", "name": "Date", "autoWidth": true, "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return (month.length > 1 ? month : month) + "-" + date.getDate() + "-" + date.getFullYear();
-                        }
-                    },
-                    {
-                        "render": function (data, type, full, meta)
-                        { return ' <a href="/Task/TaskLines/' + full.TaskId + '" class="btn  btn-default"><i class="fas fa-folder-plus"></i><span>&nbsp;Task Line</span></a>'; }
-                    },
+                    { "data": "WoId", "name": "WoId", "autoWidth": true },
+                    { "data": "WoDesc", "name": "WoDesc", "autoWidth": true },
+                    { "data": "Status", "name": "Status", "autoWidth": true },
+                    { "data": "Priority", "name": "Priority", "autoWidth": true },
                     {
                         "render": function (data, type, full, meta)
                         //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Task/Edit/' + full.TaskId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                        { return ' <a href="/Site/Edit/' + full.WoId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
                     },
                     {
                         //data: null, render: function (data, type, row) {
                         //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
                         //}
 
-                        "render": function (data, type, full, meta) {
-                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.TaskId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
+                         "render": function (data, type, full, meta) {
+                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.WoId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
                         }
                     },
                 ]
@@ -119,12 +97,13 @@
             });
         });
 
+    function remove(aids) {
 
-    function remove(id) {
         //var myId = $('#TechnicianId').val();
-        var myId = id;
+        var myId = aids;
+
         swal({
-            title: "Deleting a Task will also delete Task Line associated with this Task ?",
+            title: "Are you sure?",
             text: "Once deleted, you will not be able to recover your data!",
             icon: "warning",
             buttons: true,
@@ -145,15 +124,17 @@
                               //  window.location.href = "/Technician/Index"
                                 window.location.reload()
                             });
-                           
+
                         }
-                        
+
                     });
+
                 }
                 else {
                     swal("Your data is safe!");
                 }
             });
-    }
+        }
+
 
 </script>

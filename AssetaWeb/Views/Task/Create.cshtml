@@ -76,22 +76,27 @@
                                     <div class="col-sm-4">
                                         <b>Time Estimate</b>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-4">
                                         <input asp-for="TimeEstimate" class="form-control" autocomplete="off" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.TypeTime, ViewBag.Type as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
                                     </div>
                                 </div>
                                 <span asp-validation-for="TimeEstimate" class="text-danger"></span>
                                 <br />
 
+                                
+
                                 @*<div class="row">
-            <div class="col-sm-4">
-                <b>Select Task Type</b>
-            </div>
-            <div class="col-sm-8">
-                @Html.DropDownListFor(model => model.TaskType, ViewBag.Daily as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
-            </div>
-        </div>
-        <br />*@
+                                    <div class="col-sm-4">
+                                        <b>Select Task Type</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(model => model.TaskType, ViewBag.Daily as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
+                                    </div>
+                                </div>
+                                <br />*@
 
 
 

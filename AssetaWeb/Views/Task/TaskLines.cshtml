@@ -1,5 +1,4 @@
 ﻿@model AssetaWeb.Models.TaskLineTbl
-
 @*@model Tuple<TaskTbl, TaskLineTbl>*@
 
 @{
@@ -21,8 +20,8 @@
     </h1>
     <ol class="breadcrumb">
         <li>Master</li>
-        <li class="active">Task Master</li>
-        <li class="active">Task Master Line</li>
+        <li><a asp-area="" asp-controller="Task" asp-action="Index">Task Master</a></li>
+        <li class="active">Task Line</li>
     </ol>
     <br />
 
@@ -92,7 +91,6 @@
                                 <th style="width:45%">Task Name</th>
                                 <th style="width:45%">Task Type</th>
                                 <th style="width:5%"></th>
-                                <th style="width:5%"></th>
                             </tr>
                         </thead>
                     </table>
@@ -105,6 +103,7 @@
 
 </section>
 
+@*Tampilan Create data*@
 <div id="myModal12" class="modal fade content" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -117,69 +116,69 @@
             </div>
 
             <div class="modal-body">
-                
-                    <form asp-action="CreateTaskLine">
-                        <div class="row form-border">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
 
-                                @*<div class="col-lg-4">
+                <form asp-action="CreateTaskLine">
+                    <div class="row form-border">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+
+                            @*<div class="col-lg-4">
 
                                 </div>*@
 
-                                <div class="col-lg-12">
+                            <div class="col-lg-12">
 
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <b>Task Code</b>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            @*<input asp-for="Item1.TaskCode" class="form-control" autocomplete="off" />*@
-                                            <input type="text" class="form-control" value="@ViewBag.TaskCode" readonly="readonly" asp-for="TaskCode">
-                                        </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <b>Task Code</b>
                                     </div>
-                                    <br />
-
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <b>Task Name</b>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input asp-for="TaskName" class="form-control" autocomplete="off" />
-                                        </div>
+                                    <div class="col-lg-8">
+                                        @*<input asp-for="Item1.TaskCode" class="form-control" autocomplete="off" />*@
+                                        <input type="text" class="form-control" value="@ViewBag.TaskCode" readonly="readonly" asp-for="TaskCode">
                                     </div>
-                                    <span asp-validation-for="TaskName" class="text-danger"></span>
-                                    <br />
-
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <b>Select Task Type</b>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            @Html.DropDownListFor(model => model.TaskType, ViewBag.type as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
-                                        </div>
-                                    </div>
-                                    <br />
-
-                                    <div class="row">
-                                        <div class="col-lg-4">
-
-                                        </div>
-                                        <div class="col-lg-8">
-                                            @*<input type="submit" value="Create" class="btn  btn-default" />*@
-                                            <button type="submit" class="btn btn-default">
-                                                <i class="far fa-save"></i>&nbsp;&nbsp;Create Data
-                                            </button>
-                                        </div>
-                                    </div><br />
-
                                 </div>
+                                <br />
 
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <b>Task Name</b>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input asp-for="TaskName" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="TaskName" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <b>Select Task Type</b>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        @Html.DropDownListFor(model => model.TaskType, ViewBag.type as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+
+                                    </div>
+                                    <div class="col-lg-8">
+                                        @*<input type="submit" value="Create" class="btn  btn-default" />*@
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="far fa-save"></i>&nbsp;&nbsp;Create Data
+                                        </button>
+                                    </div>
+                                </div><br />
 
                             </div>
+
+
                         </div>
-                    </form>
-                
+                    </div>
+                </form>
+
 
             </div>
 
@@ -191,6 +190,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
 
@@ -224,11 +224,6 @@
                 { "data": "Id", "name": "Id", "autoWidth": true },
                 { "data": "TaskName", "name": "TaskName", "autoWidth": true },
                 { "data": "TaskType", "name": "TaskType", "autoWidth": true },
-                {
-                    "render": function (data, type, full, meta)
-            //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-            { return ' <a href="/Task/Edit/' + full.Id + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
-                },
                 {
                     //data: null, render: function (data, type, row) {
                     //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
@@ -268,9 +263,9 @@
                               //  window.location.href = "/Technician/Index"
                                 window.location.reload()
                             });
-                           
+
                         }
-                        
+
                     });
                 }
                 else {

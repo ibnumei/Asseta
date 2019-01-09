@@ -11,7 +11,7 @@ namespace AssetaWeb.Models
         public string TaskCode { get; set; }
         public string TaskDetail { get; set; }
         public int? TimeEstimate { get; set; }
-
+        public string TypeTime { get; set; }
         public DateTime? Date { get; set; }
 
         public DateTime? CreatedAtTask { get; set; }

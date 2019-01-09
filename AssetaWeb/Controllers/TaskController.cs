@@ -50,7 +50,7 @@ namespace AssetaWeb.Controllers
                 //                    select tempcustomer);
                 var customerData = from a in _db.TaskTbl
                                    join b in _db.AssetGroupTbl on a.AssetGroupId equals b.AssetGroupId
-                                   select new { a.TaskId, a.TaskCode, a.TaskDetail, a.Date, a.TimeEstimate, b.AssetGroupName};
+                                   select new { a.TaskId, a.TaskCode, a.TaskDetail, a.Date, a.TimeEstimate,a.TypeTime ,b.AssetGroupName};
 
                 ////Sorting
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -160,14 +160,15 @@ namespace AssetaWeb.Controllers
             
         }
         //===================================================================================
+        //Create Task Lines
+        //===================================================================================
         //View Create Data
         public IActionResult Create()
         {
-            ViewBag.Daily = new List<SelectListItem>
+            ViewBag.Type = new List<SelectListItem>
             {
-              new SelectListItem { Text="General", Value="General"},
-              new SelectListItem { Text="Yes / No", Value="Yes / No"},
-              new SelectListItem { Text="Checklist", Value="Checklist"}
+              new SelectListItem { Text="Day", Value="Day"},
+              new SelectListItem { Text="Hour", Value="Hour"},
             };
             ViewBag.AssetGroupId = new SelectList(_db.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
 
@@ -201,7 +202,13 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-            ViewBag.AssetGroupId = new SelectList(_db.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
+            // ViewBag.AssetGroupId = new SelectList(_db.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
+            ViewBag.AssetGroupId = _db.AssetGroupTbl.ToList();
+             ViewBag.Type = new List<SelectListItem>
+            {
+              new SelectListItem { Text="Day", Value="Day"},
+              new SelectListItem { Text="Hour", Value="Hour"},
+            };
             return View(taskmaster);
         }
 
