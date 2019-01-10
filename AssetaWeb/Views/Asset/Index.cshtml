@@ -92,7 +92,12 @@
                     { "data": "AssetGroupName", "name": "AssetGroupName", "autoWidth": true },
                     { "data": "AssetName", "name": "AssetName", "autoWidth": true },
                     { "data": "SerialNumber", "name": "SerialNumber", "autoWidth": true },
-                    { "data": "ValidityDate", "name": "ValidityDate", "autoWidth": true },
+                    {
+                        "data": "ValidityDate", "name": "ValidityDate", "autoWidth": true, "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return (month.length > 1 ? month :  month) + "-" + date.getDate() + "-" + date.getFullYear();
+                        }},
                     { "data": "EntityName", "name": "EntityName", "autoWidth": true },
                     { "data": "SiteName", "name": "SiteName", "Contact": true },
                     { "data": "Location", "name": "Pic", "Location": true },

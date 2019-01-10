@@ -21,12 +21,7 @@
         <li class="active">Work Order</li>
     </ol>
     <br />
-    <p>
-        <a asp-action="Create" class="btn btn-default">
-            <i class="fa fa-plus-square"></i>
-            <span>&nbsp;  Create New Work Order</span>
-        </a>
-    </p>
+
 </section>
 <!-- Content Header (Page header) -->
 <!-- Main content -->
@@ -42,7 +37,7 @@
                     <tr>
                         <th style="width:15%">WO Id</th>
                         <th style="width:25%">Wo Desc</th>
-                        <th style="width:35%">Status</th>
+                        <th style="width:30%">Status</th>
                         <th style="width:15%">Priority</th>
                         <th style="width:5%"></th>
                         <th style="width:5%"></th>
@@ -80,32 +75,30 @@
                     { "data": "Priority", "name": "Priority", "autoWidth": true },
                     {
                         "render": function (data, type, full, meta)
-                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/Site/Edit/' + full.WoId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
-                    },
-                    {
-                        //data: null, render: function (data, type, row) {
-                        //    return "<a href='#' class='btn btn-default' onclick=DeleteData('" + row.CustomerID + "');>"Delete</a>";
-                        //}
-
-                         "render": function (data, type, full, meta) {
-                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.WoId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
+                        {
+                            return '<button type="submit" value="submit" class="btn btn-default" onclick="remove(' + full.WoId + ')" id="aidi"><i class="fas fa-play"></i> Run </button>';
                         }
                     },
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/WorkOrder/Edit/' + full.WoId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                    },
+                    
                 ]
 
             });
         });
 
-    function remove(aids) {
+   function remove(aids) {
 
         //var myId = $('#TechnicianId').val();
         var myId = aids;
 
         swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover your data!",
-            icon: "warning",
+            title: "Create Work Order Execution",
+            text: "Are you sure want to Create WO Execution ?",
+            icon: "info",
             buttons: true,
             dangerMode: true,
         })
@@ -113,12 +106,12 @@
                 if (willDelete) {
                     $.ajax({
                         type: "POST",
-                        url: '@Url.Action("Delete")',
+                        url: '@Url.Action("Run")',
                         data: { id: myId},
                         dataType: "json",
                       // success: window.location.reload(),
                         success: function (response) {
-                            swal("Poof! Your data has been deleted!", {
+                            swal("Yeay, you've create WO Execution", {
                                 icon: "success",
                             }).then(function() {
                               //  window.location.href = "/Technician/Index"
@@ -131,7 +124,7 @@
 
                 }
                 else {
-                    swal("Your data is safe!");
+                    swal("Comeback later ^_^ ! ");
                 }
             });
         }

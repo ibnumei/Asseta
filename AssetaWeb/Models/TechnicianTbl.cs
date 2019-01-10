@@ -11,5 +11,6 @@ namespace AssetaWeb.Models
         public DateTime? ModifyAtTech { get; set; }
 
         public virtual ICollection<ScheduleMaintenanceTbl> ScheduleMaintenanceTbls { get; set; }
+        public virtual ICollection<WorkOrderTbl> WorkOrderTbls { get; set; }
     }
 }

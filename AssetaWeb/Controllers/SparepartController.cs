@@ -115,9 +115,12 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-            ViewBag.SupplierId = new SelectList(_db.SupplierTbl, "SupplierId", "SupplierCode");
-            ViewBag.SITEID = new SelectList(_db.SiteMasterTbl, "SiteId", "SiteName");
+            
             var sparepart = await _db.SparepartTbl.SingleOrDefaultAsync(m => m.SparepartId == id);
+            //ViewBag.SupplierId = new SelectList(_db.SupplierTbl, "SupplierId", "SupplierCode");
+            //ViewBag.SITEID = new SelectList(_db.SiteMasterTbl, "SiteId", "SiteName");
+            ViewBag.SupplierId = _db.SupplierTbl.ToList();
+            ViewBag.SITEID = _db.SiteMasterTbl.ToList();
             if (sparepart == null)
             {
                 return NotFound();

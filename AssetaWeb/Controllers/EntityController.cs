@@ -134,8 +134,10 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-            ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName");
+           
             var entityTbl = await _context.EntityTbl.FindAsync(id);
+            //ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName" , _context.SiteMasterTbl.Where(x => x.SiteId == entityTbl.SiteId).First().SiteName);
+            ViewBag.SITEID = _context.SiteMasterTbl.ToList();
             if (entityTbl == null)
             {
                 return NotFound();

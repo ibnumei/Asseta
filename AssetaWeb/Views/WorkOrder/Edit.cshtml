@@ -1,0 +1,413 @@
+﻿@model AssetaWeb.Models.WorkOrderTbl
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<section class="content-header">
+    <h1>
+        Create New Work Order
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a asp-area="" asp-controller="WorkOrder" asp-action="Index">Work Order</a></li>
+        <li class="active">Create New Work Order</li>
+    </ol>
+    <br />
+</section>
+
+<section class="content container-fluid">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="box">
+
+            <div class="box-header">
+                <h3 class="box-title">
+                    Workorder
+                </h3>
+                &nbsp;&nbsp;&nbsp;
+                <button type="submit" class="btn pull-right">
+                    <i class="far fa-save"></i>&nbsp;&nbsp;Save
+                </button>&nbsp;&nbsp;&nbsp;
+                @*<button type="submit" class="btn pull-right">
+                    <i class="far fa-save"></i>&nbsp;&nbsp;Create Data 2
+                </button>&nbsp;&nbsp;&nbsp;*@
+            </div>
+            <hr />
+
+            <div class="box-body">
+
+                <div class="row form-border">
+                    <div class="form-group">
+
+                        <div class="col-sm-6">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <b>Workorder ID</b>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input asp-for="WoId" class="form-control" autocomplete="off" readonly="readonly"/>
+                                </div>
+                            </div>
+                            <span asp-validation-for="WoId" class="text-danger"></span>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <b>Workorder Desc</b>
+                                </div>
+                                <div class="col-sm-8">
+                                    <textarea asp-for="WoDesc" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <span asp-validation-for="WoDesc" class="text-danger"></span>
+                            <br />
+
+                        </div>
+
+                        <div class="col-sm-6">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <b>Date</b>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input asp-for="Date" class="form-control" autocomplete="off" type="date"/>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                            <br />
+
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <b>Status</b>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(model => model.Status, ViewBag.status as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @style = "display: true" })
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <b>Priority</b>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(model => model.Priority, ViewBag.priority as List<SelectListItem>, htmlAttributes: new { @class = "form-control",style = "display: true" })
+                                </div>
+                            </div>
+                            <br />
+
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="col-lg-12">
+                    <div class="col-lg-8"></div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn pull-right">
+                            <i class="far fa-save"></i>&nbsp;&nbsp;Create Data 1
+                        </button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn pull-right">
+                            <i class="far fa-save"></i>&nbsp;&nbsp;Create Data 1
+                        </button>
+                    </div>
+                </div>*@
+
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+                        <li><a href="#sparepart" data-toggle="tab">Sparepart</a></li>
+                        <li><a href="#task" data-toggle="tab">Task</a></li>
+                        <li><a href="#cost" data-toggle="tab">Estimate Cost</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!-- Tab 1 -->
+                        <div class="active tab-pane" id="general">
+                            </br>
+                            <div class="row form-border">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Schedule Maentenance</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.MaentenanceId, new SelectList(ViewBag.Schedule, "ScheduleMainId", "MaintenanceId"), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="MaentenanceId" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Asset</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.AssetId, new SelectList(ViewBag.Asset, "AssetId", "AssetName"), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="AssetId" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Site Name</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.SiteId, new SelectList(ViewBag.Site, "SiteId", "SiteName"), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="SiteId" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Date</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input asp-for="Date" class="form-control" autocomplete="off" type="date"/>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="Date" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Notes</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input asp-for="Notes" class="form-control" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="Notes" class="text-danger"></span>
+                                        <br />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Tab 1 -->
+
+                        <!-- Tab 2 -->
+                        <div class="tab-pane" id="sparepart">
+                            </br>
+                            <div class="row form-border">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Active</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" asp-for="SparepartActive"/>
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Sparepart</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="table-responsive">
+                                                    <table class="table" width="100%">
+                                                        <tr>
+                                                            <th width="50%">
+                                                                Sparepart Desc
+                                                            </th>
+                                                            <th width="50%" align="justify">
+                                                                Qty
+                                                            </th>
+                                                        </tr>
+                                                        @foreach (var item in ViewBag.SparepartLines3)
+                                                        {
+                                                            <tr>
+                                                                <td width="50%">
+                                                                    @item.Sparepart.SparepartDesc
+                                                                </td>
+                                                                <td  width="50%">
+                                                                    @item.Quantity
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                </div>
+                                                
+
+                                                            @*<select id="sltCourse" class="sltStyle">
+                                                                <option>Select Course </option>
+
+                                                                @foreach (var item in ViewBag.SparepartLines)
+                                                                {
+                                                                    <option>@item.SparepartId</option>
+                                                                    
+                                                                }
+                                                            </select>*@
+
+
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Tab 2 -->
+
+                        <!-- TAB 3-->
+                        <div class="tab-pane" id="task">
+                            </br>
+                            <div class="row form-border">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Technician</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.TechnicianId, new SelectList(ViewBag.Technicians, "TechnicianId", "TechnicianName"), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="TechnicianId" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Estimate Working Hour</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input asp-for="EstimatedWorking" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="EstimatedWorking" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Task Detail</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @*<input asp-for="TaskDetail" class="form-control" autocomplete="off" />*@
+
+                                                <div class="table-responsive">
+                                                    <table class="table" width="100%">
+                                                        <tr>
+                                                            <th width="50%">
+                                                                Task Name
+                                                            </th>
+                                                            <th width="50%" align="justify">
+                                                                Task Type
+                                                            </th>
+                                                        </tr>
+                                                        @foreach (var item in ViewBag.taskline)
+                                                        {
+                                                            <tr>
+                                                                <td width="50%">
+                                                                    @item.TaskName
+                                                                </td>
+                                                                <td width="50%">
+                                                                    @item.TaskType
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        @*<span asp-validation-for="TaskDetail" class="text-danger"></span>*@
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- TAB 3-->
+
+                        <!-- TAB 4-->
+                        <div class="tab-pane" id="cost">
+                            </br>
+                            <div class="row form-border">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Maintenance Cost</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input asp-for="MaentenanceCost" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="MaentenanceCost" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Sparepart Cost</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input asp-for="SparepartCost" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="SparepartCost" class="text-danger"></span>
+
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Total Cost</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input asp-for="TotalCost" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="TotalCost" class="text-danger"></span>
+                                        </br>
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- TAB 4-->
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+        
+
+
+</section>
+

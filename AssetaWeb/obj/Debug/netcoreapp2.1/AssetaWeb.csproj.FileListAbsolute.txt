@@ -304,3 +304,7 @@ C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razo
 C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Task\TaskLines.g.cshtml.cs
 C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\WorkOrder\Index.g.cshtml.cs
 C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\WorkOrder\Create.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\WorkOrder\Edit.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\ScheduleMaintenance\ScheduleSpareparts.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\WorkOrderExe\Index.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\WorkOrderExe\Run.g.cshtml.cs

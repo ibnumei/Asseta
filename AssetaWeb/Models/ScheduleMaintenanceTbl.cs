@@ -23,6 +23,9 @@ namespace AssetaWeb.Models
         public long? TechnicianId { get; set; }
         public string Schedule { get; set; }
         public string AssetName { get; set; }
+        public DateTime? CreateAt { get; set; }
+        public DateTime? ModifyAt { get; set; }
+        public bool? Sended { get; set; }
 
         public virtual AssetTbl ASSETS { get; set; }
       //  public virtual MaentenanceTbl MaentenanceTbl { get; set; }
@@ -31,5 +34,7 @@ namespace AssetaWeb.Models
         public virtual SparepartTbl SPAREPARTS { get; set; }
         public virtual TaskTbl TASKS { get; set; }
         public virtual TechnicianTbl TECHNICIANS { get; set; }
+
+       // public virtual ScheduleSparepartLinesTbl ScheduleSparepartLines { get; set; }
     }
 }

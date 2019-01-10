@@ -1,101 +1,325 @@
-﻿@*@model AssetaWeb.Models.ScheduleMaintenanceTbl
+﻿@model AssetaWeb.Models.ScheduleMaintenanceTbl
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
 
-<h4>ScheduleMaintenanceTbl</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="AssetId" class="control-label"></label>
-                <input asp-for="AssetId" class="form-control" />
-                <span asp-validation-for="AssetId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MaintenanceId" class="control-label"></label>
-                <input asp-for="MaintenanceId" class="form-control" />
-                <span asp-validation-for="MaintenanceId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MaintenanceDesc" class="control-label"></label>
-                <input asp-for="MaintenanceDesc" class="form-control" />
-                <span asp-validation-for="MaintenanceDesc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SiteId" class="control-label"></label>
-                <input asp-for="SiteId" class="form-control" />
-                <span asp-validation-for="SiteId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastMaintenance" class="control-label"></label>
-                <input asp-for="LastMaintenance" class="form-control" />
-                <span asp-validation-for="LastMaintenance" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NextMaintenance" class="control-label"></label>
-                <input asp-for="NextMaintenance" class="form-control" />
-                <span asp-validation-for="NextMaintenance" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreateBy" class="control-label"></label>
-                <input asp-for="CreateBy" class="form-control" />
-                <span asp-validation-for="CreateBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastEditedBy" class="control-label"></label>
-                <input asp-for="LastEditedBy" class="form-control" />
-                <span asp-validation-for="LastEditedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PeriodId" class="control-label"></label>
-                <input asp-for="PeriodId" class="form-control" />
-                <span asp-validation-for="PeriodId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SparepartId" class="control-label"></label>
-                <input asp-for="SparepartId" class="form-control" />
-                <span asp-validation-for="SparepartId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskId" class="control-label"></label>
-                <input asp-for="TaskId" class="form-control" />
-                <span asp-validation-for="TaskId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaskDetail" class="control-label"></label>
-                <input asp-for="TaskDetail" class="form-control" />
-                <span asp-validation-for="TaskDetail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstimatedTime" class="control-label"></label>
-                <input asp-for="EstimatedTime" class="form-control" />
-                <span asp-validation-for="EstimatedTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TechnicianId" class="control-label"></label>
-                <input asp-for="TechnicianId" class="form-control" />
-                <span asp-validation-for="TechnicianId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
 
+<section class="content-header">
+    <h1>
+        Edit Schedule Maintenance
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Schedule</a></li>
+        <li><a asp-area="" asp-controller="ScheduleMaintenance" asp-action="Index">Schedule Maintenance</a></li>
+        <li class="active">Edit Schedule Maintenance</li>
+    </ol>
+    <br />
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+
+<section class="content container-fluid">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title"></h3>
+                <button type="submit" class="btn pull-right">
+                    <i class="far fa-save"></i>&nbsp;&nbsp;Edit Data
+                </button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab">General</a></li>
+                        <li><a href="#timeline" data-toggle="tab">Schedule</a></li>
+                        @*<li><a href="#settings" data-toggle="tab">Sparepart</a></li>*@
+                        <li><a href="#labors" data-toggle="tab">Labor Task</a></li>
+                    </ul>
+                    <div class="tab-content">
+
+                        <!-- TAB 1-->
+                        <div class="active tab-pane" id="activity">
+
+                            </br>
+
+                            <div class="row form-border">
+
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Asset Id</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownList("ASSETID", null, htmlAttributes: new { @class = "form-control", @required = "@required" })*@
+                                                @Html.DropDownListFor(model => model.AssetId, new SelectList(ViewBag.ASSETID, "AssetId", "AssetCode"), htmlAttributes: new { @class = "form-control" , @id = "ASSETID", @name = "ASSETID" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="AssetId" class="text-danger"></span>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Asset Name</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.AssetName, new { htmlAttributes = new { @class = "form-control", @id = "assetname", @name = "assetname", @readonly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="AssetName" class="text-danger"></span>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Maintenance Id</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.MaintenanceId, new { htmlAttributes = new { @class = "form-control", @required = "@required", @readonly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="MaintenanceId" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4 control-label">
+                                                <b>Maintenance Desc</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <textarea asp-for="MaintenanceDesc" class="form-control" rows="3"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <span asp-validation-for="MaintenanceDesc" class="text-danger"></span>
+                                        <br />
+
+
+                                    </div>
+
+                                    <div class="col-sm-6">
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Site Id</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownList("SITEID", null, htmlAttributes: new { @class = "form-control", @required = "@required" })*@
+                                                @Html.DropDownListFor(model => model.SiteId, new SelectList(ViewBag.SITEID, "SiteId", "SiteName"), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="SiteId" class="text-danger"></span>
+                                        <br />
+
+                                        @*<div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Last Maintenance</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.LastMaintenance, new { htmlAttributes = new { @class = "form-control", @required = "@required", @type = "date" } })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="LastMaintenance" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Next Maintenance</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.NextMaintenance, new { htmlAttributes = new { @class = "form-control", @required = "@required", @type = "date" } })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="NextMaintenance" class="text-danger"></span>
+                                        <br />*@
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                        <!-- TAB 1-->
+                        <!-- TAB 2-->
+                        <div class="tab-pane" id="timeline">
+                            </br>
+                            <div class="row form-border">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Maintenance Schedule</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownList("PERIODID", null, htmlAttributes: new { @class = "form-control", @required = "@required" })*@
+                                                @Html.DropDownListFor(model => model.PeriodId, new SelectList(ViewBag.PERIODID, "PeriodId", "PeriodType"), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="PeriodId" class="text-danger"></span>
+                                        <br />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- TAB 2-->
+                        <!-- TAB 3-->
+                        @*<div class="tab-pane" id="settings">
+                                </br>
+                                <div class="row form-border">
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <b>Select Sparepart</b>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownList("SPAREPARTID", null, htmlAttributes: new { @class = "form-control", @required = "@required" })
+                                                </div>
+                                            </div>
+                                            <span asp-validation-for="SparepartId" class="text-danger"></span>
+                                            <br />
+
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <b>Quantity</b>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @required = "@required" } })
+                                                </div>
+                                            </div>
+                                            <span asp-validation-for="Quantity" class="text-danger"></span>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>*@
+                        <!-- TAB 3-->
+                        <!-- TAB 4-->
+                        <div class="tab-pane" id="labors">
+                            </br>
+                            <div class="row form-border">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Select Task</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownList("TASKID", null, "--Select Task--", htmlAttributes: new { @class = "form-control", @required = "@required" })*@
+                                                @Html.DropDownListFor(model => model.TaskId, new SelectList(ViewBag.TASKID, "TaskId", "TaskCode"), htmlAttributes: new { @class = "form-control" })
+
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="TaskId" class="text-danger"></span>
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Task Detail</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.TaskDetail, new { htmlAttributes = new { @class = "form-control", @id = "taskdetail", @name = "taskdetail", @required = "@required", @readonly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="TaskDetail" class="text-danger"></span>
+
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Estimated Time</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(model => model.EstimatedTime, new { htmlAttributes = new { @class = "form-control", @id = "times", @name = "times", @required = "@required", @readonly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="EstimatedTime" class="text-danger"></span>
+                                        </br>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Select Technician</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                @*@Html.DropDownList("TECHNICIANID", null, htmlAttributes: new { @class = "form-control", @required = "@required" })*@
+                                                @Html.DropDownListFor(model => model.TechnicianId, new SelectList(ViewBag.TECHNICIANID, "TechnicianId", "TechnicianName"), htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="TaskId" class="text-danger"></span>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- TAB 4-->
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </form>
+
+
+
+</section>
+
+
+<script>
+
+        $("#ASSETID").change(function () {
+
+
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getget", "ScheduleMaintenance")',
+                data: { aidi: $("#ASSETID").val() },
+                dataType: "json",
+                success: function (data) {
+                    $("#assetname").val(data[0]);
+
+
+                }
+                });
+        })
+6
+        $("#TASKID").change(function () {
+
+
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getget2", "ScheduleMaintenance")',
+                data: { aidi: $("#TASKID").val() },
+                dataType: "json",
+                success: function (data) {
+                    $("#taskdetail").val(data[0]);
+                    $("#times").val(data[1]);
+
+
+                }
+                });
+        })
+
+
+</script>

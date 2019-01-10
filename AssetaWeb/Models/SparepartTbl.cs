@@ -22,5 +22,7 @@ namespace AssetaWeb.Models
         public virtual SiteMasterTbl SiteMaster { get; set; }
 
         public virtual ICollection<ScheduleMaintenanceTbl> ScheduleMaintenanceTbls { get; set; }
+
+        public virtual ICollection<ScheduleSparepartLinesTbl> ScheduleSparepartLines { get; set; }
     }
 }

@@ -1,0 +1,281 @@
+﻿@model AssetaWeb.Models.ScheduleSparepartLinesTbl
+@{
+    ViewData["Title"] = "ScheduleSpareparts";
+}
+
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<section class="content-header">
+    <h1>
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>Schedule</li>
+        <li><a asp-area="" asp-controller="ScheduleMaintenance" asp-action="Index">Schedule Maintenance</a></li>
+        <li class="active">Schedule M Lines</li>
+    </ol>
+    <br />
+
+</section>
+<!-- Content Header (Page header) -->
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!--  --------------------- Task Header --------------------------- -->
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"></h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form asp-action="Create">
+                        <div class="row form-border">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Maintenance Id</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="@ViewBag.MaintenanceId" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    @*<span asp-validation-for="Item1.TaskCode" class="text-danger"></span>*@
+                                    <br />
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <!-- ---------------------- Task Lines --------------------------- -->
+            <div class="box">
+                <div class="box-header">
+
+                    <p>
+                        <a class="btn btn-default" onclick="onCallForm1()">
+                            <i class="fa fa-plus-square"></i>
+                            <span>&nbsp;  Add New Schedule Sparepart Line</span>
+                        </a>
+                    </p>
+                    </br>
+
+                    <h3 class="box-title">All of Data in Schedule Sparepart Line</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example" class="table table-striped" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th style="width:30%">Maintenance Id</th>
+                                <th style="width:30%">Spareparts</th>
+                                <th style="width:30%">Quantity</th>
+                                <th style="width:10%"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<div id="myModal12" class="modal fade content" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="container-fluid">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Create Schedule M Line</h4>
+                <hr>
+            </div>
+
+            <div class="modal-body">
+
+                <form asp-action="CreateSchedulParts">
+                    <div class="row form-border">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+
+                            @*<div class="col-lg-4">
+
+                                </div>*@
+
+                            <div class="col-lg-12">
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <b>Schedule Id</b>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        @*<input asp-for="Item1.TaskCode" class="form-control" autocomplete="off" />*@
+                                        <input type="text" class="form-control" value="@ViewBag.TaskId" readonly="readonly" asp-for="ScheduleMainId">
+                                    </div>
+                                </div>
+                                <br />
+
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <b>Spareparts</b>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        @*@Html.DropDownListFor(model => model.TaskType, ViewBag.type as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })*@
+                                        @Html.DropDownList("SPAREPARTID", null, htmlAttributes: new { @class = "form-control", @required = "@required" })
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <b>Quantity</b>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input asp-for="Quantity" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Quantity" class="text-danger"></span>
+                                <br />
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+
+                                    </div>
+                                    <div class="col-lg-8">
+                                        @*<input type="submit" value="Create" class="btn  btn-default" />*@
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="far fa-save"></i>&nbsp;&nbsp;Create Data
+                                        </button>
+                                    </div>
+                                </div><br />
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-primary" onclick="myFunction()" data-dismiss="modal">Applied</button>*@
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal">Closed</button>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    $(document).ready(function () {
+        @*console.log('aaa');
+        console.log(@ViewBag.TaskId);*@
+
+
+        $("#example").DataTable({
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": true, // for disable multiple column at once
+            "ordering": false,
+            "ajax": {
+                "url": "/ScheduleMaintenance/LoadDataLine/"+@ViewBag.TaskId,
+               // "data"{i": d =}"+model.TaskId+",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }],
+
+            "columns": [
+                { "data": "Id", "name": "Id", "autoWidth": true },                
+                { "data": "MaintenanceId", "name": "MaintenanceId", "autoWidth": true },
+                { "data": "SparepartCode", "name": "SparepartCode", "autoWidth": true },
+                { "data": "Quantity", "name": "Quantity", "autoWidth": true },              
+                {
+
+                    "render": function (data, type, full, meta) {
+                        return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.Id + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
+                    }
+                },
+            ]
+
+        });
+    });
+
+    function remove(id) {
+        //var myId = $('#TechnicianId').val();
+        var myId = id;
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover your data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteScheParts")',
+                        data: { id: myId},
+                        dataType: "json",
+                      // success: window.location.reload(),
+                        success: function (response) {
+                            swal("Poof! Your data has been deleted!", {
+                                icon: "success",
+                            }).then(function() {
+                              //  window.location.href = "/Technician/Index"
+                                window.location.reload()
+                            });
+
+                        }
+
+                    });
+                }
+                else {
+                    swal("Your data is safe!");
+                }
+            });
+    }
+</script>
+
+<script>
+    function onCallForm1(e) {
+        $('#myModal12').modal('toggle');
+    }
+</script>
+

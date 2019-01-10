@@ -135,10 +135,14 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-            ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName");
-            ViewBag.AssetGroupId = new SelectList(_context.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
-            ViewBag.EntityId = new SelectList(_context.EntityTbl, "EntityId", "EntityName");
+            //ViewBag.SITEID = new SelectList(_context.SiteMasterTbl, "SiteId", "SiteName");
+            //ViewBag.AssetGroupId = new SelectList(_context.AssetGroupTbl, "AssetGroupId", "AssetGroupName");
+            //ViewBag.EntityId = new SelectList(_context.EntityTbl, "EntityId", "EntityName");
+            
             var assetTbl = await _context.AssetTbl.FindAsync(id);
+            ViewBag.SITEID = _context.SiteMasterTbl.ToList();
+            ViewBag.AssetGroupId = _context.AssetGroupTbl.ToList();
+            ViewBag.EntityId = _context.EntityTbl.ToList();
             if (assetTbl == null)
             {
                 return NotFound();

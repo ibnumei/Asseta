@@ -21,13 +21,16 @@ namespace AssetaWeb.Models
         public virtual DbSet<MaentenanceTbl> MaentenanceTbl { get; set; }
         public virtual DbSet<PeriodTbl> PeriodTbl { get; set; }
         public virtual DbSet<ScheduleMaintenanceTbl> ScheduleMaintenanceTbl { get; set; }
+        public virtual DbSet<ScheduleSparepartLinesTbl> ScheduleSparepartLinesTbl { get; set; }
         public virtual DbSet<SiteMasterTbl> SiteMasterTbl { get; set; }
         public virtual DbSet<SparepartTbl> SparepartTbl { get; set; }
         public virtual DbSet<SupplierTbl> SupplierTbl { get; set; }
         public virtual DbSet<TaskLineTbl> TaskLineTbl { get; set; }
         public virtual DbSet<TaskTbl> TaskTbl { get; set; }
         public virtual DbSet<TechnicianTbl> TechnicianTbl { get; set; }
-        public virtual DbSet<WoExceTbl> WoExceTbl { get; set; }
+        public virtual DbSet<WoExecutionTbl> WoExecutionTbl { get; set; }
+        public virtual DbSet<WoExeSparepartTbl> WoExeSparepartTbl { get; set; }
+        public virtual DbSet<WoExeTaskTbl> WoExeTaskTbl { get; set; }
         public virtual DbSet<WorkOrderTbl> WorkOrderTbl { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -164,6 +167,10 @@ namespace AssetaWeb.Models
             {
                 entity.HasKey(e => e.ScheduleMainId);
 
+                entity.Property(e => e.AssetName).HasMaxLength(100);
+
+                entity.Property(e => e.CreateAt).HasColumnType("datetime");
+
                 entity.Property(e => e.CreateBy).HasMaxLength(50);
 
                 entity.Property(e => e.LastEditedBy).HasMaxLength(50);
@@ -174,15 +181,20 @@ namespace AssetaWeb.Models
 
                 entity.Property(e => e.MaintenanceId).HasMaxLength(50);
 
+                entity.Property(e => e.ModifyAt).HasColumnType("datetime");
+
                 entity.Property(e => e.NextMaintenance).HasColumnType("datetime");
 
                 entity.Property(e => e.Quantity).HasColumnType("numeric(18, 0)");
 
-                entity.Property(e => e.TaskDetail).HasColumnType("text");
-
                 entity.Property(e => e.Schedule).HasColumnType("text");
 
-                entity.Property(e => e.AssetName).HasMaxLength(100);
+                entity.Property(e => e.TaskDetail).HasColumnType("text");
+            });
+
+            modelBuilder.Entity<ScheduleSparepartLinesTbl>(entity =>
+            {
+                entity.Property(e => e.Quantity).HasColumnType("numeric(18, 0)");
             });
 
             modelBuilder.Entity<SiteMasterTbl>(entity =>
@@ -277,9 +289,7 @@ namespace AssetaWeb.Models
 
                 entity.Property(e => e.TaskDetail).HasColumnType("text");
 
-                entity.Property(e => e.TypeTime)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.TypeTime).HasMaxLength(20);
             });
 
             modelBuilder.Entity<TechnicianTbl>(entity =>
@@ -295,15 +305,37 @@ namespace AssetaWeb.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<WoExceTbl>(entity =>
+            modelBuilder.Entity<WoExecutionTbl>(entity =>
             {
-                entity.HasKey(e => e.WoExeId);
+                entity.Property(e => e.Date).HasColumnType("datetime");
 
-                entity.Property(e => e.Date).HasColumnType("date");
+                entity.Property(e => e.Status).HasMaxLength(50);
 
-                entity.Property(e => e.Status)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.WoDesc).HasColumnType("text");
+
+                entity.Property(e => e.WorkExeId)
+                    .HasColumnName("WorkExe_Id")
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<WoExeSparepartTbl>(entity =>
+            {
+                entity.ToTable("WoExe_SparepartTbl");
+
+                entity.Property(e => e.SparepartCode).HasMaxLength(50);
+
+                entity.Property(e => e.Quantity).HasColumnType("numeric(18, 0)");
+            });
+
+            modelBuilder.Entity<WoExeTaskTbl>(entity =>
+            {
+                entity.ToTable("WoExe_TaskTbl");
+
+                entity.Property(e => e.Detail).HasColumnType("text");
+
+                entity.Property(e => e.TaskCode).HasMaxLength(50);
+
+                entity.Property(e => e.TaskType).HasMaxLength(50);
             });
 
             modelBuilder.Entity<WorkOrderTbl>(entity =>
@@ -314,16 +346,16 @@ namespace AssetaWeb.Models
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
+                entity.Property(e => e.EntityId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.ModifyAtWo).HasColumnType("datetime");
 
                 entity.Property(e => e.Notes).HasColumnType("text");
 
                 entity.Property(e => e.Priority)
                     .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SparepartActive)
-                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Status)

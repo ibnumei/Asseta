@@ -42,14 +42,16 @@
             <table id="example" class="table table-striped" width="100%">
                 <thead>
                     <tr>
-                        <th>Asset Name</th>
-                        <th>Maintenance Desc</th>
-                        <th>Schedule</th>
-                        <th>Last Maintenance</th>
-                        <th>Next Maintenance</th>
-                        
-                        <th></th>
-                        <th></th>
+                        <th style="width:10%">Schedule Main Id</th>
+                        <th style="width:15%">Asset Name</th>
+                        <th style="width:15%">Maintenance Desc</th>
+                        <th style="width:10%">Schedule</th>
+                        <th style="width:15%">Last Maintenance</th>
+                        <th style="width:15%">Next Maintenance</th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
                     </tr>
                 </thead>
 
@@ -78,21 +80,40 @@
                 "columnDefs":
                 [{
                     "targets": [0],
-                    "visible": true,
+                    "visible": false,
                     "searchable": false
                 }],
 
-                "columns": [
+                "columns": [    
+                    { "data": "ScheduleMainId", "name": "ScheduleMainId", "autoWidth": true },
                     { "data": "AssetName", "name": "AssetName", "autoWidth": true },
                     { "data": "MaintenanceDesc", "name": "MaintenanceDesc", "autoWidth": true },
-                    { "data": "Schedule", "name": "Schedule", "autoWidth": true },
-                    { "data": "LastMaintenance", "name": "LastMaintenance", "autoWidth": true },
-                    { "data": "NextMaintenance", "name": "NextMaintenance", "autoWidth": true },
+                    { "data": "PeriodType", "name": "Schedule", "autoWidth": true },
+                    {
+                        "data": "LastMaintenance", "name": "LastMaintenance", "autoWidth": true, "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return (month.length > 1 ? month : month) + "-" + date.getDate() + "-" + date.getFullYear();
+                        }},
+                    {
+                        "data": "NextMaintenance", "name": "NextMaintenance", "autoWidth": true, "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return (month.length > 1 ? month : month) + "-" + date.getDate() + "-" + date.getFullYear();
+                        }},
+                    {
+                        "render": function (data, type, full, meta) { return ' <a href="/ScheduleMaintenance/ScheduleSpareparts/' + full.ScheduleMainId + '" class="btn  btn-default"><i class="fas fa-folder-plus"></i><span>&nbsp;Sparepart Lines</span></a>'; }
+                    },
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return ' <a href="/ScheduleMaintenance/CreateWoTas/' + full.ScheduleMainId + '" class="btn  btn-default"><i class="fas fa-folder-plus"></i><span>&nbsp;Schedule Lines</span></a>'; }
+                        { return '<button type="submit" value="submit" class="btn btn-default" onclick="createLines(' + full.ScheduleMainId + ')" id="dada"><i class="fas fa-plus"></i> WO Task </button>'; }
+                    },
 
                     {
                         "render": function (data, type, full, meta)
                         //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/ScheduleMaintenance/Edit/' + full.AssetId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                        { return ' <a href="/ScheduleMaintenance/Edit/' + full.ScheduleMainId + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
                     },
                     {
                         //data: null, render: function (data, type, row) {
@@ -100,7 +121,7 @@
                         //}
 
                         "render": function (data, type, full, meta) {
-                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.AssetId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
+                            return '<button type="submit" value="Delete" class="btn btn-default" onclick="remove(' + full.ScheduleMainId + ')" id="aidi"><i class="fas fa-trash-alt"></i> Delete </button>';
                         }
                     },
                 ]
@@ -145,5 +166,45 @@
                     swal("Your data is safe!");
                 }
             });
-        }
+    }
+
+    function createLines(dada) {
+
+        //var myId = $('#TechnicianId').val();
+        var myId = dada;
+
+        swal({
+            title: "Create Workorder Task",
+            text: "are you sure want to create WO Task ?",
+            icon: "info",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("CreateWoTas")',
+                        data: { id: myId},
+                        dataType: "json",
+                      // success: window.location.reload(),
+                        success: function (response) {
+                            swal("Yeay! you've create WO Task!", {
+                                icon: "success",
+                            }).then(function() {
+                              //  window.location.href = "/Technician/Index"
+                                window.location.reload()
+                            });
+
+                        }
+
+                    });
+
+                }
+                else {
+                    swal("Comeback later ^_^ !");
+                }
+            });
+    }
+
 </script>
