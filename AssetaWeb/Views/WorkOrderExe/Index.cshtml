@@ -74,7 +74,13 @@
                     { "data": "Id", "name": "Id", "autoWidth": true },
                     { "data": "WorkExeId", "name": "WorkExeId", "autoWidth": true },
                     { "data": "WoDesc", "name": "WoDesc", "autoWidth": true },
-                    { "data": "Date", "name": "Date", "autoWidth": true },
+                    {
+                        "data": "Date", "name": "Date", "autoWidth": true, "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return (month.length > 1 ? month : month) + "-" + date.getDate() + "-" + date.getFullYear();
+                        }
+                    },
                     { "data": "TechnicianName", "name": "TechnicianName", "autoWidth": true },
                     { "data": "Status", "name": "Status", "autoWidth": true },
                     {

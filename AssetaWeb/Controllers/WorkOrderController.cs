@@ -190,6 +190,7 @@ namespace AssetaWeb.Controllers
 
             if (ModelState.IsValid)
             {
+
                 //workOrder.SparepartActive = b;
                 //_db.Add(workOrder);
                 //await _db.SaveChangesAsync();

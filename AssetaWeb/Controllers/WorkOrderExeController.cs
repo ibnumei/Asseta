@@ -85,7 +85,7 @@ namespace AssetaWeb.Controllers
         public async Task<IActionResult> Run(int? id)
         //public IActionResult Create()
         {
-            var wo = await _db.WoExecutionTbl.SingleOrDefaultAsync(m => m.WoId == id);
+            var wo = await _db.WoExecutionTbl.SingleOrDefaultAsync(m => m.Id == id);
 
             //var sche_id = wo.MaentenanceId;
             //var task_code = wo.EntityId;
