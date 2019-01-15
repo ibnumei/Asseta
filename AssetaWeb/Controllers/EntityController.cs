@@ -67,7 +67,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.EntityCode == searchValue);
+                    customerData = customerData.Where(m => m.EntityCode.Contains(searchValue) || m.EntityName.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -111,6 +111,32 @@ namespace AssetaWeb.Controllers
             return View();
         }
 
+        public ActionResult getget2(string aidi)
+        {
+            var getcomp = "";
+            var getadd = "";
+            if (aidi == null)
+            {
+                getcomp = null;
+                getadd = null;
+            }
+            else
+            {
+                int id = Convert.ToInt32(aidi);
+                getcomp = _context.SiteMasterTbl.Where(x => x.SiteId == id).First().Company;
+                getadd = _context.SiteMasterTbl.Where(x => x.SiteId == id).First().Address;
+            }
+
+
+            List<string> asd = new List<string>();
+            asd.Add(getcomp);
+            asd.Add(getadd);
+
+
+
+            return Json(asd);
+        }
+
         // POST: Entity/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -120,14 +146,64 @@ namespace AssetaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                String idrunning = "";
+                idrunning = generateRunningNumber(idrunning);
+
+                entityTbl.EntityCode = idrunning;
                 _context.Add(entityTbl);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(entityTbl);
         }
-        //=============================================================================================================================================
-        // GET: Entity/Edit/5
+        //====================================================================================================================
+        //GENERATE RUNNING NUMBER
+        private String generateRunningNumber(string id)
+        {
+            EntityTbl data = _context.EntityTbl.Where(x => x.EntityCode == "ET" + DateTime.Now.ToString("yyMM") + "0001").FirstOrDefault();
+
+            string tempSubId = "";
+            int tempId;
+
+            if (data == null)
+            {
+                id = "ET" + DateTime.Now.ToString("yyMM") + "0001";
+
+            }
+            else
+            {
+
+                var xx = (from a in _context.EntityTbl
+                          where a.EntityCode.Substring(0, 6) == "ET" + DateTime.Now.ToString("yyMM")
+                          select a).Max(a => a.EntityCode);
+
+                tempSubId = xx.Substring(6, 4);
+                tempId = Convert.ToInt32(tempSubId);
+                tempId = tempId + 1;
+
+                if (tempId.ToString().Length == 1)
+                {
+                    id = "ET" + DateTime.Now.ToString("yyMM") + "000" + tempId;
+                }
+                else if (tempId.ToString().Length == 2)
+                {
+                    id = "ET" + DateTime.Now.ToString("yyMM") + "00" + tempId;
+                }
+                else if (tempId.ToString().Length == 3)
+                {
+                    id = "ET" + DateTime.Now.ToString("yyMM") + "0" + tempId;
+                }
+                else if (tempId.ToString().Length == 4)
+                {
+                    id = "ET" + DateTime.Now.ToString("yyMM") + tempId;
+                }
+
+
+            }
+
+            return id;
+        }
+        //=============E D I T====================================================================
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)

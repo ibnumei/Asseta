@@ -33,10 +33,10 @@
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <b>Spare Part Code</b>
+                                        <b>Sparepart Code</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="SparepartCode" class="form-control" autocomplete="off" />
+                                        <input asp-for="SparepartCode" class="form-control" autocomplete="off" readonly="readonly"/>
                                     </div>
                                 </div>
                                 <span asp-validation-for="SparepartCode" class="text-danger"></span>
@@ -74,7 +74,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <b>Spare Part Description</b>
+                                        <b>Sparepart Name</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <textarea asp-for="SparepartDesc" class="form-control" rows="2"></textarea>
@@ -99,7 +99,8 @@
                                         <b>UoM</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="UoM" class="form-control" autocomplete="off" />
+                                        @*<input asp-for="UoM" class="form-control" autocomplete="off" />*@
+                                        @Html.DropDownListFor(model => model.UoM, ViewBag.UOM as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })
                                     </div>
                                 </div>
                                 <span asp-validation-for="UoM" class="text-danger"></span>

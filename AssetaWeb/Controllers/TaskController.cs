@@ -60,7 +60,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.TaskCode == searchValue);
+                    customerData = customerData.Where(m => m.TaskCode.Contains(searchValue) || m.TaskDetail.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -115,7 +115,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.TaskCode == searchValue);
+                    customerData = customerData.Where(m => m.TaskCode.Contains(searchValue) || m.TaskName.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -181,6 +181,10 @@ namespace AssetaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                String idrunning = "";
+                idrunning = generateRunningNumber(idrunning);
+
+                taskTbl.TaskCode = idrunning;
                 taskTbl.Date = DateTime.Now;
                 taskTbl.CreatedAtTask = DateTime.Now;
                 taskTbl.ModifyAtTask = DateTime.Now;
@@ -189,6 +193,53 @@ namespace AssetaWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(taskTbl);
+        }
+        //=========================================================================================================
+        //GENERATE RUNNING NUMBER
+        private String generateRunningNumber(string id)
+        {
+            TaskTbl data = _db.TaskTbl.Where(x => x.TaskCode == "TC" + DateTime.Now.ToString("yyMM") + "0001").FirstOrDefault();
+
+            string tempSubId = "";
+            int tempId;
+
+            if (data == null)
+            {
+                id = "TC" + DateTime.Now.ToString("yyMM") + "0001";
+
+            }
+            else
+            {
+
+                var xx = (from a in _db.TaskTbl
+                          where a.TaskCode.Substring(0, 6) == "TC" + DateTime.Now.ToString("yyMM")
+                          select a).Max(a => a.TaskCode);
+
+                tempSubId = xx.Substring(6, 4);
+                tempId = Convert.ToInt32(tempSubId);
+                tempId = tempId + 1;
+
+                if (tempId.ToString().Length == 1)
+                {
+                    id = "TC" + DateTime.Now.ToString("yyMM") + "000" + tempId;
+                }
+                else if (tempId.ToString().Length == 2)
+                {
+                    id = "TC" + DateTime.Now.ToString("yyMM") + "00" + tempId;
+                }
+                else if (tempId.ToString().Length == 3)
+                {
+                    id = "TC" + DateTime.Now.ToString("yyMM") + "0" + tempId;
+                }
+                else if (tempId.ToString().Length == 4)
+                {
+                    id = "TC" + DateTime.Now.ToString("yyMM") + tempId;
+                }
+
+
+            }
+
+            return id;
         }
         //===================================================================================
         public async Task<IActionResult> Edit(int? id)

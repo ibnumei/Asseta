@@ -53,7 +53,7 @@ namespace AssetaWeb.Controllers
                 //                    select tempcustomer);
                 var customerData = from a in _db.WoExecutionTbl
                                    join b in _db.TechnicianTbl on a.TechnicianId equals b.TechnicianId
-                                   select new { a.Id, a.WorkExeId, a.WoDesc, a.Date, a.Status, b.TechnicianName};
+                                   select new { a.Id, a.WorkExeId, a.WoDesc, a.Date, a.Status, b.TechnicianName };
 
                 ////Sorting
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -89,6 +89,8 @@ namespace AssetaWeb.Controllers
 
             //var sche_id = wo.MaentenanceId;
             //var task_code = wo.EntityId;
+            ViewBag.Aidi = id.ToString();
+
 
             ViewBag.status = new List<SelectListItem>
             {
@@ -127,6 +129,8 @@ namespace AssetaWeb.Controllers
             //=================================================================================
             ViewBag.Task = _db.WoExeTaskTbl.Where(x => x.WoExeId == wo.Id);
             ViewBag.Sparepart = _db.WoExeSparepartTbl.Where(x => x.WoExeId == wo.Id);
+            ViewBag.TECHNICIANID = _db.TechnicianTbl.ToList();
+            ViewBag.SITEID = _db.SiteMasterTbl.ToList();
             //=================================================================================
 
 
@@ -165,6 +169,25 @@ namespace AssetaWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(workOrder);
+        }
+
+
+        [HttpPost]
+        public ActionResult UpdateCustomer(List<string> listkey)
+        {
+            var t = listkey;
+
+            string quant = t[0];
+            string spares = t[1];
+            string aidi = t[2];
+
+            WoExeSparepartTbl woExe = _db.WoExeSparepartTbl.Where(x => x.WoExeId == Convert.ToInt64(aidi) && x.SparepartCode == spares).First();
+            woExe.Quantity = Convert.ToInt32(quant);
+            _db.Update(woExe);
+            _db.SaveChanges();
+
+
+            return new EmptyResult();
         }
     }
 }

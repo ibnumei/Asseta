@@ -21,7 +21,8 @@ namespace AssetaWeb.Controllers
         // GET: Asset
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AssetTbl.Include(x=>x.SITE).Include(x=>x.AssetGroup).Include(x=>x.Entity).ToListAsync());
+            //return View(await _context.AssetTbl.Include(x=>x.SITE).Include(x=>x.AssetGroup).Include(x=>x.Entity).ToListAsync());
+            return View();
         }
         //===================================================================================
         //Get Processing Data tables
@@ -63,7 +64,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.AssetCode == searchValue);
+                    customerData = customerData.Where(m => m.AssetCode.Contains(searchValue) || m.AssetName.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -119,6 +120,10 @@ namespace AssetaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                String idrunning = "";
+                idrunning = generateRunningNumber(idrunning);
+
+                assetTbl.AssetCode = idrunning;
                 assetTbl.CreatedAtAsset = DateTime.Now;
                 assetTbl.ModifyAtAsset = DateTime.Now;
                 _context.Add(assetTbl);
@@ -127,8 +132,53 @@ namespace AssetaWeb.Controllers
             }
             return View(assetTbl);
         }
-        //=============================================================================================================================================
-        // GET: Asset/Edit/5
+        //=============================================================================================================
+        //GENERATE RUNNING NUMBER
+        private String generateRunningNumber(string id)
+        {
+            AssetTbl data = _context.AssetTbl.Where(x => x.AssetCode == "AS" + DateTime.Now.ToString("yyMM") + "0001").FirstOrDefault();
+
+            string tempSubId = "";
+            int tempId;
+
+            if (data == null)
+            {
+                id = "AS" + DateTime.Now.ToString("yyMM") + "0001";
+
+            }
+            else
+            {
+
+                var xx = (from a in _context.AssetTbl
+                          where a.AssetCode.Substring(0, 6) == "ST" + DateTime.Now.ToString("yyMM")
+                          select a).Max(a => a.AssetCode);
+
+                tempSubId = xx.Substring(6, 4);
+                tempId = Convert.ToInt32(tempSubId);
+                tempId = tempId + 1;
+
+                if (tempId.ToString().Length == 1)
+                {
+                    id = "AS" + DateTime.Now.ToString("yyMM") + "000" + tempId;
+                }
+                else if (tempId.ToString().Length == 2)
+                {
+                    id = "AS" + DateTime.Now.ToString("yyMM") + "00" + tempId;
+                }
+                else if (tempId.ToString().Length == 3)
+                {
+                    id = "AS" + DateTime.Now.ToString("yyMM") + "0" + tempId;
+                }
+                else if (tempId.ToString().Length == 4)
+                {
+                    id = "AS" + DateTime.Now.ToString("yyMM") + tempId;
+                }
+
+
+            }
+
+            return id;
+        }
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)

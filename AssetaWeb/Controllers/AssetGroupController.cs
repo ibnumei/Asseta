@@ -56,7 +56,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.AssetGroupCode == searchValue);
+                    customerData = customerData.Where(m => m.AssetGroupCode.Contains(searchValue) || m.AssetGroupName.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -88,6 +88,10 @@ namespace AssetaWeb.Controllers
         {
             if(ModelState.IsValid)
             {
+                String idrunning = "";
+                idrunning = generateRunningNumber(idrunning);
+
+                assetGroup.AssetGroupCode = idrunning;
                 assetGroup.CreatedAtAssetGroup = DateTime.Now;
                 assetGroup.ModifyAtAssetGroup = DateTime.Now;
                 _db.Add(assetGroup);
@@ -95,6 +99,53 @@ namespace AssetaWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(assetGroup);
+        }
+        //=========================================================================================================
+        //GENERATE RUNNING NUMBER
+        private String generateRunningNumber(string id)
+        {
+            AssetGroupTbl data = _db.AssetGroupTbl.Where(x => x.AssetGroupCode == "AG" + DateTime.Now.ToString("yyMM") + "0001").FirstOrDefault();
+
+            string tempSubId = "";
+            int tempId;
+
+            if (data == null)
+            {
+                id = "AG" + DateTime.Now.ToString("yyMM") + "0001";
+
+            }
+            else
+            {
+
+                var xx = (from a in _db.AssetGroupTbl
+                          where a.AssetGroupCode.Substring(0, 6) == "AG" + DateTime.Now.ToString("yyMM")
+                          select a).Max(a => a.AssetGroupCode);
+
+                tempSubId = xx.Substring(6, 4);
+                tempId = Convert.ToInt32(tempSubId);
+                tempId = tempId + 1;
+
+                if (tempId.ToString().Length == 1)
+                {
+                    id = "AG" + DateTime.Now.ToString("yyMM") + "000" + tempId;
+                }
+                else if (tempId.ToString().Length == 2)
+                {
+                    id = "AG" + DateTime.Now.ToString("yyMM") + "00" + tempId;
+                }
+                else if (tempId.ToString().Length == 3)
+                {
+                    id = "AG" + DateTime.Now.ToString("yyMM") + "0" + tempId;
+                }
+                else if (tempId.ToString().Length == 4)
+                {
+                    id = "AG" + DateTime.Now.ToString("yyMM") + tempId;
+                }
+
+
+            }
+
+            return id;
         }
         //=========================================================================================================
         //Edit View

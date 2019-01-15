@@ -4,6 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
 <section class="content-header">
     <h1>
         Create New Entity Master
@@ -37,7 +44,7 @@
                                         <b>Entity Code</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="EntityCode" class="form-control" autocomplete="off" />
+                                        <input asp-for="EntityCode" class="form-control" autocomplete="off" readonly="readonly" />
                                     </div>
                                 </div>
                                 <span asp-validation-for="EntityCode" class="text-danger"></span>
@@ -56,38 +63,40 @@
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <b>Company Name</b>
+                                        <b>Site Name</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="CompanyName" class="form-control" autocomplete="off" />
+                                        @Html.DropDownList("SITEID", null, "--Select Site--", htmlAttributes: new { @class = "form-control", @required = "@required" })
                                     </div>
                                 </div>
-                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                <span asp-validation-for="SiteId" class="text-danger"></span>
                                 <br />
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <b>Site Name</b>
+                                        <b>Company Name</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        @Html.DropDownList("SITEID", null, htmlAttributes: new { @class = "form-control" })
+                                        @*<input asp-for="CompanyName" class="form-control" autocomplete="off" />*@
+                                        @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control", @id = "companyname", @name = "companyname", @required = "@required", @readonly = "readonly" } })
                                     </div>
                                 </div>
-                                <span asp-validation-for="SiteId" class="text-danger"></span>
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
                                 <br />
 
                             </div>
 
                             <div class="col-sm-6">
 
-                                
+
 
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <b>Address</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                                        @*<textarea asp-for="Address" class="form-control" rows="3"></textarea>*@
+                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @id = "address", @name = "address", @required = "@required", @readonly = "readonly" } })
                                     </div>
                                 </div>
                                 <span asp-validation-for="Address" class="text-danger"></span>
@@ -106,7 +115,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <b>Pic</b>
+                                        <b>PIC</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <input asp-for="Pic" class="form-control" autocomplete="off" />
@@ -134,4 +143,24 @@
         <!-- /.box-body -->
     </div>
 </section>
+
+<script>
+
+            $("#SITEID").change(function () {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getget2", "Entity")',
+                data: { aidi: $("#SITEID").val() },
+                dataType: "json",
+                success: function (data) {
+                    $("#companyname").val(data[0]);
+                    $("#address").val(data[1]);
+
+
+                }
+                });
+            })
+
+
+</script>
 

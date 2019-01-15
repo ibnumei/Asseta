@@ -59,7 +59,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.SupplierCode == searchValue);
+                    customerData = customerData.Where(m => m.SupplierCode.Contains(searchValue) || m.Description.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -110,6 +110,11 @@ namespace AssetaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                String idrunning = "";
+                idrunning = generateRunningNumber(idrunning);
+
+                supplierTbl.SupplierCode = idrunning;
+
                 supplierTbl.CreatedAtSupplier = DateTime.Now;
                 supplierTbl.ModifyAtSupplier = DateTime.Now;
                 
@@ -119,7 +124,53 @@ namespace AssetaWeb.Controllers
             }
             return View(supplierTbl);
         }
+        //=========================================================================================================
+        //GENERATE RUNNING NUMBER
+        private String generateRunningNumber(string id)
+        {
+            SupplierTbl data = _context.SupplierTbl.Where(x => x.SupplierCode == "SP" + DateTime.Now.ToString("yyMM") + "0001").FirstOrDefault();
 
+            string tempSubId = "";
+            int tempId;
+
+            if (data == null)
+            {
+                id = "SP" + DateTime.Now.ToString("yyMM") + "0001";
+
+            }
+            else
+            {
+
+                var xx = (from a in _context.SupplierTbl
+                          where a.SupplierCode.Substring(0, 6) == "SP" + DateTime.Now.ToString("yyMM")
+                          select a).Max(a => a.SupplierCode);
+
+                tempSubId = xx.Substring(6, 4);
+                tempId = Convert.ToInt32(tempSubId);
+                tempId = tempId + 1;
+
+                if (tempId.ToString().Length == 1)
+                {
+                    id = "SP" + DateTime.Now.ToString("yyMM") + "000" + tempId;
+                }
+                else if (tempId.ToString().Length == 2)
+                {
+                    id = "SP" + DateTime.Now.ToString("yyMM") + "00" + tempId;
+                }
+                else if (tempId.ToString().Length == 3)
+                {
+                    id = "SP" + DateTime.Now.ToString("yyMM") + "0" + tempId;
+                }
+                else if (tempId.ToString().Length == 4)
+                {
+                    id = "SP" + DateTime.Now.ToString("yyMM") + tempId;
+                }
+
+
+            }
+
+            return id;
+        }
         // GET: Supplier/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {

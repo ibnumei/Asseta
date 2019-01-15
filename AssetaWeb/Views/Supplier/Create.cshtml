@@ -36,14 +36,14 @@
                                         <b>Supplier Code</b>
                                     </div>
                                     <div class="col-sm-8">
-                                        <input asp-for="SupplierCode" class="form-control" autocomplete="off" />
+                                        <input asp-for="SupplierCode" class="form-control" autocomplete="off" readonly="readonly"/>
                                     </div>
                                 </div>
                                 <span asp-validation-for="SupplierCode" class="text-danger"></span>
                                 <br />
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <b>Description</b>
+                                        <b>Supplier Name</b>
                                     </div>
                                     <div class="col-sm-8">
                                         <textarea asp-for="Description" class="form-control" rows="4"></textarea>

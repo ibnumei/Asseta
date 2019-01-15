@@ -58,7 +58,8 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.SiteCode == searchValue);
+                    //customerData = customerData.Where(m => m.SiteCode == searchValue);
+                    customerData = customerData.Where(m => m.SiteCode.Contains(searchValue) || m.SiteName.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -89,6 +90,10 @@ namespace AssetaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                String idrunning = "";
+                idrunning = generateRunningNumber(idrunning);
+
+                siteMaster.SiteCode = idrunning;
                 siteMaster.ModifyAtSite = DateTime.Now;
                 siteMaster.CreatedAtSite = DateTime.Now;
                 _db.Add(siteMaster);
@@ -96,6 +101,53 @@ namespace AssetaWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(siteMaster);
+        }
+        //=========================================================================================================
+        //GENERATE RUNNING NUMBER
+        private String generateRunningNumber(string id)
+        {
+            SiteMasterTbl data = _db.SiteMasterTbl.Where(x => x.SiteCode == "ST" + DateTime.Now.ToString("yyMM") + "0001").FirstOrDefault();
+
+            string tempSubId = "";
+            int tempId;
+
+            if (data == null)
+            {
+                id = "ST" + DateTime.Now.ToString("yyMM") + "0001";
+
+            }
+            else
+            {
+
+                var xx = (from a in _db.SiteMasterTbl
+                          where a.SiteCode.Substring(0, 6) == "ST" + DateTime.Now.ToString("yyMM")
+                          select a).Max(a => a.SiteCode);
+
+                tempSubId = xx.Substring(6, 4);
+                tempId = Convert.ToInt32(tempSubId);
+                tempId = tempId + 1;
+
+                if (tempId.ToString().Length == 1)
+                {
+                    id = "ST" + DateTime.Now.ToString("yyMM") + "000" + tempId;
+                }
+                else if (tempId.ToString().Length == 2)
+                {
+                    id = "ST" + DateTime.Now.ToString("yyMM") + "00" + tempId;
+                }
+                else if (tempId.ToString().Length == 3)
+                {
+                    id = "ST" + DateTime.Now.ToString("yyMM") + "0" + tempId;
+                }
+                else if (tempId.ToString().Length == 4)
+                {
+                    id = "ST" + DateTime.Now.ToString("yyMM") + tempId;
+                }
+
+
+            }
+
+            return id;
         }
         //=========================================================================================================
         //Edit View

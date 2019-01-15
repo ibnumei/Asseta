@@ -63,7 +63,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.TechnicianName == searchValue);
+                    customerData = customerData.Where(m => m.TechnicianName.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -122,6 +122,7 @@ namespace AssetaWeb.Controllers
             }
             return View(technicianTbl);
         }
+        //=========================================================================================================
 
         // GET: Technician/Edit/5
         public async Task<IActionResult> Edit(long? id)

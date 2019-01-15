@@ -66,7 +66,7 @@ namespace AssetaWeb.Controllers
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.SparepartCode == searchValue);
+                    customerData = customerData.Where(m => m.SparepartCode.Contains(searchValue) || m.SparepartDesc.Contains(searchValue));
                 }
 
                 //total number of rows count   
@@ -88,6 +88,12 @@ namespace AssetaWeb.Controllers
         // GET: Asset/Create
         public IActionResult Create()
         {
+            ViewBag.UOM = new List<SelectListItem>
+            {
+              new SelectListItem { Text="Pcs", Value="Pcs"},
+              new SelectListItem { Text="Kg", Value="Kg"},
+            };
+
             ViewBag.SupplierId = new SelectList(_db.SupplierTbl, "SupplierId", "SupplierCode");
             ViewBag.SITEID = new SelectList(_db.SiteMasterTbl, "SiteId", "SiteName");
             return View();
@@ -99,6 +105,10 @@ namespace AssetaWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                String idrunning = "";
+                idrunning = generateRunningNumber(idrunning);
+
+                sparepart.SparepartCode = idrunning;
                 sparepart.CreatedAtSupp = DateTime.Now;
                 sparepart.ModifyAtSupp = DateTime.Now;
                 _db.Add(sparepart);
@@ -106,6 +116,53 @@ namespace AssetaWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(sparepart);
+        }
+        //=========================================================================================================
+        //GENERATE RUNNING NUMBER
+        private String generateRunningNumber(string id)
+        {
+            SparepartTbl data = _db.SparepartTbl.Where(x => x.SparepartCode == "SC" + DateTime.Now.ToString("yyMM") + "0001").FirstOrDefault();
+
+            string tempSubId = "";
+            int tempId;
+
+            if (data == null)
+            {
+                id = "SC" + DateTime.Now.ToString("yyMM") + "0001";
+
+            }
+            else
+            {
+
+                var xx = (from a in _db.SparepartTbl
+                          where a.SparepartCode.Substring(0, 6) == "SC" + DateTime.Now.ToString("yyMM")
+                          select a).Max(a => a.SparepartCode);
+
+                tempSubId = xx.Substring(6, 4);
+                tempId = Convert.ToInt32(tempSubId);
+                tempId = tempId + 1;
+
+                if (tempId.ToString().Length == 1)
+                {
+                    id = "SC" + DateTime.Now.ToString("yyMM") + "000" + tempId;
+                }
+                else if (tempId.ToString().Length == 2)
+                {
+                    id = "SC" + DateTime.Now.ToString("yyMM") + "00" + tempId;
+                }
+                else if (tempId.ToString().Length == 3)
+                {
+                    id = "SC" + DateTime.Now.ToString("yyMM") + "0" + tempId;
+                }
+                else if (tempId.ToString().Length == 4)
+                {
+                    id = "SC" + DateTime.Now.ToString("yyMM") + tempId;
+                }
+
+
+            }
+
+            return id;
         }
         //=========================================================================================================
         //Edit View
@@ -121,6 +178,13 @@ namespace AssetaWeb.Controllers
             //ViewBag.SITEID = new SelectList(_db.SiteMasterTbl, "SiteId", "SiteName");
             ViewBag.SupplierId = _db.SupplierTbl.ToList();
             ViewBag.SITEID = _db.SiteMasterTbl.ToList();
+
+            ViewBag.UOM = new List<SelectListItem>
+            {
+              new SelectListItem { Text="Pcs", Value="Pcs"},
+              new SelectListItem { Text="Kg", Value="Kg"},
+            };
+
             if (sparepart == null)
             {
                 return NotFound();
