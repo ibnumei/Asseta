@@ -119,27 +119,38 @@
                                         <span asp-validation-for="SiteId" class="text-danger"></span>
                                         <br />
 
-                                        @*<div class="row">
+                                        <div class="row">
                                             <div class="col-sm-4">
                                                 <b>Last Maintenance</b>
                                             </div>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.LastMaintenance, new { htmlAttributes = new { @class = "form-control", @required = "@required", @type = "date" } })
+                                                <input asp-for="LastMaintenance" class="form-control" autocomplete="off" type="date" />
                                             </div>
                                         </div>
                                         <span asp-validation-for="LastMaintenance" class="text-danger"></span>
                                         <br />
 
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <b>Next Maintenance</b>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(model => model.NextMaintenance, new { htmlAttributes = new { @class = "form-control", @required = "@required", @type = "date" } })
-                                            </div>
-                                        </div>
-                                        <span asp-validation-for="NextMaintenance" class="text-danger"></span>
-                                        <br />*@
+                                        @*<div class="row">
+            <div class="col-sm-4">
+                <b>Last Maintenance</b>
+            </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.LastMaintenance, new { htmlAttributes = new { @class = "form-control", @required = "@required", @type = "date" } })
+            </div>
+        </div>
+        <span asp-validation-for="LastMaintenance" class="text-danger"></span>
+        <br />
+
+        <div class="row">
+            <div class="col-sm-4">
+                <b>Next Maintenance</b>
+            </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.NextMaintenance, new { htmlAttributes = new { @class = "form-control", @required = "@required", @type = "date" } })
+            </div>
+        </div>
+        <span asp-validation-for="NextMaintenance" class="text-danger"></span>
+        <br />*@
 
 
                                     </div>
