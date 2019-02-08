@@ -14,5 +14,6 @@ namespace AssetaWeb.Models
         public string Status { get; set; }
         public long? SiteId { get; set; }
         public long? MaintenanceId { get; set; }
+        public long? RequestId { get; set; }
     }
 }

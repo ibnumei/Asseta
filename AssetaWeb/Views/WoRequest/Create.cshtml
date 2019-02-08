@@ -1,0 +1,163 @@
+﻿@model AssetaWeb.Models.WoRequestTbl
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<section class="content-header">
+    <h1>
+        Create New Work Order Request
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Wo Request</a></li>
+        <li><a asp-area="" asp-controller="WoRequest" asp-action="Index">Wo Request</a></li>
+        <li class="active">Create Wo Request New Data</li>
+    </ol>
+    <br />
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title"></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="col-sm-12">
+                <form asp-action="Create">
+                    <div class="row form-border">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Request ID</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="RequestId" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="RequestId" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Request Desc</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="RequestDesc" class="form-control" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="RequestDesc" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Site Name</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("SITEID", null, "--Select Site--", htmlAttributes: new { @class = "form-control", @required = "@required" })
+                                    </div>
+                                </div>
+                                <span asp-validation-for="SiteId" class="text-danger"></span>
+                                <br />
+
+
+                            </div>
+
+                            <div class="col-sm-6">
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Asset Name</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("ASSETID", null, "--Select Asset--", htmlAttributes: new { @class = "form-control", @required = "@required" })
+                                    </div>
+                                </div>
+                                <span asp-validation-for="AssetId" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Asset Desc</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.AssetDesc, new { htmlAttributes = new { @class = "form-control", @id = "companyname", @name = "companyname", @required = "@required", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                                <span asp-validation-for="AssetDesc" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Date</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="Date" class="form-control" autocomplete="off" type="date" />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Date" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <b>Status</b>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input asp-for="Status" class="form-control" autocomplete="off" value="Pending" readonly />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="far fa-save"></i>&nbsp;&nbsp;Create Data
+                                        </button>
+                                    </div>
+                                </div><br />
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+<script>
+
+            $("#ASSETID").change(function () {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getget2", "WoRequest")',
+                data: { aidi: $("#ASSETID").val() },
+                dataType: "json",
+                success: function (data) {
+                    $("#companyname").val(data[0]);
+
+
+                }
+                });
+            })
+
+
+</script>

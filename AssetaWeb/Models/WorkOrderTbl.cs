@@ -7,6 +7,7 @@ namespace AssetaWeb.Models
     {
         public long WoId { get; set; }
         public long? MaentenanceId { get; set; }
+        public long? RequestId { get; set; }
         public long? AssetId { get; set; }
         public long? SiteId { get; set; }
         public long? TechnicianId { get; set; }

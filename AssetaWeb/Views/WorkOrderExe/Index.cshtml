@@ -84,9 +84,13 @@
                     { "data": "TechnicianName", "name": "TechnicianName", "autoWidth": true },
                     { "data": "Status", "name": "Status", "autoWidth": true },
                     {
+                        "data": "Status",
                         "render": function (data, type, full, meta)
-                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
-                        { return ' <a href="/WorkOrderExe/Run/' + full.Id + '" class="btn  btn-default"><i class="fas fa-play"></i><span>&nbsp;Run</span></a>'; }
+                        { 
+                            if (data == 'Not Enough Parts') {
+                            return ' <a href="/WorkOrderExe/Run/' + full.Id + '" class="btn  btn-default" disabled onclick="return false"><i class="fas fa-play"></i><span>&nbsp;Run</span></a>'; 
+                            }
+                            return ' <a href="/WorkOrderExe/Run/' + full.Id + '" class="btn  btn-default"><i class="fas fa-play"></i><span>&nbsp;Run</span></a>'; }
                     },
                 ]
 

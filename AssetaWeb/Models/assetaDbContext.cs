@@ -23,6 +23,8 @@ namespace AssetaWeb.Models
         public virtual DbSet<ScheduleMaintenanceTbl> ScheduleMaintenanceTbl { get; set; }
         public virtual DbSet<ScheduleSparepartLinesTbl> ScheduleSparepartLinesTbl { get; set; }
         public virtual DbSet<SiteMasterTbl> SiteMasterTbl { get; set; }
+        public virtual DbSet<SparepartRequestLinesTbl> SparepartRequestLinesTbl { get; set; }
+        public virtual DbSet<SparepartRequestTbl> SparepartRequestTbl { get; set; }
         public virtual DbSet<SparepartTbl> SparepartTbl { get; set; }
         public virtual DbSet<SupplierTbl> SupplierTbl { get; set; }
         public virtual DbSet<TaskLineTbl> TaskLineTbl { get; set; }
@@ -31,6 +33,9 @@ namespace AssetaWeb.Models
         public virtual DbSet<WoExecutionTbl> WoExecutionTbl { get; set; }
         public virtual DbSet<WoExeSparepartTbl> WoExeSparepartTbl { get; set; }
         public virtual DbSet<WoExeTaskTbl> WoExeTaskTbl { get; set; }
+        public virtual DbSet<WoRequestSpartpartLineTbl> WoRequestSpartpartLineTbl { get; set; }
+        public virtual DbSet<WoRequestTaskLine> WoRequestTaskLine { get; set; }
+        public virtual DbSet<WoRequestTbl> WoRequestTbl { get; set; }
         public virtual DbSet<WorkOrderTbl> WorkOrderTbl { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -216,6 +221,28 @@ namespace AssetaWeb.Models
                 entity.Property(e => e.SiteName).HasColumnType("text");
             });
 
+            modelBuilder.Entity<SparepartRequestLinesTbl>(entity =>
+            {
+                entity.Property(e => e.SparepartCode).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<SparepartRequestTbl>(entity =>
+            {
+                entity.Property(e => e.Availability).HasMaxLength(50);
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Notes).HasColumnType("text");
+
+                entity.Property(e => e.SparepartRequestId).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.Property(e => e.WoDesc).HasColumnType("text");
+
+                entity.Property(e => e.WorId).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<SparepartTbl>(entity =>
             {
                 entity.HasKey(e => e.SparepartId);
@@ -322,9 +349,9 @@ namespace AssetaWeb.Models
             {
                 entity.ToTable("WoExe_SparepartTbl");
 
-                entity.Property(e => e.SparepartCode).HasMaxLength(50);
-
                 entity.Property(e => e.Quantity).HasColumnType("numeric(18, 0)");
+
+                entity.Property(e => e.SparepartCode).HasMaxLength(50);
             });
 
             modelBuilder.Entity<WoExeTaskTbl>(entity =>
@@ -336,6 +363,39 @@ namespace AssetaWeb.Models
                 entity.Property(e => e.TaskCode).HasMaxLength(50);
 
                 entity.Property(e => e.TaskType).HasMaxLength(50);
+
+                entity.Property(e => e.TypeGeneral).HasMaxLength(50);
+
+                entity.Property(e => e.TypeYesNo).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<WoRequestSpartpartLineTbl>(entity =>
+            {
+                entity.ToTable("WoRequest_SpartpartLineTbl");
+            });
+
+            modelBuilder.Entity<WoRequestTaskLine>(entity =>
+            {
+                entity.ToTable("WoRequest_TaskLine");
+
+                entity.Property(e => e.Kolomtambahan)
+                    .HasColumnName("kolomtambahan")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.TaskDetail).HasColumnType("text");
+            });
+
+            modelBuilder.Entity<WoRequestTbl>(entity =>
+            {
+                entity.Property(e => e.AssetDesc).HasColumnType("text");
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.RequestDesc).HasColumnType("text");
+
+                entity.Property(e => e.RequestId).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
             });
 
             modelBuilder.Entity<WorkOrderTbl>(entity =>

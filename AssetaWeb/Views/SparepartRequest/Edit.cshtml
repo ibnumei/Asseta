@@ -1,0 +1,259 @@
+﻿@model AssetaWeb.Models.SparepartRequestTbl
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+
+<section class="content-header">
+    <h1>
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a asp-area="" asp-controller="SparepartRequest" asp-action="Index">Sparepart Request</a></li>
+        <li class="active">Sparepart Request</li>
+    </ol>
+    <br />
+
+</section>
+<!-- Content Header (Page header) -->
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!--  --------------------- Task Header --------------------------- -->
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"></h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form asp-action="Create">
+                        <div class="row form-border">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Request Id</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="@ViewBag.RequestId" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>WO Desc</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="@ViewBag.WoDesc" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Date</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="@ViewBag.Dates" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Site</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" value="@ViewBag.SiteId" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <!-- ---------------------- Task Lines --------------------------- -->
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">All of Data in Sparepart Request</h3>
+                </div>
+
+                <div class="box-body">
+                    <table class="table" id="tblCustomers" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="width:25%">Sparepart Id</th>
+                                <th style="width:50%">Sparepart Desc</th>
+                                <th style="width:20%">Quantity Needed</th>
+
+
+                                <th style="width:15%"></th>
+
+                            </tr>
+                            @foreach (var item in ViewBag.Sparepart)
+                            {
+                            <tr>
+                                <td class="SparepartId" width="25%">
+                                    <span>@item.SparepartCode</span>
+                                </td>
+                                <td class="SparepartCode" width="50%">
+                                    <span>@item.Sparepart.SparepartDesc</span>
+                                </td>
+
+                                <td class="Quantity" width="20%">
+                                    <span>@item.Quantity</span>
+                                    <input type="number" value="@item.Quantity" style="display:none" />
+                                </td>
+                                <td width="15%">
+                                    <a class="Edit" href="javascript:;">Edit</a>
+                                    <a class="Update" href="javascript:;" style="display:none">Update</a>
+                                    <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                                </td>
+                            </tr>
+                            }
+
+                        </thead>
+
+                    </table>
+                </div>
+
+            </div>
+
+            </div>
+        </div>
+
+</section>
+
+<script type="text/javascript">
+
+
+
+    function AppendRow(row, sparepartid, sparepartcode, quantity) {
+        //Bind CustomerId.
+        $(".SparepartId", row).find("span").html(sparepartid);
+
+        //Bind Name.
+        $(".SparepartCode", row).find("span").html(sparepartcode);
+        $(".SparepartCode", row).find("input").val(sparepartcode);
+
+        //Bind Country.
+        $(".Quantity", row).find("span").html(quantity);
+        $(".Quantity", row).find("input").val(quantity);
+
+        row.find(".Edit").show();
+        $("#tblCustomers").append(row);
+    };
+
+    //Edit event handler.
+    $("body").on("click", "#tblCustomers .Edit", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").show();
+                $(this).find("span").hide();
+            }
+        });
+        row.find(".Update").show();
+        row.find(".Cancel").show();
+        $(this).hide();
+    });
+
+    //Cancel event handler.
+    $("body").on("click", "#tblCustomers .Cancel", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").hide();
+                $(this).find("span").show();
+            }
+        });
+        row.find(".Update").hide();
+        row.find(".Cancel").hide();
+        row.find(".Edit").show();
+        $(this).hide();
+    });
+
+    //Update event handler.
+    $("body").on("click", "#tblCustomers .Update", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".Edit").show();
+     //   row.find(".Delete").show();
+        row.find(".Cancel").hide();
+        $(this).hide();
+
+         var aidineh = @ViewBag.Id;
+         var quant = row.find(".Quantity").find("span").html();
+        var sparess = row.find(".SparepartCode").find("span").html();
+        var woaidi = @ViewBag.Woaidi;
+
+        //var things = [
+        //    { Quantity: quant, SparepartCode: sparess },
+        //    { Quantity: 1, SparepartCode: 'red' }
+
+        //];
+        var stringArray = new Array();
+        stringArray[0] = quant.toString();
+        stringArray[1] = sparess.toString();
+        stringArray[2] = aidineh;
+        stringArray[3] = woaidi;
+        var postData = { listkey: stringArray };
+
+      //  var sparepartss = {};
+       // things = JSON.stringify({ 'things': things });
+        //quan = row.find(".Quantity").find("span").html();
+        //console.log(quan);
+        console.log(postData);
+        $.ajax({
+            type: "POST",
+           // dataType: "json",
+            //contentType: "application/json; charset=utf-8",
+            url: "/SparepartRequest/UpdateCustomer",
+            data: postData,
+           // data: '{customer:' + JSON.stringify(customer) + '}',
+          //  data: '{sps:' + sparepartss + '}',
+
+
+
+
+        });
+
+
+    });
+
+</script>

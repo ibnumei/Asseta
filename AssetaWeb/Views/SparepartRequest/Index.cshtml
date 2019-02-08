@@ -1,0 +1,154 @@
+﻿@model IEnumerable<AssetaWeb.Models.SparepartRequestTbl>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="~/plugin/components/bootstrap/dist/css/bootstrap.min.css">
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<section class="content-header">
+    <h1>
+        Sparepart Request
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"> Sparepart</a></li>
+        <li class="active">Sparepart Request</li>
+    </ol>
+    <br />
+
+</section>
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All of Data in Sparepart Request</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example" class="table table-striped" width="100%">
+                <thead>
+                    <tr>
+                        <th style="width:5%">Id</th>
+                        <th style="width:10%">Availability</th>
+                        <th style="width:20%">Sparepart Request Id</th>
+                        <th style="width:30%">Wo description</th>
+                        <th style="width:10%">Date</th>
+                        <th style="width:10%">Status</th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
+                        <th style="width:5%"></th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+<script>
+
+
+        $(document).ready(function ()
+        {
+            $("#example").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ordering": false,
+                "ajax": {
+                    "url": "/SparepartRequest/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }],
+
+                "columns": [
+                    { "data": "Id", "name": "Id", "autoWidth": true },
+                    { "data": "Availability", "name": "Availability", "autoWidth": true },
+                    { "data": "SparepartRequestId", "name": "SparepartRequestId", "autoWidth": true },
+                    { "data": "WoDesc", "name": "WoDesc", "autoWidth": true },
+                    {
+                        "data": "Date", "name": "Date", "autoWidth": true, "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return (month.length > 1 ? month : month) + "-" + date.getDate() + "-" + date.getFullYear();
+                        }
+                    },
+                    { "data": "Status", "name": "Status", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                        { return ' <a href="/SparepartRequest/Edit/' + full.Id + '" class="btn  btn-default"><i class="fa fa-edit"></i><span>&nbsp;Edit</span></a>'; }
+                    },
+                    {
+                        "render": function (data, type, full, meta) { return ' <a href="/ScheduleMaintenance/ScheduleSpareparts/' + full.ScheduleMainId + '" class="btn  btn-default"><i class="fas fa-folder-plus"></i><span>&nbsp;Submit</span></a>'; }
+                    },
+                    {
+                        "render": function (data, type, full, meta)
+                        //{ return ' <a href="/ScheduleMaintenance/CreateWoTas/' + full.ScheduleMainId + '" class="btn  btn-default"><i class="fas fa-folder-plus"></i><span>&nbsp;Schedule Lines</span></a>'; }
+                        { return '<button type="submit" value="submit" class="btn btn-default" onclick="createLines(' + full.Id + ')" id="dada"><i class="fas fa-plus"></i> Create PR </button>'; }
+                    },
+                    
+                ]
+
+            });
+    });
+
+
+
+    function createLines(dada) {
+
+        //var myId = $('#TechnicianId').val();
+        var myId = dada;
+
+        swal({
+            title: "Create Workorder Task",
+            text: "are you sure want to create WO Task ?",
+            icon: "info",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("CreateWoTas")',
+                        data: { id: myId},
+                        dataType: "json",
+                      // success: window.location.reload(),
+                        success: function (response) {
+                            swal("Yeay! you've create WO Task!", {
+                                icon: "success",
+                            }).then(function() {
+                              //  window.location.href = "/Technician/Index"
+                                window.location.reload()
+                            });
+
+                        }
+
+                    });
+
+                }
+                else {
+                    swal("Comeback later ^_^ !");
+                }
+            });
+    }
+
+</script>

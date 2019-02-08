@@ -294,13 +294,7 @@ namespace AssetaWeb.Controllers
             {
                 return NotFound();
             }
-           // var assetgroup = await _context.TaskTbl.SingleOrDefaultAsync(m => m.TaskId == id);
             var getcode = _context.ScheduleMaintenanceTbl.Where(x => x.ScheduleMainId == id).First().MaintenanceId;
-            //if (assetgroup == null)
-            //{
-            //    return NotFound();
-            //}
-            //parsing id task header ke tampilan task lines agar dicari task code nya, lalu dicari task code sesuai task code yg di dapat 
             ViewBag.TaskId = id;
             ViewBag.MaintenanceId = getcode;
             return View();
@@ -401,6 +395,7 @@ namespace AssetaWeb.Controllers
             wo.TechnicianId = schdl.TechnicianId;
             wo.WoDesc = schdl.MaintenanceDesc;
             wo.MaentenanceId = schdl.ScheduleMainId;
+            wo.RequestId = null;
             wo.Date = DateTime.Now;
             wo.CreatedAtWo = DateTime.Now;
             wo.EstimatedWorking = schdl.EstimatedTime;

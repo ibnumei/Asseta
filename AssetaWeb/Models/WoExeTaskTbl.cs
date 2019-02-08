@@ -10,5 +10,7 @@ namespace AssetaWeb.Models
         public string TaskCode { get; set; }
         public string Detail { get; set; }
         public string TaskType { get; set; }
+        public string TypeGeneral { get; set; }
+        public string TypeYesNo { get; set; }
     }
 }
