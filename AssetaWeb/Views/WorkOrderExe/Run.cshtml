@@ -1,4 +1,4 @@
-﻿@model AssetaWeb.Models.WoExecutionTbl
+﻿@model AssetaWeb.Models.WoExeAndWoExeTask
 @{
     ViewData["Title"] = "Run";
 }
@@ -64,57 +64,73 @@
                             <div class="row form-border">
                                 <div class="form-group">
                                     <div class="col-sm-6">
+
+                                        <div class="row" hidden>
+                                            <div class="col-sm-4">
+                                                <b>ID</b>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input asp-for="WoExecution.Id" class="form-control" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="WoExecution.Id" class="text-danger"></span>
+
+
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <b>Wo Execute ID</b>
                                             </div>
                                             <div class="col-sm-8">
-                                                <input asp-for="WorkExeId" class="form-control" autocomplete="off" />
+                                                <input asp-for="WoExecution.WorkExeId" class="form-control" autocomplete="off" />
                                             </div>
                                         </div>
-                                        <span asp-validation-for="WorkExeId" class="text-danger"></span>
+                                        <span asp-validation-for="WoExecution.WorkExeId" class="text-danger"></span>
                                         <br />
+
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <b>Wo Desc</b>
                                             </div>
                                             <div class="col-sm-8">
-                                                <input asp-for="WoDesc" class="form-control" autocomplete="off" />
+                                                <input asp-for="WoExecution.WoDesc" class="form-control" autocomplete="off" />
                                             </div>
                                         </div>
-                                        <span asp-validation-for="WoDesc" class="text-danger"></span>
+                                        <span asp-validation-for="WoExecution.WoDesc" class="text-danger"></span>
                                         <br />
+
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <b>Technician Name</b>
                                             </div>
                                             <div class="col-sm-8">
                                                 @*<input asp-for="TechnicianId" class="form-control" autocomplete="off" />*@
-                                                @Html.DropDownListFor(model => model.TechnicianId, new SelectList(ViewBag.TECHNICIANID, "TechnicianId", "TechnicianName"), htmlAttributes: new { @class = "form-control", @name = "TECHNICIANID", @id = "TECHNICIANID" })
+                                                @Html.DropDownListFor(model => model.WoExecution.TechnicianId, new SelectList(ViewBag.TECHNICIANID, "TechnicianId", "TechnicianName"), htmlAttributes: new { @class = "form-control", @name = "TECHNICIANID", @id = "TECHNICIANID" })
                                             </div>
                                         </div>
-                                        <span asp-validation-for="TechnicianId" class="text-danger"></span>
+                                        <span asp-validation-for="WoExecution.TechnicianId" class="text-danger"></span>
                                         <br />
+
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <b>Date</b>
                                             </div>
                                             <div class="col-sm-8">
-                                                <input asp-for="Date" class="form-control" autocomplete="off" type="date" />
+                                                <input asp-for="WoExecution.Date" class="form-control" autocomplete="off" type="date" />
                                             </div>
                                         </div>
-                                        <span asp-validation-for="Date" class="text-danger"></span>
+                                        <span asp-validation-for="WoExecution.Date" class="text-danger"></span>
                                         <br />
+
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <b>Site Name</b>
                                             </div>
                                             <div class="col-sm-8">
                                                 @*<input asp-for="SiteId" class="form-control" autocomplete="off" />*@
-                                                @Html.DropDownListFor(model => model.SiteId, new SelectList(ViewBag.SITEID, "SiteId", "SiteName"), htmlAttributes: new { @class = "form-control", @name = "SITEID", @id = "SITEID" })
+                                                @Html.DropDownListFor(model => model.WoExecution.SiteId, new SelectList(ViewBag.SITEID, "SiteId", "SiteName"), htmlAttributes: new { @class = "form-control", @name = "SITEID", @id = "SITEID" })
                                             </div>
                                         </div>
-                                        <span asp-validation-for="SiteId" class="text-danger"></span>
+                                        <span asp-validation-for="WoExecution.SiteId" class="text-danger"></span>
                                         <br />
 
                                     </div>
@@ -190,31 +206,102 @@
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="table-responsive">
-                                                    <table class="table" width="100%">
+                                                    <table class="table" width="100%" id="TblTaskType">
                                                         <tr>
-                                                            <th width="35%">
+                                                            <th width="5%" hidden>id</th>
+                                                            <th width="5%" hidden>wo exe id</th>
+                                                            <th width="5%" hidden>tasktype</th>
+                                                            <th width="30%">
                                                                 Task Code
                                                             </th>
-                                                            <th width="35%">
+                                                            <th width="30%">
                                                                 Detail
                                                             </th>
                                                             <th width="30%">
                                                                 Type
                                                             </th>
+                                                            <th width="5%">
+
+                                                            </th>
                                                         </tr>
                                                         @foreach (var item in ViewBag.Task)
                                                         {
+                                                            @*<form asp-action="SaveWoExeTask">*@
+
                                                             <tr>
-                                                                <td width="35%">
-                                                                    @item.TaskCode
+                                                                <td width="5%" hidden class="taskId">
+                                                                    @*<input type="text" asp-for="noListWoTask.Id" value="@item.Id" />*@
+                                                                    <span>@item.Id</span>
                                                                 </td>
-                                                                <td width="35%">
-                                                                    @item.Detail
+                                                                <td width="5%" hidden class="woexeid">
+                                                                    @*<input type="text" asp-for="noListWoTask.WoExeId" value="@item.WoExeId" />*@
+                                                                    <span>@item.WoExeId</span>
                                                                 </td>
-                                                                <td width="30%">
-                                                                    @item.TaskType
+                                                                <td width="5%" hidden class="tasktypee">
+                                                                    @*<input type="text" asp-for="noListWoTask.TaskType" value="@item.TaskType" />*@
+                                                                    <span>@item.TaskType</span>
                                                                 </td>
+                                                                <td width="30%" class="taskcodee">
+                                                                    @*<input type="text" asp-for="noListWoTask.TaskCode" value="@item.TaskCode" readonly="readonly" />*@
+                                                                    <span>@item.TaskCode</span>
+                                                                </td>
+                                                                <td width="30%" class="detaill">
+                                                                    @*<input type="text" asp-for="noListWoTask.Detail" value="@item.Detail" readonly="readonly" />*@
+                                                                    <span>@item.Detail</span>
+                                                                </td>
+                                                                @{
+                                                                    if (item.TaskType == "General")
+                                                                    {
+                                                                        <td class="Valuee" width="30%">
+                                                                            <span>@item.TypeGeneral</span>
+                                                                            <input type="text" autocomplete="off" value="@item.TypeGeneral" style="display:none" />
+                                                                        </td>
+
+                                                                        <td width="5%">
+                                                                            <a class="Edit1" href="javascript:;">Edit</a>
+                                                                            <a class="Update1" href="javascript:;" style="display:none">Update</a>
+                                                                            <a class="Cancel1" href="javascript:;" style="display:none">Cancel</a>
+                                                                        </td>
+                                                                    }
+                                                                    else if (item.TaskType == "Yes / No")
+                                                                    {
+                                                                        <td class="Valuee" width="30%">
+                                                                            <span>@item.TypeGeneral</span>
+                                                                            <select style="display:none">
+                                                                                <option value="Yes">Yes</option>
+                                                                                <option value="No">No</option>
+                                                                            </select>
+                                                                            @*@Html.DropDownListFor(model => model.noListWoTask.TypeYesNo, ViewBag.typetask as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @name = "drop", @id = "drop", @style = "display: true" })*@
+                                                                        </td>
+
+                                                                        <td width="5%">
+                                                                            <a class="Edit2" href="javascript:;">Edit</a>
+                                                                            <a class="Update2" href="javascript:;" style="display:none">Update</a>
+                                                                            <a class="Cancel2" href="javascript:;" style="display:none">Cancel</a>
+                                                                        </td>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td class="Valuee" width="30%">
+                                                                            <span>@item.TypeGeneral</span>
+                                                                            <select style="display:none">
+                                                                                <option value="Checklist">Checklist</option>
+                                                                                <option value="Unchecklist">Unchecklist</option>
+                                                                            </select>
+                                                                            @*<input type="checkbox" asp-for="noListWoTask.TypeChecklist" value="@item.TypeChecklist"/>*@
+                                                                        </td>
+
+                                                                        <td width="5%">
+                                                                            <a class="Edit2" href="javascript:;">Edit</a>
+                                                                            <a class="Update2" href="javascript:;" style="display:none">Update</a>
+                                                                            <a class="Cancel2" href="javascript:;" style="display:none">Cancel</a>
+                                                                        </td>
+                                                                    }
+                                                                }
+
                                                             </tr>
+                                                            @*</form>*@
                                                         }
                                                     </table>
                                                 </div>
@@ -255,7 +342,7 @@
         row.find(".Edit").show();
         $("#tblCustomers").append(row);
     };
-
+    //=====================================================================================================
     //Edit event handler.
     $("body").on("click", "#tblCustomers .Edit", function () {
         var row = $(this).closest("tr");
@@ -269,7 +356,33 @@
         row.find(".Cancel").show();
         $(this).hide();
     });
-
+    //=====================================================================================================
+    $("body").on("click", "#TblTaskType .Edit1", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").show();
+                $(this).find("span").hide();
+            }
+        });
+        row.find(".Update1").show();
+        row.find(".Cancel1").show();
+        $(this).hide();
+    });
+    //=====================================================================================================
+    $("body").on("click", "#TblTaskType .Edit2", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("select").length > 0) {
+                $(this).find("select").show();
+                $(this).find("span").hide();
+            }
+        });
+        row.find(".Update2").show();
+        row.find(".Cancel2").show();
+        $(this).hide();
+    });
+    //=====================================================================================================
     //Cancel event handler.
     $("body").on("click", "#tblCustomers .Cancel", function () {
         var row = $(this).closest("tr");
@@ -284,7 +397,35 @@
         row.find(".Edit").show();
         $(this).hide();
     });
-
+    //=====================================================================================================
+    $("body").on("click", "#TblTaskType .Cancel1", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").hide();
+                $(this).find("span").show();
+            }
+        });
+        row.find(".Update1").hide();
+        row.find(".Cancel1").hide();
+        row.find(".Edit1").show();
+        $(this).hide();
+    });
+    //=====================================================================================================
+    $("body").on("click", "#TblTaskType .Cancel2", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("select").length > 0) {
+                $(this).find("select").hide();
+                $(this).find("span").show();
+            }
+        });
+        row.find(".Update2").hide();
+        row.find(".Cancel2").hide();
+        row.find(".Edit2").show();
+        $(this).hide();
+    });
+    //=====================================================================================================
     //Update event handler.
     $("body").on("click", "#tblCustomers .Update", function () {
         var row = $(this).closest("tr");
@@ -338,5 +479,76 @@
 
 
     });
+    //=====================================================================================================
+    $("body").on("click", "#TblTaskType .Update1", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".Edit1").show();
+        row.find(".Cancel1").hide();
+        $(this).hide();
 
+        var id = row.find(".taskId").find("span").html();
+        var text = row.find(".Valuee").find("span").html();
+        console.log(text);
+        var stringArray1 = new Array();
+        stringArray1[0] = id;
+        stringArray1[1] = text;
+
+        var postData1 = { listkey: stringArray1 };
+
+        console.log(postData1);
+        $.ajax({
+            type: "POST",
+
+            url: "/WorkOrderExe/WoExeTask",
+            data: postData1,
+
+        });
+
+
+    });
+    //=====================================================================================================
+    $("body").on("click", "#TblTaskType .Update2", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("select").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("select");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".Edit2").show();
+        row.find(".Cancel2").hide();
+        $(this).hide();
+
+        var id = row.find(".taskId").find("span").html();
+        var text = row.find(".Valuee").find("span").html();
+        console.log(text);
+        var stringArray2 = new Array();
+        stringArray2[0] = id;
+        stringArray2[1] = text;
+
+        var postData2 = { listkey: stringArray2 };
+
+        console.log(postData2);
+        $.ajax({
+            type: "POST",
+
+            url: "/WorkOrderExe/WoExeTask",
+            data: postData2,
+
+        });
+
+
+    });
 </script>

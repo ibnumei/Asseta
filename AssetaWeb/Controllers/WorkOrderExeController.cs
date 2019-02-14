@@ -86,11 +86,12 @@ namespace AssetaWeb.Controllers
         //public IActionResult Create()
         {
             var wo = await _db.WoExecutionTbl.SingleOrDefaultAsync(m => m.Id == id);
-
-            //var sche_id = wo.MaentenanceId;
-            //var task_code = wo.EntityId;
             ViewBag.Aidi = id.ToString();
 
+            //menggunakan 2model untuk 1 view, dari tabel wo exe dan wo exe task
+            WoExeAndWoExeTask vm = new WoExeAndWoExeTask();
+            vm.WoExecution = wo;
+            vm.WoExeTask = _db.WoExeTaskTbl.Where(x => x.WoExeId == wo.Id).ToList();
 
             ViewBag.status = new List<SelectListItem>
             {
@@ -131,47 +132,59 @@ namespace AssetaWeb.Controllers
             ViewBag.Sparepart = _db.WoExeSparepartTbl.Where(x => x.WoExeId == wo.Id);
             ViewBag.TECHNICIANID = _db.TechnicianTbl.ToList();
             ViewBag.SITEID = _db.SiteMasterTbl.ToList();
+            ViewBag.typetask = new List<SelectListItem>
+            {
+              new SelectListItem { Text="Yes", Value="Yes"},
+              new SelectListItem { Text="No", Value="No"}
+            };
             //=================================================================================
 
 
-            return View(wo);
+            return View(vm);
 
 
         }
+        //============================================================================================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Run(long id, WoExecutionTbl workOrder)
+        public async Task<IActionResult> Run(long id, WoExeAndWoExeTask woexe)
         {
-            if (id != workOrder.Id)
+            if (id != woexe.WoExecution.Id)
             {
                 return NotFound();
             }
 
-            //var a = Convert.ToBoolean(workOrder.SparepartActive);
-            //var b = "";
-            //if (a == true)
-            //{
-            //    b = "Active";
-            //}
-            //else
-            //{
-            //    b = "Non Active";
-            //}
 
             if (ModelState.IsValid)
             {
-                //workOrder.SparepartActive = b;
-                //_db.Add(workOrder);
-                //await _db.SaveChangesAsync();
-                workOrder.Status = "Complete";
-                _db.Update(workOrder);
+
+                woexe.WoExecution.Status = "Complete";
+                _db.Update(woexe.WoExecution);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View(workOrder);
+            return View(woexe);
         }
+        //============================================================================================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveWoExeTask(WoExeAndWoExeTask woExeTask)
+        {
+            // var data =  _db.WoExeTaskTbl.Where(m => m.Id == woExeTask.noListWoTask.Id).First();
 
+            if (ModelState.IsValid)
+            {
+                //woExeTask.noListWoTask.WoExeId = data.WoExeId;
+                //woExeTask.noListWoTask.TaskCode = data.TaskCode;
+                //woExeTask.noListWoTask.Detail = data.Detail;
+                //woExeTask.noListWoTask.TaskType = data.TaskType;
 
+                _db.Update(woExeTask.noListWoTask);
+                _db.SaveChanges();
+            }
+            return new EmptyResult();
+        }
+        //============================================================================================
         [HttpPost]
         public ActionResult UpdateCustomer(List<string> listkey)
         {
@@ -189,5 +202,23 @@ namespace AssetaWeb.Controllers
 
             return new EmptyResult();
         }
+        //========================================================================================================
+        [HttpPost]
+        public ActionResult WoExeTask(List<string> listkey)
+        {
+            var t = listkey;
+
+            string id = t[0];
+            string text_value = t[1];
+
+            WoExeTaskTbl woExe = _db.WoExeTaskTbl.Where(x => x.Id == Convert.ToInt64(id)).FirstOrDefault(); ;
+            woExe.TypeGeneral = text_value;
+            _db.Update(woExe);
+            _db.SaveChanges();
+
+
+            return new EmptyResult();
+        }
+        //========================================================================================================
     }
 }
