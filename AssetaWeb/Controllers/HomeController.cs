@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AssetaWeb.Models;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace AssetaWeb.Controllers
 {
@@ -12,6 +14,17 @@ namespace AssetaWeb.Controllers
     {
         public IActionResult Index()
         {
+            //ViewData["MsgNoData"] = HttpContext.Session.GetString("Username");
+            //var a = ViewData["MsgNoData"];
+            //var b = a;
+            
+            //var a = HttpContext.Session.GetString("Username");
+            //var b = a;
+
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var role = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
             return View();
         }
 

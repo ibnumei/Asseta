@@ -1,19 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Http;
 
 <section class="content-header">
     <h1>
         Dashboard
         <small>Control panel</small>
+        <p>@Context.Session.GetString("Username")</p>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"> Home</a></li>
         <li class="active">Dashboard</li>
+
     </ol>
 </section>
 <!-- Content Header (Page header) -->
-
 <!-- Main content -->
 <section class="content container-fluid">
     <div class="row">
@@ -21,6 +23,8 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
+                    
+
                     <h3>45</h3>
 
                     <p>Total Asset</p>

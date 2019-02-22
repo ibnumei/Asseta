@@ -18,6 +18,7 @@ namespace AssetaWeb.Models
         public virtual DbSet<AssetGroupTbl> AssetGroupTbl { get; set; }
         public virtual DbSet<AssetTbl> AssetTbl { get; set; }
         public virtual DbSet<EntityTbl> EntityTbl { get; set; }
+        public virtual DbSet<LoginTbl> LoginTbl { get; set; }
         public virtual DbSet<MaentenanceTbl> MaentenanceTbl { get; set; }
         public virtual DbSet<PeriodTbl> PeriodTbl { get; set; }
         public virtual DbSet<ScheduleMaintenanceTbl> ScheduleMaintenanceTbl { get; set; }
@@ -43,7 +44,7 @@ namespace AssetaWeb.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=ced-dev.chrvl2iyzlxm.ap-southeast-1.rds.amazonaws.com;Database=assetaDb;Trusted_Connection=False;User ID= wmotion;Password= Wm0t!0n12345;");
+                optionsBuilder.UseSqlServer("Server=ced-dev.chrvl2iyzlxm.ap-southeast-1.rds.amazonaws.com;Database=assetaDb;Trusted_Connection=False;User ID=wmotion;Password=Wm0t!0n12345;");
             }
         }
 
@@ -123,6 +124,29 @@ namespace AssetaWeb.Models
 
                 entity.Property(e => e.Pic)
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<LoginTbl>(entity =>
+            {
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pass)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.type)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 

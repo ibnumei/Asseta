@@ -430,6 +430,7 @@ C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Home\Privacy.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Login\Index.g.cshtml.cs
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Period\Create.g.cshtml.cs
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Period\Edit.g.cshtml.cs
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Period\Index.g.cshtml.cs
@@ -486,3 +487,4 @@ C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.dll
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.pdb
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.csproj.CopyComplete
+C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Signup\signup.g.cshtml.cs
