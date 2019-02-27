@@ -225,7 +225,7 @@ namespace AssetaWeb.Controllers
 
 
         [HttpPost]
-        public ActionResult Delete(long id)
+        public ActionResult Delete(long id )
         {
             var sparepart = _db.SiteMasterTbl.Find(id);
             _db.SiteMasterTbl.Remove(sparepart);
