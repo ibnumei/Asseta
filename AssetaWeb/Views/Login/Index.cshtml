@@ -34,6 +34,14 @@
 <body>
 
     <div class="limiter">
+        @if (TempData["MsgNoData"] != null)
+        {
+            <div class="alert alert-warning alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong class="text-justify">Warning! @TempData["MsgNoData"]</strong>
+            </div>
+        }
+
         <div class="container-login100">
             <div class="wrap-login100 p-t-190 p-b-30">
                 <form class="login100-form validate-form" asp-action="Index">
@@ -46,14 +54,14 @@
                         <!-- John Doe -->
                     </span>
 
-                    @if (TempData["MsgNoData"] != null)
+                    @*@if (TempData["MsgNoData"] != null)
                     {
-                        <div class="wrap-input100 validate-input m-b-10">
-                            <p class="text_error">@TempData["MsgNoData"]</p>
+                    <div class="wrap-input100 validate-input m-b-10">
+                        <p class="text_error">@TempData["MsgNoData"]</p>
 
-                        </div>
+                    </div>
 
-                    }
+                    }*@
                     <p>@Context.Session.GetString("Username")</p>
 
                     <div class="wrap-input100 validate-input m-b-10" data-validate="Username is required">
@@ -87,11 +95,11 @@
                     </div>
 
                     <!-- <div class="text-center w-full">
-                        <a class="txt1" href="#">
-                            Create new account
-                            <i class="fa fa-long-arrow-right"></i>
-                        </a>
-                    </div> -->
+                    <a class="txt1" href="#">
+                        Create new account
+                        <i class="fa fa-long-arrow-right"></i>
+                    </a>
+                </div> -->
                 </form>
             </div>
         </div>
@@ -104,6 +112,7 @@
     <!-- A D A -->
     <script src="~/plugin/components/jquery/dist/jquery.min.js"></script>
 
+    <script src="~/plugin/components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
     <script src="~/plugin/components/bootstrap/js/popper.js"></script>
 

@@ -244,7 +244,7 @@ using AssetaWeb.Models;
             WriteLiteral("\r\n        </dd>\r\n    </dl>\r\n</div>\r\n<div>\r\n    ");
             EndContext();
             BeginContext(1759, 54, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "51b10e885f79444788a758158a85d20b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "207ae9ebb31b452480460bd42ad761d8", async() => {
                 BeginContext(1805, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -279,7 +279,7 @@ using AssetaWeb.Models;
             WriteLiteral(" |\r\n    ");
             EndContext();
             BeginContext(1821, 38, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12b66978ce864e0eb2252ee9d42d0e53", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ce4dc369b1ee4d71b8df9f70f337622e", async() => {
                 BeginContext(1843, 12, true);
                 WriteLiteral("Back to List");
                 EndContext();

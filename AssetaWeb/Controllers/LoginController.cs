@@ -58,7 +58,7 @@ namespace AssetaWeb.Controllers
                 if (search == null)
                 {
                     //ModelState.AddModelError(string.Empty, "Employee Doesn't Exist");
-                    TempData["MsgNoData"] = "Your application description page.";
+                    TempData["MsgNoData"] = "Wrong Username Or Password";
                     return View();
                 }
                 else

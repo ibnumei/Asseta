@@ -488,3 +488,5 @@ C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.pdb
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\AssetaWeb.csproj.CopyComplete
 C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Signup\signup.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Image\Upload_Image.g.cshtml.cs
+C:\Users\ibnumei\Documents\Project\Asseta\Asseta\AssetaWeb\obj\Debug\netcoreapp2.1\Razor\Views\Image\Index.g.cshtml.cs
